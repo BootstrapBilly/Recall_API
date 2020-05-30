@@ -1,5 +1,11 @@
 //routes
-const router = require("./routes/router");
+const authentication = require("./routes/0-Authentication_router")
+const password_reset = require("./routes/1-Password_reset_router")
+const note = require("./routes/2-Note_router")
+const process = require("./routes/3-Process_router")
+const search = require("./routes/4-Search_router")
+const friends = require("./routes/5-Friends_router")
+const access = require("./routes/6-Access_router")
 
 //External
 const bodyParser = require("body-parser");
@@ -24,7 +30,13 @@ server.use((req, res, next) => {
 //=Middleware
 server.use(bodyParser.json());//parse any incoming json requests
 
-server.use(router);//route any incoming requests in the right direction
+server.use(authentication);//handle the authentication requests
+server.use(password_reset);//handle the password_reset requests
+server.use(note);//handle the note requests
+server.use(process);//handle the process requests
+server.use(search);//handle the search requests
+server.use(friends);//handle the friends requests
+server.use(access);//handle the share_access requests
 
 //* Database connection
 
