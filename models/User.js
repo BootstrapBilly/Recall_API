@@ -30,8 +30,12 @@ const user_schema = new Schema({//create a schema object
             ref: "User"//Refers to another user_id
         },
 
-    }]
+    }],
 
+    reset_token:{type:String},//reset token (Set by the generate password reset email endpoint to verify that the user identity)
+
+    token_expiration:{type:Number},//used to make the token expire after 1 hour
+    
 });
 
 //Export the schema for usage by controller methods

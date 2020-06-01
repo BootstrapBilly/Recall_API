@@ -8,7 +8,7 @@ const express = require("express");//import express
 const router = express.Router();//initialise the router
 
 //routes
-router.get("/password_reset", PasswordReset.generate_email)
-router.post("/password_reset", PasswordReset.change_password)
+router.post("/password_reset", PasswordReset.generate_email)
+router.post("/change_password", PasswordReset.change_password)
 
 module.exports = router;
