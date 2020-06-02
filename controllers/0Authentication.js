@@ -2,6 +2,8 @@ const User = require("../models/User")//import the user schema to interact with 
 const bcrypt = require("bcryptjs")//import bcrypt to encrypt the password
 const jwt = require("jsonwebtoken")//Import json web tokens 
 
+const validate_password = require("../util/validate_password")
+
 exports.create_user = async (req, res, next) => {
 
     const email = req.body.email //extract the email
@@ -12,20 +14,9 @@ exports.create_user = async (req, res, next) => {
 
     if(email_in_use) return res.status(424).json({message: "Sorry, that email in unavailable"})//if so, abort and inform the user
 
-    const password_check_result = check_password_is_valid(password, repeat_password)//Scan the password, checking that it conforms
+    const result = validate_password.validate(password, repeat_password)//Scan the password, checking that it conforms
 
-    switch(password_check_result){//run through the erroneus results, responding accordingly
-
-        case "no_match":
-        return res.status(424).json({message: "Your passwords must match."})
-
-        case "too_short":
-        return res.status(424).json({message: "Your password must be at least 8 characters."})
-
-        case "no_uppercase":
-        return res.status(424).json({message: "Your password must contain at least 1 uppercase letter."})
-
-    }
+    if(result !== "okay") return res.status(424).json({message: result})//if the password is not valid, send a response with the reason why
 
     //*All password checks passed, hash the password
     const hashed_password = await bcrypt.hash(password, 12)//bcrypt.hash encrypts the user password, 12 is the salt
@@ -88,16 +79,6 @@ exports.login = async (req, res, next) => {
 //_ Helper methods and variables
 
 let login_failures = []//keep track of login failures
-
-const check_password_is_valid = (password, repeat_password) => {
-
-    if(password !== repeat_password) return "no_match" //if the passwords do not match
-    if(password.length < 8) return "too_short" //if the password is less than 8 characters
-    if(!/[A-Z]/.test(password)) return "no_uppercase" //if the password does not have an uppercase character
-
-    else return "okay" // All conditions matched, return "okay"
-
-}
 
 const generate_jwt = (user_id) => {
 

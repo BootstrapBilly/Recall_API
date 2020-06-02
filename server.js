@@ -42,7 +42,7 @@ server.use(access);//handle the share_access requests
 //* Database connection
 
 mongoose
-  .connect(MONGODBURI)//connect to the database
+  .connect(MONGODBURI, { useNewUrlParser: true })//connect to the database
   .then(result => {
     server.listen(4000);//then start the server
     console.log("\n\x1b[36mServer running on port 4000\n")//and log it to the console
