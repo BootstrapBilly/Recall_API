@@ -1,37 +1,12 @@
 const test = require("../util/testing_functions")
 const testing_variables = require("../util/testing_variables")
 
-//! Modify a note Expected failures
+//! Modify a process Expected failures
 
-describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
+describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.patch("modifies a note and gives no body", "/notes", 424, "A note must have a title and body",
 
-        {
-            user_id: testing_variables.user_id,
-            title: testing_variables.title,
-            new_title: testing_variables.title,
-            new_subject: "new_subject",
-            new_body: null,
-            new_search_tags: ["tag1", "tag2", "tag3"],
-            new_syntax: "some new_syntax",
-
-        })
-
-    test.patch("modifies a note and gives an empty body", "/notes", 424, "A note must have a title and body",
-
-        {
-            user_id: testing_variables.user_id,
-            title: testing_variables.title2,
-            new_title: testing_variables.title2,
-            new_subject: "new_subject",
-            new_body: "",
-            new_search_tags: ["tag1", "tag2", "tag3"],
-            new_syntax: "some new_syntax",
-
-        })
-
-    test.patch("modifies a note and gives no title", "/notes", 424, "A note must have a title and body",
+    test.patch("modifies a process and gives no title", "/processes", 424, "A process must have a title and at least 1 note",
 
         {
             user_id: testing_variables.user_id,
@@ -40,11 +15,11 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
-            new_syntax: "some new_syntax",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives an empty title", "/notes", 424, "A note must have a title and body",
+    test.patch("modifies a process and gives an empty title", "/processes", 424, "A process must have a title and at least 1 note",
 
         {
             user_id: testing_variables.user_id,
@@ -53,30 +28,29 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
-            new_syntax: "some new_syntax",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
 })
 
-//* Modify a note Expected passes
+//* Modify a process Expected passes
 
-describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
+describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.patch("modifies a note and gives only a title and body, null or empty everything else", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives only a title and notes, null or empty everything else", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title,
             new_title: testing_variables.title,
             new_subject: null,
-            new_body: "new_body",
-            new_search_tags: [],
-            new_syntax: "",
+            new_body: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a number for a title", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a number for a title", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -85,11 +59,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a number for a new_body", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a number for a new_body", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -98,11 +72,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: 43534543534435,
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1],
 
         })
 
-    test.patch("modifies a note and gives a number for a title and body", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a number for a title and body", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -111,11 +85,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: 34543534534354,
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a short title", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a short title", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -124,11 +98,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id3],
 
         })
 
-    test.patch("modifies a note and gives a long title", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a long title", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -137,11 +111,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a short new_body", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a short body", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -150,11 +124,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "b",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a long new_body", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a long body", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -163,11 +137,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "asjhadgashjdgasjhdgasjgdfgdfgdfgfdgdfgfdhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdldfgdfgdfgdfbvtdfgh543645645654 564 654 654645654 65454@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@4343876fvd",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a short new_subject", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a short subject", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -176,11 +150,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "b",
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id4],
 
         })
 
-    test.patch("modifies a note and gives a long new_subject", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a long subject", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -189,11 +163,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "asjhadgashjdgasjhdgasjhdgsdfsdfsdfasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklagkh43g43hj 4hk43gk 3g4343784343876fvd",
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives a number new_subject", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives a number subject", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -202,83 +176,50 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: 245874389743,
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id4],
 
         })
 
-    test.patch("modifies a note and gives short new_syntax", "/notes", 201, "note updated successfully",
+        test.patch("modifies a process two notes", "/processes", 201, "process updated successfully",
+
+            {
+                user_id: testing_variables.user_id,
+                title: testing_variables.title8,
+                new_title: testing_variables.title8,
+                new_subject: "subject",
+                new_body: "body",
+                new_search_tags: [],
+                new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+
+            })
+
+    test.patch("modifies a process many notes", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
-            title: testing_variables.title5,
-            new_title: testing_variables.title5,
-            new_subject: "new_subject",
-            new_body: "new_body",
+            title: testing_variables.title9,
+            new_title: testing_variables.title9,
+            new_subject: "subject",
+            new_body: "body",
             new_search_tags: [],
-            new_syntax: "a",
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2, testing_variables.note_id3, testing_variables.note_id4],
 
         })
 
-    test.patch("modifies a note and gives long new_syntax", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process with duplicate notes", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
-            title: testing_variables.title5,
-            new_title: testing_variables.title5,
-            new_subject: "new_subject",
-            new_body: "new_body",
+            title: testing_variables.title10,
+            new_title: testing_variables.title10,
+            new_subject: "subject",
+            new_body: "body",
             new_search_tags: [],
-            new_syntax: `const email = req.new_body.email //extract the email
-        const password = req.new_body.password//password
-        const repeat_password = req.new_body.repeat_password//and second password from the response
-    
-        const email_in_use = await User.findOne({email_address:email})//Does the email already exist in the database?
-    
-        if(email_in_use) return res.status(424).json({message: "Sorry, that email in unavailable"})//if so, abort and inform the user
-    
-        const result = validate_password.validate(password, repeat_password)//Scan the password, checking that it conforms
-    
-        if(result !== "okay") return res.status(424).json({message: result})//if the password is not valid, send a response with the reason why
-    
-        //*All password checks passed, hash the password
-        const hashed_password = await bcrypt.hash(password, 12)//bcrypt.hash encrypts the user password, 12 is the salt
-    
-        if(!hashed_password) return res.status(500).json({message:"Sorry, something went wrong with our server"})//if the password was not hashed properly
-    
-        //*Password hashed correctly, create a new user
-        const user = new User({//create a new user object from the schema
-    
-            email_address:email,//set their email
-            password:hashed_password, //set the hashed_password NOT THE PLAIN TEXT PASSWORD
-            friends:[],//initialize friends as an empty array
-            friend_requests:[],//initialize the friends requests as an empty array 
-            reset_token:null,//reset token for resetting passwords
-            token_expiration:null,//token expiration date
-    
-        })
-    
-        const user_saved = await user.save()//save the new user
-    
-        //if they saved correctly, send a 201 success response          If there was an error, send a 500 server error
-        user_saved ? res.status(201).json({message:"User created"}) : res.status(500).json({message:"Sorry, something went wrong with our server"})
-    `,
+            new_notes: [testing_variables.note_id1, testing_variables.note_id1],
 
         })
 
-    test.patch("modifies a note and gives number new_syntax", "/notes", 201, "note updated successfully",
-
-        {
-            user_id: testing_variables.user_id,
-            title: testing_variables.title2,
-            new_title: testing_variables.title2,
-            new_subject: 245874389743,
-            new_body: "new_body",
-            new_search_tags: [],
-            new_syntax: 38435345489324783274892374,
-
-        })
-
-    test.patch("modifies a note and gives no search tags", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives no search tags", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -287,11 +228,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id1],
 
         })
 
-    test.patch("modifies a note and gives one search tag", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives one search tag", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -300,11 +241,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1"],
-            new_syntax: ``,
+            new_notes: [testing_variables.note_id1],
 
         })
 
-    test.patch("modifies a note and gives many search tags", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives many search tags", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -313,11 +254,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
-            new_syntax: ``,
+            new_notes: [testing_variables.note_id1, testing_variables.note_id4],
 
         })
 
-    test.patch("modifies a note and gives many search tags including numbers", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives many search tags including numbers", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -326,11 +267,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", 37643782, 32984903, "tag3", "tag4", "tag5"],
-            new_syntax: ``,
+            new_notes: [testing_variables.note_id1, testing_variables.note_id2],
 
         })
 
-    test.patch("modifies a note and gives duplicate search tags", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives duplicate search tags", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -339,11 +280,11 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag1"],
-            new_syntax: "some new_syntax",
+            new_notes: [testing_variables.note_id1],
 
         })
 
-    test.patch("modifies a note and gives duplicate number search tags", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives duplicate number search tags", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -352,11 +293,10 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: [435345, 435345],
-            new_syntax: "some new_syntax",
-
+            new_notes: [testing_variables.note_id1],
         })
 
-    test.patch("modifies a note and gives mixed duplicate search tags", "/notes", 201, "note updated successfully",
+    test.patch("modifies a process and gives mixed duplicate search tags", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -365,69 +305,69 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: [435345, 435345, "tag1"],
-            new_syntax: "some new_syntax",
+            new_notes: [testing_variables.note_id1],
 
         })
 
-    test.patch("User 2 modifies a note with a unique title", "/notes", 201, "note updated successfully",
+    test.patch("User 2 modifies a process with a unique title", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.second_user_id,
             title: testing_variables.unique_title,
-            new_title:testing_variables.unique_title,
+            new_title: testing_variables.unique_title,
             new_subject: "subject",
             new_body: "3242323",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id3],
 
         })
 
-    test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/notes", 201, "note updated successfully",
+    test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.second_user_id,
             title: testing_variables.unique_title,
-            new_title:testing_variables.title16,
+            new_title: testing_variables.title16,
             new_subject: "subject",
             new_body: "3242323",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id4],
 
         })
 
-    test.patch("User 2 changes a previous note back to a unique title", "/notes", 201, "note updated successfully",
+    test.patch("User 2 changes a previous note back to a unique title", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.second_user_id,
             title: testing_variables.title16,
-            new_title:testing_variables.unique_title,
+            new_title: testing_variables.unique_title,
             new_subject: "subject",
             new_body: "3242323",
             new_search_tags: [],
-            new_syntax: "",
+            new_notes: [testing_variables.note_id2],
 
         })
 
-    test.patch("User modifies a note with a non-unique title (in use by another user)", "/notes", 201, "note updated successfully",
+    test.patch("User modifies a process with a non-unique title (in use by another user)", "/processes", 201, "process updated successfully",
 
         {
             user_id: testing_variables.second_user_id,
             title: testing_variables.title17,
-            new_title:testing_variables.title17,
+            new_title: testing_variables.title17,
             new_subject: "Subject",
             new_body: "body",
             new_search_tags: [342, 435345, "tag1", "tag1"],
-            new_syntax: "some syntax",
+            new_notes: [testing_variables.note_id4],
 
         })
 
 })
 
-//! modify a note Expected failures
+//! Modify a process Expected failures
 
-describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
+describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.patch("modifies a note and gives title which already exists", "/notes", 424, "You already have a note with that title, please choose another",
+    test.patch("modifies a process and gives title which already exists", "/processes", 424, "You already have a process with that title, please choose another" ,
 
         {
             user_id: testing_variables.user_id,
@@ -436,7 +376,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
             new_subject: "new_subject",
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
-            new_syntax: "some new_syntax",
+            new_notes: [testing_variables.note_id4],
 
         })
 

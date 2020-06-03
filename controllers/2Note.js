@@ -13,9 +13,9 @@ exports.create_note = async (req, res, next) => {
 
         if (!title || !body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
-        const note_exists = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
+        const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
 
-        if (note_exists) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform the user
+        if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform the user
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
@@ -75,12 +75,11 @@ exports.update_note = async (req, res, next) => {
 
         const note_updated = await Note.findOneAndUpdate({ title: title, created_by: user_id }, {
 
-            title: new_title,//if a new title was not specified, set the title to the old title
+            title: new_title,
             subject: new_subject,
             body: new_body,
             search_tags: new_search_tags,
             syntax: new_syntax,
-            created_by: user_id,
 
         })
 
