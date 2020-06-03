@@ -11,16 +11,9 @@ const note_schema = new Schema({//create a schema object
 
     subject: {
         type: String,
-        required: true //Must be defined when a note object is created
     },
 
-    search_tags: [{//an array
-
-        tag: {//of search tags
-            type: String
-        }
-
-    }],
+    search_tags: [],//an array
 
     body: {
         type: String,
@@ -31,7 +24,7 @@ const note_schema = new Schema({//create a schema object
         type: String,
     },
 
-    createdBy: {//who created the note
+    created_by: {//who created the note
         type: String,
         required: true //Must be defined when a note object is created
     },
