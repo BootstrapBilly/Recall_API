@@ -10,7 +10,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title,
-            new_title:testing_variables.title,
+            new_title: testing_variables.title,
             new_subject: "new_subject",
             new_body: null,
             new_search_tags: ["tag1", "tag2", "tag3"],
@@ -23,7 +23,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title2,
-            new_title:testing_variables.title2,
+            new_title: testing_variables.title2,
             new_subject: "new_subject",
             new_body: "",
             new_search_tags: ["tag1", "tag2", "tag3"],
@@ -31,7 +31,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-        test.patch("modifies a note and gives no title", "/notes",424, "A note must have a title and body",
+    test.patch("modifies a note and gives no title", "/notes", 424, "A note must have a title and body",
 
         {
             user_id: testing_variables.user_id,
@@ -366,6 +366,58 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [435345, 435345, "tag1"],
             new_syntax: "some new_syntax",
+
+        })
+
+    test.patch("User 2 modifies a note with a unique title", "/notes", 201, "note updated successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.unique_title,
+            new_title:testing_variables.unique_title,
+            new_subject: "subject",
+            new_body: "3242323",
+            new_search_tags: [],
+            new_syntax: "",
+
+        })
+
+    test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/notes", 201, "note updated successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.unique_title,
+            new_title:testing_variables.title16,
+            new_subject: "subject",
+            new_body: "3242323",
+            new_search_tags: [],
+            new_syntax: "",
+
+        })
+
+    test.patch("User 2 changes a previous note back to a unique title", "/notes", 201, "note updated successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.title16,
+            new_title:testing_variables.unique_title,
+            new_subject: "subject",
+            new_body: "3242323",
+            new_search_tags: [],
+            new_syntax: "",
+
+        })
+
+    test.patch("User modifies a note with a non-unique title (in use by another user)", "/notes", 201, "note updated successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.title17,
+            new_title:testing_variables.title17,
+            new_subject: "Subject",
+            new_body: "body",
+            new_search_tags: [342, 435345, "tag1", "tag1"],
+            new_syntax: "some syntax",
 
         })
 

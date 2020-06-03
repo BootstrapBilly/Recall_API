@@ -11,7 +11,6 @@ const router = express.Router();//initialise the router
 router.post("/notes", Note.create_note)
 router.patch("/notes", Note.update_note)
 router.delete("/notes", Note.delete_note)
-router.get("/notes", Note.get_notes)
-router.post("/notes_by_subject", Note.get_notes_by_subject)
+router.post("/get_notes", Note.get_notes)
 
 module.exports = router;

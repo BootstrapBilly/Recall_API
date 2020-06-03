@@ -20,13 +20,14 @@ exports.get = (title, route, status, outcome, payload) => {
             if(err) done(err)//handle the error
             expect(res).to.have.status(status)//expect a 424 response
             expect(res.body.message).to.equal(outcome)//The expected result
+            
             done()
         })
     })
 
 }
 
-exports.post = (title, route, status, outcome, payload) => {
+exports.post = (title, route, status, outcome, payload, extra_assertion, count) => {
 
     it(title, (done) => {
 
@@ -43,6 +44,7 @@ exports.post = (title, route, status, outcome, payload) => {
             if(err) done(err)//handle the error
             expect(res).to.have.status(status)//expect a 424 response
             expect(res.body.message).to.equal(outcome)//The expected message
+            extra_assertion && expect(res.body[extra_assertion]).to.have.lengthOf(count)
             done()
         })
     })

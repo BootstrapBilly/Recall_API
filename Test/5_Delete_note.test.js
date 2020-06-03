@@ -169,6 +169,13 @@ describe("Delete a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
+        test.delete("User 2 deletes a non-unique note with a title in use by another user", "/notes", 200, "note deleted successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.title17,
+        })
+
     test.delete("deletes a note with mixed number and string search tags", "/notes", 200, "note deleted successfully",
 
         {
@@ -176,6 +183,15 @@ describe("Delete a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title17,
 
         })
+
+    test.delete("User 2 deletes a note with unique title", "/notes", 200, "note deleted successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.unique_title,
+
+        })
+
 
 
 })

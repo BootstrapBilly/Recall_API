@@ -43,7 +43,7 @@ exports.create_note = async (req, res, next) => {
 
     catch (error) {
 
-        console.log(error)
+        console.log(error)//if there was an error, log it and send a 500 server error
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
     }
 }
@@ -62,11 +62,11 @@ exports.update_note = async (req, res, next) => {
 
         if (!new_title || !new_body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
-        if(title !== new_title){//if they have supplied a new title
+        if (title !== new_title) {//if they have supplied a new title
 
-            const title_in_use = await Note.findOne({title: new_title, created_by:user_id})//check to see if it is in use already
+            const title_in_use = await Note.findOne({ title: new_title, created_by: user_id })//check to see if it is in use already
 
-            if(title_in_use) return res.status(424).json({message:"You already have a note with that title, please choose another"})//if it is, send a 424 and inform them
+            if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform them
 
         }
 
@@ -81,16 +81,15 @@ exports.update_note = async (req, res, next) => {
             search_tags: new_search_tags,
             syntax: new_syntax,
             created_by: user_id,
-            access_rights:[]
 
         })
 
-        if (note_updated) return res.status(201).json({ message: "note updated successfully"})
+        if (note_updated) return res.status(201).json({ message: "note updated successfully" })
     }
 
     catch (error) {
 
-        console.log(error)
+        console.log(error)//if there was an error, log it and send a 500 server error
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
     }
 
@@ -101,30 +100,40 @@ exports.delete_note = async (req, res, next) => {
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title;//extract the title from the request
 
-    try{
+    try {
 
-        const note_deleted = await Note.findOneAndDelete({title:title, created_by:user_id})
+        const note_deleted = await Note.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
 
-        note_deleted ? res.status(200).json({ message: "note deleted successfully"}) : res.status(424).json({message:"We couldn't find that note"})
+        //send the corresponding response
+        note_deleted ? res.status(200).json({ message: "note deleted successfully" }) : res.status(424).json({ message: "We couldn't find that note" })
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.log(error)
+        console.log(error)//if there was an error, log it and send a 500 server error
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}
+
+exports.get_notes = async (req, res, next) => {
+
+    const user_id = req.body.user_id;//extract the user id from the request body
+
+    try {
+
+        const notes_fetched = await Note.find({ created_by: user_id })//fetch all notes which were created by the given user
+
+        //once the notes have been fetched (even if 0 was found)
+        notes_fetched && res.status(200).json({ message: "notes retrieved", notes:notes_fetched})//return a 200 with all found notes attached
 
     }
 
+    catch (error) {
 
-}
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
 
-exports.get_notes = (req, res, next) => {
-
-    console.log("Get notes")
-}
-
-exports.get_notes_by_subject = (req, res, next) => {
-
-    console.log("get by subject")
 }

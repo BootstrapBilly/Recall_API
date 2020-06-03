@@ -344,6 +344,30 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
+    test.post("User 2 adds a note with a unique title", "/notes", 201, "Note added successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.unique_title,
+            subject: null,
+            body: "a",
+            search_tags: [],
+            syntax: "",
+
+        })
+
+    test.post("User 2 Adds a title in-use by another user", "/notes", 201, "Note added successfully",
+
+        {
+            user_id: testing_variables.second_user_id,
+            title: testing_variables.title17,
+            subject: "Subject",
+            body: "body",
+            search_tags: [435345, 435345, "tag1"],
+            syntax: "some syntax",
+
+        })
+
 })
 
 //! Add a note Expected failures
