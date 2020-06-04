@@ -20,6 +20,7 @@ exports.create_process = async (req, res, next) => {
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
+        .map(String)//and convert all elements to a string 
 
         //?if there are any duplicate notes, let them enter (users may have duplicate notes in a process) 
 
@@ -76,6 +77,7 @@ exports.update_process = async (req, res, next) => {
 
         //if there are any search tags, 
         if (new_search_tags) new_search_tags = Array.from(new Set(new_search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
+            .map(String)//and convert all elements to a string  
 
         const process_updated = await Process.findOneAndUpdate({ title: title, created_by: user_id }, {
 
@@ -83,7 +85,7 @@ exports.update_process = async (req, res, next) => {
             subject: new_subject,
             body: new_body,
             search_tags: new_search_tags,
-            notes:new_notes
+            notes: new_notes
 
         })
 
@@ -101,7 +103,7 @@ exports.update_process = async (req, res, next) => {
 exports.delete_process = async (req, res, next) => {
 
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
+    const title = req.body.title.toString();//extract the title from the request
 
     try {
 
@@ -129,7 +131,7 @@ exports.get_processes = async (req, res, next) => {
         const processes_fetched = await Process.find({ created_by: user_id })//fetch all processes which were created by the given user
 
         //once the processes have been fetched (even if 0 was found)
-        processes_fetched && res.status(200).json({ message: "processes retrieved", processes:processes_fetched})//return a 200 with all found processes attached
+        processes_fetched && res.status(200).json({ message: "processes retrieved", processes: processes_fetched })//return a 200 with all found processes attached
 
     }
 

@@ -19,6 +19,7 @@ exports.create_note = async (req, res, next) => {
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
+        .map(String)//and convert all elements to a string
 
         //* Checks passed
 
@@ -72,6 +73,7 @@ exports.update_note = async (req, res, next) => {
 
         //if there are any search tags, 
         if (new_search_tags) new_search_tags = Array.from(new Set(new_search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
+        .map(String)//and convert all elements to a string
 
         const note_updated = await Note.findOneAndUpdate({ title: title, created_by: user_id }, {
 
@@ -97,7 +99,7 @@ exports.update_note = async (req, res, next) => {
 exports.delete_note = async (req, res, next) => {
 
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
+    const title = req.body.title.toString();//extract the title from the request
 
     try {
 

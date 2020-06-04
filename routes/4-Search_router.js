@@ -8,6 +8,6 @@ const express = require("express");//import express
 const router = express.Router();//initialise the router
 
 //routes
-router.post("/search", Search.filter_content)
+router.post("/search", Search.find_content)
 
 module.exports = router;

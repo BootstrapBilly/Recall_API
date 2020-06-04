@@ -1,18 +1,18 @@
 const test = require("../util/testing_functions")
 const testing_variables = require("../util/testing_variables")
 
-//! delete a process Expected failures
+//! Delete a note Expected failures
 
-describe("delete a process - \x1b[31m expected failures \x1b[37m", () => {
+describe("Delete a note - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.delete("deletes a process which doesn't exist (title)", "/processes", 424, "We couldn't find that process",
+    test.delete("Deletes a note which doesn't exist (title)", "/notes", 424, "We couldn't find that note",
 
         {
             user_id: testing_variables.user_id,
             title: "no existo",
         })
 
-    test.delete("deletes a process which doesn't exist (userID)", "/processes", 424, "We couldn't find that process",
+    test.delete("Deletes a note which doesn't exist (userID)", "/notes", 424, "We couldn't find that note",
 
         {
             user_id: "324233244324234234",
@@ -21,123 +21,123 @@ describe("delete a process - \x1b[31m expected failures \x1b[37m", () => {
 
 })
 
-//* delete a process Expected passes
+//* Delete a note Expected passes
 
-describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
+describe("Delete a note - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.delete("deletes a process with only title and body, null everything else", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with only title and body, null everything else", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title,
         })
 
-    test.delete("deletes a process with a number for a title", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a number for a title", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: 34543435435344534,
         })
 
-    test.delete("deletes a process with a number for a new_body", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a number for a new_body", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title2,
         })
 
-    test.delete("deletes a process with a number for a title and body", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a number for a title and body", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: 43895734897589437,
         })
 
-    test.delete("deletes a process with a short title", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a short title", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: "b",
         })
 
-    test.delete("deletes a process with a long title", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a long title", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: "dsfbsdahjgfseaft764wqcv5c7692 69759 76sdg rfhsjf ghjdgfyusdgfjhsdfhjdsgf hjdksfjhds gfhsdgkfjhdsjhkfgjhksdafgjhsdgfjhsdgfhjsdgjhkfgkslfjhsdg fhjsdghfhjdsagfghjfgjksdhfgsdkfgsdgfjhksdgfkfgakjdfsgfdjhkgfk",
         })
 
-    test.delete("deletes a process with a short new_body", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a short new_body", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title3,
         })
 
-    test.delete("deletes a process with a long new_body", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a long new_body", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title4,
         })
 
-    test.delete("deletes a process with a short new_subject", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a short new_subject", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title5,
         })
 
-    test.delete("deletes a process with a long subject", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a long subject", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title6,
         })
 
-    test.delete("deletes a process with a number subject", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with a number subject", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title10,
         })
 
-    test.delete("deletes a process with short syntax", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with short syntax", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title8,
         })
 
-    test.delete("deletes a process with long syntax", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with long syntax", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title9,
         })
 
-    test.delete("deletes a process with no search tags", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with no search tags", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title11,
         })
 
-    test.delete("deletes a process with one search tag", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with one search tag", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title16,
         })
 
-    test.delete("deletes a process with many search tags", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with many search tags", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
             title: testing_variables.title13,
         })
 
-    test.delete("deletes a process with many search tags including numbers", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with many search tags including numbers", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -145,7 +145,7 @@ describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.delete("deletes a process with empty syntax", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with empty syntax", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -153,7 +153,7 @@ describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.delete("deletes a standard note", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a standard note", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -161,7 +161,7 @@ describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.delete("deletes another standard, but modified note", "/processes", 200, "process deleted successfully",
+    test.delete("deletes another standard, but modified note", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -169,14 +169,14 @@ describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-        test.delete("User 2 deletes a non-unique note with a title in use by another user", "/processes", 200, "process deleted successfully",
+        test.delete("User 2 deletes a non-unique note with a title in use by another user", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.second_user_id,
             title: testing_variables.title17,
         })
 
-    test.delete("deletes a process with mixed number and string search tags", "/processes", 200, "process deleted successfully",
+    test.delete("deletes a note with mixed number and string search tags", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.user_id,
@@ -184,7 +184,7 @@ describe("delete a process - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.delete("User 2 deletes a process with unique title", "/processes", 200, "process deleted successfully",
+    test.delete("User 2 deletes a note with unique title", "/notes", 200, "note deleted successfully",
 
         {
             user_id: testing_variables.second_user_id,
