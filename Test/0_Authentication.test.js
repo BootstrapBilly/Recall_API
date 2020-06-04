@@ -1,6 +1,6 @@
-const test = require("../util/testing_functions")
+// const test = require("../util/testing_functions")
 
-// // //!Create account Expected failures
+// // // //!Create account Expected failures
 
 // describe("Create account - \x1b[31m expected failures \x1b[37m", ()=> {
 
@@ -8,7 +8,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "test@test.com",
 //         password: "Password898",
-//         repeat_password: "Password898"
+//         repeat_password: "Password898",
+//         username:"in use"
     
 //     })
 
@@ -16,7 +17,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "test@testa.com",
 //         password: "Passwor",
-//         repeat_password: "Passwor"
+//         repeat_password: "Passwor",
+//         username:"pw wrong"
     
 //     })
 
@@ -24,7 +26,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "test@testa.com",
 //         password: "",
-//         repeat_password: ""
+//         repeat_password: "",
+//         username:"no pw"
     
 //     })
 
@@ -32,7 +35,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "test@testa.com",
 //         password: "password67",
-//         repeat_password: "password67"
+//         repeat_password: "password67",
+//         username:"no caps"
     
 //     })
 
@@ -40,7 +44,17 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "test@testa.com",
 //         password: "password67",
-//         repeat_password: "no matcho"
+//         repeat_password: "no matcho",
+//         username:"no match"
+    
+//     })
+
+//     test.post("Signs up with a username which is in use -> 'test', 'passWord'", "/user", 424, "Sorry, that username in unavailable", 
+//     {
+//         email: "non-used@test.com",
+//         password: "passWord",
+//         repeat_password: "passWord",
+//         username:"test"
     
 //     })
 
@@ -54,7 +68,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "Test1@test.com",
 //         password: "Password67",
-//         repeat_password: "Password67"
+//         repeat_password: "Password67",
+//         username:"test 1"
     
 //     })
 
@@ -62,7 +77,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "edge@test.com",
 //         password: "Passwo67",
-//         repeat_password: "Passwo67"
+//         repeat_password: "Passwo67",
+//         username:"edge"
     
 //     })
 
@@ -70,7 +86,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "caps@test.com",
 //         password: "PASSWORD",
-//         repeat_password: "PASSWORD"
+//         repeat_password: "PASSWORD",
+//         username:"caps"
     
 //     })
 
@@ -78,7 +95,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "numbers@test.com",
 //         password: "1274943D",
-//         repeat_password: "1274943D"
+//         repeat_password: "1274943D",
+//         username:"numbers"
     
 //     })
 
@@ -86,7 +104,8 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "long@test.com",
 //         password: "1274943Ddsadq343sadddffdsfsdfsdfdsfsd",
-//         repeat_password: "1274943Ddsadq343sadddffdsfsdfsdfdsfsd"
+//         repeat_password: "1274943Ddsadq343sadddffdsfsdfsdfdsfsd",
+//         username:"long"
     
 //     })
 
@@ -94,78 +113,79 @@ const test = require("../util/testing_functions")
 //     {
 //         email: "centercap@test.com",
 //         password: "passWord",
-//         repeat_password: "passWord"
+//         repeat_password: "passWord",
+//         username:"centercap"
     
 //     })
 
 // })
 
-// //!Login Expected failures
+// // // //!Login Expected failures
 
-describe("Login - \x1b[31m expected failures \x1b[37m", ()=> {
+// // describe("Login - \x1b[31m expected failures \x1b[37m", ()=> {
 
-    test.post("Login with an email which doesn't exist in the db -> 'No_existo@test.com'", "/login", 424, "Sorry, that email does not exist in our database", 
-    {
-        email: "No_existo@test.com",
-        password: "Password898"
+// //     test.post("Login with an email which doesn't exist in the db -> 'No_existo@test.com'", "/login", 424, "Sorry, that email does not exist in our database", 
+// //     {
+// //         email: "No_existo@test.com",
+// //         password: "Password898"
     
-    })
+// //     })
 
-    test.post("Login with no email at all", "/login", 424, "Sorry, that email does not exist in our database", 
-    {
-        email: "",
-        password: "Password898"
+// //     test.post("Login with no email at all", "/login", 424, "Sorry, that email does not exist in our database", 
+// //     {
+// //         email: "",
+// //         password: "Password898"
     
-    })
+// //     })
 
-    test.post("Login with a valid email, but incorrect password -> 'test@test.com'", "/login", 424, "Sorry, your password is incorrect", 
-    {
-        email: "test@test.com",
-        password: "Wrongpassword"
+// //     test.post("Login with a valid email, but incorrect password -> 'test@test.com'", "/login", 424, "Sorry, your password is incorrect", 
+// //     {
+// //         email: "test@test.com",
+// //         password: "Wrongpassword"
     
-    })
+// //     })
 
-    test.brute_force_attempt()
+// //     test.brute_force_attempt()
 
-})
+// // })
 
-// //* Login Expected passes
+// // // //* Login Expected passes
 
-describe("Login - \x1b[32m expected passes \x1b[37m", ()=> {
+// // describe("Login - \x1b[32m expected passes \x1b[37m", ()=> {
 
-    test.post("Login a valid email and password -> 'test@test.com', 'Password989'", "/login", 200, "Login successful", 
-    {
-        email: "test@test.com",
-        password: "Password898"
+// //     test.post("Login a valid email and password -> 'test@test.com', 'Password989'", "/login", 200, "Login successful", 
+// //     {
+// //         email: "test@test.com",
+// //         password: "Password898"
     
-    })
+// //     })
 
-    test.post("Login a valid email and edge case password -> 'edge@test.com', 'Passwo67'", "/login", 200, "Login successful", 
-    {
-        email: "edge@test.com",
-        password: "Passwo67"
+// //     test.post("Login a valid email and edge case password -> 'edge@test.com', 'Passwo67'", "/login", 200, "Login successful", 
+// //     {
+// //         email: "edge@test.com",
+// //         password: "Passwo67"
     
-    })
+// //     })
 
-    test.post("Login a valid email and numbers password -> 'numbers@test.com', '1274943D'", "/login", 200, "Login successful", 
-    {
-        email: "numbers@test.com",
-        password: "1274943D"
+// //     test.post("Login a valid email and numbers password -> 'numbers@test.com', '1274943D'", "/login", 200, "Login successful", 
+// //     {
+// //         email: "numbers@test.com",
+// //         password: "1274943D"
     
-    })
+// //     })
 
-    test.post("Login a valid email and very long password -> 'long@test.com', '1274943Ddsadq343sadddffdsfsdfsdfdsfsd'", "/login", 200, "Login successful", 
-    {
-        email: "long@test.com",
-        password: "1274943Ddsadq343sadddffdsfsdfsdfdsfsd"
+// //     test.post("Login a valid email and very long password -> 'long@test.com', '1274943Ddsadq343sadddffdsfsdfsdfdsfsd'", "/login", 200, "Login successful", 
+// //     {
+// //         email: "long@test.com",
+// //         password: "1274943Ddsadq343sadddffdsfsdfsdfdsfsd"
     
-    })
+// //     })
 
-    test.post("Login a valid email and password with capital in the center -> 'centercap@test.com', 'passWord'", "/login", 200, "Login successful", 
-    {
-        email: "centercap@test.com",
-        password: "passWord"
+// //     test.post("Login a valid email and password with capital in the center -> 'centercap@test.com', 'passWord'", "/login", 200, "Login successful", 
+// //     {
+// //         email: "centercap@test.com",
+// //         password: "passWord"
     
-    })
+// //     })
 
-})
+// // })

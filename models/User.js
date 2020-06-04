@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const user_schema = new Schema({//create a schema object
 
+    username:{
+        type:String,//of type string
+        required:true,//Must be defined when a user object is created
+    },
+
     email_address: {
         type: String,//Of type string
         required: true//Must be defined when a user object is created
