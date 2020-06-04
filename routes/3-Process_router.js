@@ -11,7 +11,7 @@ const router = express.Router();//initialise the router
 router.post("/processes", Process.create_process)
 router.patch("/processes", Process.update_process)
 router.delete("/processes", Process.delete_process)
-router.get("/processes", Process.get_processes)
+router.post("/get_processes", Process.get_processes)
 
 
 module.exports = router;

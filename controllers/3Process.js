@@ -105,7 +105,7 @@ exports.delete_process = async (req, res, next) => {
 
     try {
 
-        const process_deleted = await Process.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
+        const process_deleted = await Process.findOneAndDelete({ title: title, created_by: user_id })//find and delete the process with the given title who was created by the given user
 
         //send the corresponding response
         process_deleted ? res.status(200).json({ message: "process deleted successfully" }) : res.status(424).json({ message: "We couldn't find that process" })
@@ -120,7 +120,23 @@ exports.delete_process = async (req, res, next) => {
 
 }
 
-exports.get_processes = (req, res, next) => {
+exports.get_processes = async (req, res, next) => {
 
-    console.log("Get notes")
+    const user_id = req.body.user_id;//extract the user id from the request body
+
+    try {
+
+        const processes_fetched = await Process.find({ created_by: user_id })//fetch all processes which were created by the given user
+
+        //once the processes have been fetched (even if 0 was found)
+        processes_fetched && res.status(200).json({ message: "processes retrieved", processes:processes_fetched})//return a 200 with all found processes attached
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
 }

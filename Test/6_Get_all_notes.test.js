@@ -17,14 +17,14 @@
 //     {
 //         user_id: testing_variables.second_user_id,
 //     },
-//     "notes", 2)//Expect res.body.notes to have a length of 21
+//     "notes", 2)//Expect res.body.notes to have a length of 3
 
 //     test.post("Third user, has 0 notes", "/get_notes", 200, "notes retrieved",
 
 //     {
 //         user_id: testing_variables.third_user_id,
 //     },
-//     "notes", 0)//Expect res.body.notes to have a length of 21
+//     "notes", 0)//Expect res.body.notes to have a length of 0
     
 
 // })

@@ -27,7 +27,7 @@ exports.get = (title, route, status, outcome, payload) => {
 
 }
 
-exports.post = (title, route, status, outcome, payload, extra_assertion, count) => {
+exports.post = (title, route, status, outcome, payload, extra_assertion, count, additional_assertion, additional_count) => {
 
     it(title, (done) => {
 
@@ -44,7 +44,8 @@ exports.post = (title, route, status, outcome, payload, extra_assertion, count) 
             if(err) done(err)//handle the error
             expect(res).to.have.status(status)//expect a 424 response
             expect(res.body.message).to.equal(outcome)//The expected message
-            extra_assertion && expect(res.body[extra_assertion]).to.have.lengthOf(count)
+            extra_assertion && expect(res.body[extra_assertion]).to.have.lengthOf(count)//check the length of the returned notes or processes(//!takes a string param)
+            additional_assertion && expect(res.body[additional_assertion]).to.have.lengthOf(additional_count)//check the length of the returned notes or processes
             done()
         })
     })

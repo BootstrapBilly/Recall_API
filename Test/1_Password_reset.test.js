@@ -18,7 +18,7 @@
 
 // })
 
-// const reset_token = "cf8b44eafdd22a3c8f18644108143af49f72316a62c17f6fbff4355f73e023cc"//get from the database, changes every time a reset email is generated
+// const reset_token = "cf8b44eafdd22a3c8f18644108143af49f72316a62c17f6fbff4355f73e023cc"//!get from the database, changes every time a reset email is generated
 // const user_id = testing_variables.user_id//grab the testing user id from the util file (billy.development.practise@gmail.com)
 
 // // //! Reset password expected failures

@@ -26,3 +26,5 @@ exports.note_id1 = "5ed7b1a620984c1b5049c95c"
 exports.note_id2 = "5ed7b1a620984c1b5049c95b"
 exports.note_id3 = "5ed7b1a620984c1b5049c95d"
 exports.note_id4 = "5ed7b1a620984c1b5049c95e"
+
+exports.search_string1 = "title1"
