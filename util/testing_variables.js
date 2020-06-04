@@ -2,11 +2,11 @@ exports.user_id = "5ed9286f07fe560cfcb43ab9"
 exports.second_user_id = "5ed9288607fe560cfcb43aba"
 exports.third_user_id = "5ed9289d07fe560cfcb43abb"
 
-exports.friend_testing_user = "5ed8ab7fc3ab39095c91bdf8"//test1@test.com
-exports.second_friend_testing_user = "5ed8ab7fc3ab39095c91bdf9"//edge@test.com
-exports.third_friend_testing_user = "5ed8ab80c3ab39095c91bdfa"//caps@test.com
-exports.fourth_friend_testing_user = "5ed8ab80c3ab39095c91bdfb"//numbers@test.com
-exports.fifth_friend_testing_user = "5ed8ab81c3ab39095c91bdfc"//long@test.com
+exports.friend_testing_user = "5ed928c407fe560cfcb43abc"//test1@test.com
+exports.second_friend_testing_user = "5ed928c407fe560cfcb43abd"//edge@test.com
+exports.third_friend_testing_user = "5ed928c507fe560cfcb43abe"//caps@test.com
+exports.fourth_friend_testing_user = "5ed928c507fe560cfcb43abf"//numbers@test.com
+exports.fifth_friend_testing_user = "5ed928c507fe560cfcb43ac0"//long@test.com
 
 exports.title = "title"
 exports.title1 = "title1"
