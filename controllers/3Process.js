@@ -98,9 +98,26 @@ exports.update_process = async (req, res, next) => {
 
 }
 
-exports.delete_process = (req, res, next) => {
+exports.delete_process = async (req, res, next) => {
 
-    console.log("delete note")
+    const user_id = req.body.user_id;//extract the user id from the request
+    const title = req.body.title;//extract the title from the request
+
+    try {
+
+        const process_deleted = await Process.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
+
+        //send the corresponding response
+        process_deleted ? res.status(200).json({ message: "process deleted successfully" }) : res.status(424).json({ message: "We couldn't find that process" })
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
 }
 
 exports.get_processes = (req, res, next) => {
