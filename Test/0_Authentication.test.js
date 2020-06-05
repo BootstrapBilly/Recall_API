@@ -91,12 +91,12 @@
     
 //     })
 
-//     test.post("Sign up with valid email, and mainly numbers password, and capital at the end -> 'numbers@test.com', '1274943D'", "/user", 201, "User created", 
+//     test.post("Sign up with valid email, and mainly numbers password, and capital at the end, and numbers username -> 'numbers@test.com', '1274943D'", "/user", 201, "User created", 
 //     {
 //         email: "numbers@test.com",
 //         password: "1274943D",
 //         repeat_password: "1274943D",
-//         username:"numbers"
+//         username:7897989889
     
 //     })
 
