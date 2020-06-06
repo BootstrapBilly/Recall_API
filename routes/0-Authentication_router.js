@@ -9,6 +9,7 @@ const router = express.Router();//initialise the router
 
 //routes
 router.post("/user", Authentication.create_user)
+router.delete("/user", Authentication.delete_user)
 router.post("/login", Authentication.login)
 
 module.exports = router;
