@@ -6,7 +6,10 @@ const validate_password = require("../util/validate_password")
 
 exports.create_user = async (req, res, next) => {
 
-    const email = req.body.email //extract the email
+    //if any required fields are missing, return a 400 bad request
+    if (!req.body.email || !req.body.password || !req.body.repeat_password || !req.body.username) return res.status(400).json({ message: "Bad request" })
+
+    const email = req.body.email.toLowerCase() //extract the email and convert it to lowercase
     const password = req.body.password//password
     const repeat_password = req.body.repeat_password//and second password from the response
     const username = req.body.username//the username
@@ -30,6 +33,7 @@ exports.create_user = async (req, res, next) => {
         //*Password hashed correctly, create a new user
         const user = new User({//create a new user object from the schema
 
+            _id:req.body._id || null,//for testing purposes, if an object id was supplied, manually set it, otherwise set it as null and let mongodb generate it
             email_address: email,//set their email
             password: hashed_password, //set the hashed_password NOT THE PLAIN TEXT PASSWORD
             username: username,//set their username
@@ -57,7 +61,10 @@ exports.create_user = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
 
-    const email = req.body.email //extract the email
+    //if any required fields are missing, return a 400 bad request
+    if (!req.body.email || !req.body.password) return res.status(400).json({ message: "Bad request" })
+
+    const email = req.body.email.toLowerCase() //extract the email and convert it to lower case
     const password = req.body.password//password
     const request_ip = req.connection.remoteAddress//grab the request IP
 
