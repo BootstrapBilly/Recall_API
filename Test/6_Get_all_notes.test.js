@@ -24,12 +24,12 @@ describe("Get all notes - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("Get all notes - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.post("First user, has 21 notes", "/get_notes", 200, "notes retrieved",
+    test.post("First user, has 22 notes", "/get_notes", 200, "notes retrieved",
 
     {
         user_id: testing_variables.standard_id,
     },
-    "notes", 21)//Expect res.body.notes to have a length of 21
+    "notes", 22)//Expect res.body.notes to have a length of 22
 
     test.post("Second user, has has 6 notes", "/get_notes", 200, "notes retrieved",
 

@@ -2,16 +2,16 @@ const Note = require("../models/Note")//import the Note model to interact with d
 
 exports.create_note = async (req, res, next) => {
 
+    if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to lower case string
     const subject = req.body.subject;//extract the subject from the request
     const body = req.body.body;//extract the body from the request
     let search_tags = req.body.search_tags;//extract the search tags from the request
     const syntax = req.body.syntax //extract the syntax from the request
 
     try {
-
-        if (!title || !body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
         const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
 
@@ -52,17 +52,17 @@ exports.create_note = async (req, res, next) => {
 
 exports.update_note = async (req, res, next) => {
 
+    if (!req.body.new_title || !req.body.new_body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
-    const new_title = req.body.new_title;//extract the new title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to lower case string
+    const new_title = req.body.new_title.toString().toLowerCase();//extract the title from the request and convert it to lower case string
     const new_subject = req.body.new_subject;//extract the subject from the request
     const new_body = req.body.new_body;//extract the body from the request
     let new_search_tags = req.body.new_search_tags;//extract the search tags from the request
     const new_syntax = req.body.new_syntax //extract the syntax from the request
 
     try {
-
-        if (!new_title || !new_body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
         if (title !== new_title) {//if they have supplied a new title
 
@@ -99,8 +99,10 @@ exports.update_note = async (req, res, next) => {
 
 exports.delete_note = async (req, res, next) => {
 
+    if(!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title.toString();//extract the title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request convert it to lower case string
 
     try {
 
