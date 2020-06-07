@@ -53,6 +53,30 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
+    test.post("Adds a note with an empty user id", "/notes", 400, "Bad request",
+
+        {
+            user_id: "",
+            title: testing_variables.title2,
+            subject: "Subject",
+            body: "sdfsdf",
+            search_tags: ["tag1", "tag2", "tag3"],
+            syntax: "some syntax",
+
+        })
+
+    test.post("Adds a note with a null user id", "/notes", 400, "Bad request",
+
+        {
+            user_id: null,
+            title: testing_variables.title2,
+            subject: "Subject",
+            body: "fdsfs",
+            search_tags: ["tag1", "tag2", "tag3"],
+            syntax: "some syntax",
+
+        })
+
 })
 
 //* Add a note Expected passes

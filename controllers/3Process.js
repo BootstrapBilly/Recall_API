@@ -2,8 +2,13 @@ const Process = require("../models/Process")
 
 exports.create_process = async (req, res, next) => {
 
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
+
+    //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
+    if (!req.body.title || !req.body.notes || req.body.notes && !req.body.notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
     const subject = req.body.subject;//extract the subject from the request
     const body = req.body.body;//extract the body from the request
     let search_tags = req.body.search_tags;//extract the search tags from the request
@@ -11,16 +16,13 @@ exports.create_process = async (req, res, next) => {
 
     try {
 
-        //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
-        if (!title || !notes || notes && !notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
-
         const title_in_use = await Process.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
 
         if (title_in_use) return res.status(424).json({ message: "You already have a process with that title, please choose another" })//if it is, send a 424 and inform the user
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
-        .map(String)//and convert all elements to a string 
+            .map(String)//and convert all elements to a string 
 
         //?if there are any duplicate notes, let them enter (users may have duplicate notes in a process) 
 
@@ -54,18 +56,20 @@ exports.create_process = async (req, res, next) => {
 
 exports.update_process = async (req, res, next) => {
 
+    if (!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
+
+    //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
+    if (!req.body.new_title || !req.body.new_notes || req.body.new_notes && !req.body.new_notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title;//extract the title from the request
-    const new_title = req.body.new_title;//extract the new title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
+    const new_title = req.body.new_title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
     const new_subject = req.body.new_subject;//extract the subject from the request
     const new_body = req.body.new_body;//extract the body from the request
     let new_search_tags = req.body.new_search_tags;//extract the search tags from the request
     const new_notes = req.body.new_notes //extract the notes
 
     try {
-
-        //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
-        if (!new_title || !new_notes || new_notes && !new_notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
 
         if (title !== new_title) {//if they have supplied a new title
 
@@ -102,8 +106,10 @@ exports.update_process = async (req, res, next) => {
 
 exports.delete_process = async (req, res, next) => {
 
+    if (!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
+
     const user_id = req.body.user_id;//extract the user id from the request
-    const title = req.body.title.toString();//extract the title from the request
+    const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
 
     try {
 
@@ -123,6 +129,8 @@ exports.delete_process = async (req, res, next) => {
 }
 
 exports.get_processes = async (req, res, next) => {
+
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
 
     const user_id = req.body.user_id;//extract the user id from the request body
 

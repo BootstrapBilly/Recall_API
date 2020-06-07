@@ -57,6 +57,31 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
+    test.patch("modifies a note , empty user id", "/notes", 400, "Bad request",
+
+        {
+            user_id: "",
+            title: testing_variables.title,
+            new_title: "title",
+            new_subject: "new_subject",
+            new_body: "new_body",
+            new_search_tags: ["tag1", "tag2", "tag3"],
+            new_syntax: "some new_syntax",
+
+        })
+
+    test.patch("modifies a note , null user id", "/notes", 400, "Bad request",
+
+        {
+            user_id: null,
+            title: testing_variables.title,
+            new_title: "tot;e",
+            new_subject: "new_subject",
+            new_body: "new_body",
+            new_search_tags: ["tag1", "tag2", "tag3"],
+            new_syntax: "some new_syntax",
+
+        })
 })
 
 //* Modify a note Expected passes

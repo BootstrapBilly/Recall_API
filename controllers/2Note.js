@@ -4,6 +4,8 @@ exports.create_note = async (req, res, next) => {
 
     if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
+
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to lower case string
     const subject = req.body.subject;//extract the subject from the request
@@ -53,6 +55,8 @@ exports.create_note = async (req, res, next) => {
 exports.update_note = async (req, res, next) => {
 
     if (!req.body.new_title || !req.body.new_body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
+
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
 
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to lower case string
