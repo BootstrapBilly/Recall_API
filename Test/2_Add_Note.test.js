@@ -8,7 +8,7 @@
 //     test.post("Adds a note with no title", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: null,
 //             subject: "Subject",
 //             body: "body",
@@ -20,7 +20,7 @@
 //     test.post("Adds a note with an empty title", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: "",
 //             subject: "Subject",
 //             body: "body",
@@ -32,7 +32,7 @@
 //     test.post("Adds a note with no body", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             subject: "Subject",
 //             body: null,
@@ -44,7 +44,7 @@
 //     test.post("Adds a note with an empty body", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             subject: "Subject",
 //             body: "",
@@ -62,7 +62,7 @@
 //     test.post("Adds a note with only a title and body", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             subject: null,
 //             body: "body",
@@ -74,7 +74,7 @@
 //     test.post("Adds a note with a number for a title", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: 4353453453454,
 //             subject: null,
 //             body: "body",
@@ -86,7 +86,7 @@
 //     test.post("Adds a note with a number for a body", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             subject: null,
 //             body: 43534543534435,
@@ -98,7 +98,7 @@
 //     test.post("Adds a note with a number for a title and body", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: 32543543543,
 //             subject: null,
 //             body: 43534543534435,
@@ -110,7 +110,7 @@
 //     test.post("Adds a note with a short title", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: "a",
 //             subject: null,
 //             body: "body",
@@ -122,7 +122,7 @@
 //     test.post("Adds a note with a long title", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
 //             subject: null,
 //             body: "body",
@@ -134,7 +134,7 @@
 //     test.post("Adds a note with a short body", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title3,
 //             subject: null,
 //             body: "a",
@@ -146,7 +146,7 @@
 //     test.post("Adds a note with a long body", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title4,
 //             subject: null,
 //             body: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdldfgdfgdfgdfbvtdfgh543645645654 564 654 654645654 65454@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
@@ -158,7 +158,7 @@
 //     test.post("Adds a note with a short subject", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             subject: "a",
 //             body: "body",
@@ -170,7 +170,7 @@
 //     test.post("Adds a note with a long subject", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title6,
 //             subject: "asjhadgashjdgasjhdgasjhdgsdfsdfsdfasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
 //             body: "body",
@@ -182,7 +182,7 @@
 //     test.post("Adds a note with a number subject", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title7,
 //             subject: 245874389743,
 //             body: "body",
@@ -194,7 +194,7 @@
 //     test.post("Adds a note with short syntax", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title8,
 //             subject: "subject",
 //             body: "body",
@@ -206,7 +206,7 @@
 //     test.post("Adds a note with long syntax", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title9,
 //             subject: "subject",
 //             body: "body",
@@ -251,7 +251,7 @@
 //     test.post("Adds a note with number syntax", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title10,
 //             subject: 245874389743,
 //             body: "body",
@@ -263,7 +263,7 @@
 //     test.post("Adds a note no search tags", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title11,
 //             subject: "subject",
 //             body: "body",
@@ -275,7 +275,7 @@
 //     test.post("Adds a note with one search tag", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title12,
 //             subject: "subject",
 //             body: "body",
@@ -287,7 +287,7 @@
 //     test.post("Adds a note with many search tags", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title13,
 //             subject: "subject",
 //             body: "body",
@@ -299,7 +299,7 @@
 //     test.post("Adds a note with many search tags including numbers", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title14,
 //             subject: "subject",
 //             body: "body",
@@ -311,7 +311,7 @@
 //     test.post("Adds a note with duplicate search tags", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title15,
 //             subject: "Subject",
 //             body: "body",
@@ -323,7 +323,7 @@
 //     test.post("Adds a note with duplicate number search tags", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title16,
 //             subject: "Subject",
 //             body: "body",
@@ -335,7 +335,7 @@
 //     test.post("Adds a note with mixed duplicate search tags", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title17,
 //             subject: "Subject",
 //             body: "body",
@@ -347,7 +347,7 @@
 //     test.post("User 2 adds a note with a unique title", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.unique_title,
 //             subject: null,
 //             body: "a",
@@ -359,8 +359,59 @@
 //     test.post("User 2 Adds a title in-use by another user", "/notes", 201, "Note added successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.title17,
+//             subject: "Subject",
+//             body: "body",
+//             search_tags: [435345, 435345, "tag1"],
+//             syntax: "some syntax",
+
+//         })
+
+//     test.post("Hard coded note id for adding a process 1", "/notes", 201, "Note added successfully",
+
+//         {
+//             _id:testing_variables.testing_note_1,
+//             user_id: testing_variables.short_id,
+//             title: testing_variables.title5,
+//             subject: "Subject",
+//             body: "body",
+//             search_tags: [435345, 435345, "tag1"],
+//             syntax: "some syntax",
+//         })
+
+//     test.post("Hard coded note id for adding a process 2", "/notes", 201, "Note added successfully",
+
+//         {
+//             _id:testing_variables.testing_note_2,
+//             user_id: testing_variables.short_id,
+//             title: testing_variables.title6,
+//             subject: "Subject",
+//             body: "body",
+//             search_tags: [435345, 435345, "tag1"],
+//             syntax: "some syntax",
+
+//         })
+
+//     test.post("Hard coded note id for adding a process 3", "/notes", 201, "Note added successfully",
+
+//         {
+//             _id:testing_variables.testing_note_3,
+//             user_id: testing_variables.short_id,
+//             title: testing_variables.title8,
+//             subject: "Subject",
+//             body: "body",
+//             search_tags: [435345, 435345, "tag1"],
+//             syntax: "some syntax",
+
+//         })
+
+//     test.post("Hard coded note id for adding a process 4", "/notes", 201, "Note added successfully",
+
+//         {
+//             _id:testing_variables.testing_note_4,
+//             user_id: testing_variables.short_id,
+//             title: testing_variables.title9,
 //             subject: "Subject",
 //             body: "body",
 //             search_tags: [435345, 435345, "tag1"],
@@ -377,7 +428,7 @@
 //     test.post("Adds a note with title which already exists", "/notes", 424, "You already have a note with that title, please choose another",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             subject: "Subject",
 //             body: "body",

@@ -8,7 +8,7 @@
 //     test.patch("modifies a note and gives no body", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             new_title: testing_variables.title,
 //             new_subject: "new_subject",
@@ -21,7 +21,7 @@
 //     test.patch("modifies a note and gives an empty body", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: "new_subject",
@@ -34,7 +34,7 @@
 //     test.patch("modifies a note and gives no title", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             new_title: null,
 //             new_subject: "new_subject",
@@ -47,7 +47,7 @@
 //     test.patch("modifies a note and gives an empty title", "/notes", 424, "A note must have a title and body",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             new_title: "",
 //             new_subject: "new_subject",
@@ -66,7 +66,7 @@
 //     test.patch("modifies a note and gives only a title and body, null or empty everything else", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             new_title: testing_variables.title,
 //             new_subject: null,
@@ -79,7 +79,7 @@
 //     test.patch("modifies a note and gives a number for a title", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: 4353453453454,
 //             new_title: 34543435435344534,
 //             new_subject: null,
@@ -92,7 +92,7 @@
 //     test.patch("modifies a note and gives a number for a new_body", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: null,
@@ -105,7 +105,7 @@
 //     test.patch("modifies a note and gives a number for a title and body", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: 32543543543,
 //             new_title: 43895734897589437,
 //             new_subject: null,
@@ -118,7 +118,7 @@
 //     test.patch("modifies a note and gives a short title", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: "a",
 //             new_title: "b",
 //             new_subject: null,
@@ -131,7 +131,7 @@
 //     test.patch("modifies a note and gives a long title", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
 //             new_title: "dsfbsdahjgfseaft764wqcv5c7692 69759 76sdg rfhsjf ghjdgfyusdgfjhsdfhjdsgf hjdksfjhds gfhsdgkfjhdsjhkfgjhksdafgjhsdgfjhsdgfhjsdgjhkfgkslfjhsdg fhjsdghfhjdsagfghjfgjksdhfgsdkfgsdgfjhksdgfkfgakjdfsgfdjhkgfk",
 //             new_subject: null,
@@ -144,7 +144,7 @@
 //     test.patch("modifies a note and gives a short new_body", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title3,
 //             new_title: testing_variables.title3,
 //             new_subject: null,
@@ -157,7 +157,7 @@
 //     test.patch("modifies a note and gives a long new_body", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title4,
 //             new_title: testing_variables.title4,
 //             new_subject: null,
@@ -170,7 +170,7 @@
 //     test.patch("modifies a note and gives a short new_subject", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "b",
@@ -183,7 +183,7 @@
 //     test.patch("modifies a note and gives a long new_subject", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: "asjhadgashjdgasjhdgasjhdgsdfsdfsdfasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklagkh43g43hj 4hk43gk 3g4343784343876fvd",
@@ -196,7 +196,7 @@
 //     test.patch("modifies a note and gives a number new_subject", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: 245874389743,
@@ -209,7 +209,7 @@
 //     test.patch("modifies a note and gives short new_syntax", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -222,7 +222,7 @@
 //     test.patch("modifies a note and gives long new_syntax", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -268,7 +268,7 @@
 //     test.patch("modifies a note and gives number new_syntax", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: 245874389743,
@@ -281,7 +281,7 @@
 //     test.patch("modifies a note and gives no search tags", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title2,
 //             new_title: testing_variables.title2,
 //             new_subject: "new_subject",
@@ -294,7 +294,7 @@
 //     test.patch("modifies a note and gives one search tag", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -307,7 +307,7 @@
 //     test.patch("modifies a note and gives many search tags", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -320,7 +320,7 @@
 //     test.patch("modifies a note and gives many search tags including numbers", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -333,7 +333,7 @@
 //     test.patch("modifies a note and gives duplicate search tags", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title5,
 //             new_title: testing_variables.title5,
 //             new_subject: "new_subject",
@@ -346,7 +346,7 @@
 //     test.patch("modifies a note and gives duplicate number search tags", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title7,
 //             new_title: testing_variables.title7,
 //             new_subject: "new_subject",
@@ -359,7 +359,7 @@
 //     test.patch("modifies a note and gives mixed duplicate search tags", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title7,
 //             new_title: testing_variables.title7,
 //             new_subject: "new_subject",
@@ -372,7 +372,7 @@
 //     test.patch("User 2 modifies a note with a unique title", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.unique_title,
 //             new_title:testing_variables.unique_title,
 //             new_subject: "subject",
@@ -385,7 +385,7 @@
 //     test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.unique_title,
 //             new_title:testing_variables.title16,
 //             new_subject: "subject",
@@ -395,10 +395,10 @@
 
 //         })
 
-//     test.patch("User 2 changes a previous note back to a unique title", "/notes", 201, "note updated successfully",
+//     test.patch("User 2 changes a previous note back to a unique title (Modifies a note what has previously been modified)", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.title16,
 //             new_title:testing_variables.unique_title,
 //             new_subject: "subject",
@@ -411,7 +411,7 @@
 //     test.patch("User modifies a note with a non-unique title (in use by another user)", "/notes", 201, "note updated successfully",
 
 //         {
-//             user_id: testing_variables.second_user_id,
+//             user_id: testing_variables.short_id,
 //             title: testing_variables.title17,
 //             new_title:testing_variables.title17,
 //             new_subject: "Subject",
@@ -430,7 +430,7 @@
 //     test.patch("modifies a note and gives title which already exists", "/notes", 424, "You already have a note with that title, please choose another",
 
 //         {
-//             user_id: testing_variables.user_id,
+//             user_id: testing_variables.standard_id,
 //             title: testing_variables.title,
 //             new_title: testing_variables.title7,
 //             new_subject: "new_subject",

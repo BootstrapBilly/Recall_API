@@ -25,6 +25,7 @@ exports.create_note = async (req, res, next) => {
 
         const note = new Note({//create a new note, with the given details
 
+            _id: req.body._id || null,//for testing purposes, if an object id was supplied, manually set it, otherwise set it as null and let mongodb generate it
             title: title,
             subject: subject,
             body: body,
@@ -119,6 +120,8 @@ exports.delete_note = async (req, res, next) => {
 }
 
 exports.get_notes = async (req, res, next) => {
+
+    if(!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
 
     const user_id = req.body.user_id;//extract the user id from the request body
 
