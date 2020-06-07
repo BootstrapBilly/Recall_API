@@ -8,7 +8,9 @@ const validate_password = require("../util/validate_password")
 
 exports.generate_email = async (req, res, next) => {
 
-    const email = req.body.email//extract the email from the request body
+    if(!req.body.email) return res.status(400).json({message:"Bad request"})//if the email is missing, send a 400 and inform them bad request
+
+    const email = req.body.email.toLowerCase()//extract the email from the request body and convert it to lower
 
     try {
 
@@ -44,6 +46,8 @@ exports.generate_email = async (req, res, next) => {
 }
 
 exports.change_password = async (req, res, next) => {
+
+    if(!req.body.user_id || !req.body.token || !req.body.password || !req.body.repeat_password) return res.status(400).json({message:"Bad request"})//if the email is missing, send a 400 and inform them bad request
 
     const user_id = req.body.user_id//extract the userid from the request
     const token = req.body.token//extract the token from the request
