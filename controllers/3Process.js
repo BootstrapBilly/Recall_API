@@ -30,6 +30,7 @@ exports.create_process = async (req, res, next) => {
 
         const process = new Process({//create a new process, with the given details
 
+            _id: req.body._id || null,//for testing purposes, if an object id was supplied, manually set it, otherwise set it as null and let mongodb generate it
             title: title,
             subject: subject,
             body: body,
@@ -136,7 +137,12 @@ exports.get_processes = async (req, res, next) => {
 
     try {
 
-        const processes_fetched = await Process.find({ created_by: user_id })//fetch all processes which were created by the given user
+        const processes_fetched = await Process.find({
+
+            $or:[//either of the following criteria will return a match
+                { created_by: user_id },//created by the user ?
+                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the process?
+            ]})//fetch all processes which were created by the given user
 
         //once the processes have been fetched (even if 0 was found)
         processes_fetched && res.status(200).json({ message: "processes retrieved", processes: processes_fetched })//return a 200 with all found processes attached

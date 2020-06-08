@@ -133,7 +133,12 @@ exports.get_notes = async (req, res, next) => {
 
     try {
 
-        const notes_fetched = await Note.find({ created_by: user_id })//fetch all notes which were created by the given user
+        const notes_fetched = await Note.find({
+
+            $or:[//either of the following criteria will return a match
+                { created_by: user_id },//created by the user ?
+                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the note?
+            ]})//fetch all notes which were created by the given user
 
         //once the notes have been fetched (even if 0 was found)
         notes_fetched && res.status(200).json({ message: "notes retrieved", notes:notes_fetched})//return a 200 with all found notes attached

@@ -57,21 +57,10 @@ exports.testing_note_2 = "5eda2ca3a8144742c80e64f0"
 exports.testing_note_3 = "5eda2ca8a8144742c80e64f1"
 exports.testing_note_4 = "5eda2ca8a8144742c80e64f6"
 
-exports.edge_testing_note_1 = "5eda2cb9a8144742c80e64f2"
-exports.edge_testing_note_2 = "5eda2cbda8144742c80e64f3"
-exports.edge_testing_note_3 = "5eda2cc1a8144742c80e64f4"
+exports.testing_process_1 = "5eda2c9ca8144742c80e54ef"
+exports.testing_process_2 = "5eda2ca3a8144742c80e54f0"
+exports.testing_process_3 = "5eda2ca8a8144742c80e54f1"
+exports.testing_process_4 = "5eda2ca8a8144742c80e54f6"
 
-exports.caps_testing_note_1 = "5eda2cd0a8144742c80e64f5"
-exports.caps_testing_note_1 = "5eda2cd3a8144742c80e64f6"
-exports.caps_testing_note_1 = "5eda2cd9a8144742c80e64f7"
-
-exports.testing_process_1 = "5eda2f25a8144742c80e64fc"
-exports.testing_process_2 = "5eda2f48a8144742c80e64fe"
-
-exports.edge_testing_process_1 = "5eda2ec9a8144742c80e64fa"
-exports.edge_testing_process_2 = "5eda2ed1a8144742c80e64fb"
-
-exports.caps_testing_process_1 = "5eda2e6ca8144742c80e64f8"
-exports.caps_testing_process_2 = "5eda2e79a8144742c80e64f9"
 
 exports.search_string1 = "title1"
