@@ -1,5 +1,6 @@
 const User = require("../models/User")//Import the user model to interact with the user collection
-ObjectId = require('mongodb').ObjectID;
+const Note = require("../models/Note")//Import the note model to interact with the user collection
+const Process = require("../models/Process")//Import the process model to interact with the user collection
 
 exports.add_friend = async (req, res, next) => {
 
@@ -98,6 +99,8 @@ exports.process_request = async (req, res, next) => {
 
 exports.delete_friend = async (req, res, next) => {
 
+    if(!req.body.user_id || !req.body.user_to_delete_id) return res.status(400).json({message:"Bad request"})//if any require fields are missing, send a 400 and inform them
+
     const user_id = req.body.user_id//extract the user id
     const user_to_delete_id = req.body.user_to_delete_id//and the friend to remove id
 
@@ -106,7 +109,35 @@ exports.delete_friend = async (req, res, next) => {
         const first_friend_removal = await User.findOneAndUpdate({ _id: user_id }, { $pull: { friends: { _id: user_to_delete_id } } })
         const second_friend_removal = await User.findOneAndUpdate({ _id: user_to_delete_id }, { $pull: { friends: { _id: user_id } } })
 
-        if (first_friend_removal && second_friend_removal) return res.status(200).json({ message: "Friend removed" })
+        const first_user_notes_access_rights_removed = await Note.updateMany(
+            
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
+            { $pull: { access_rights: { _id: user_to_delete_id } } }
+            
+            )
+
+        const first_user_process_access_rights_removed = await Process.updateMany(
+            
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
+            { $pull: { access_rights: { _id: user_to_delete_id } } }
+
+            )
+
+        const second_user_notes_access_rights_removed = await Note.updateMany(
+            
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
+            { $pull: { access_rights: { _id: user_to_delete_id } } }
+            
+            )
+
+        const second_user_process_access_rights_removed = await Process.updateMany(
+            
+            {created_by:user_to_delete_id, access_rights: { $elemMatch: { _id: user_id } }},
+            { $pull: { access_rights: { _id: user_id } } }
+
+            )
+
+        if (first_friend_removal && second_friend_removal && first_user_notes_access_rights_removed && first_user_process_access_rights_removed && second_user_notes_access_rights_removed && second_user_process_access_rights_removed) return res.status(200).json({ message: "Friend removed" })
     }
 
     catch (error) {

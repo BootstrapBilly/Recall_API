@@ -12,8 +12,6 @@ exports.find_content = async (req, res, next) => {
 
     try {
 
-        console.log(user_id)
-
         //search for all notes         with the given user id
         const notes = await Note.find({
 

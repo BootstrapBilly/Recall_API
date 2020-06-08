@@ -24,6 +24,15 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
+    test.post("Shares access to another note", "/access", 200, "Rights granted",
+
+    {
+        user_id: testing_variables.short_id,
+        friend_id:testing_variables.all_caps_id,
+        note_or_process_id:testing_variables.testing_note_4,
+        type:"note"
+    })
+
     test.post("Shares access rights to second note", "/access", 200, "Rights granted",
 
     {

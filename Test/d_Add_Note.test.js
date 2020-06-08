@@ -404,7 +404,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.post("Hard coded note id for adding a process 1", "/notes", 201, "Note added successfully",
+    test.post("Hard coded note id for adding a note 1", "/notes", 201, "Note added successfully",
 
         {
             _id:testing_variables.testing_note_1,
@@ -416,7 +416,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             syntax: "some syntax",
         })
 
-    test.post("Hard coded note id for adding a process 2", "/notes", 201, "Note added successfully",
+    test.post("Hard coded note id for adding a note 2", "/notes", 201, "Note added successfully",
 
         {
             _id:testing_variables.testing_note_2,
@@ -429,7 +429,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.post("Hard coded note id for adding a process 3", "/notes", 201, "Note added successfully",
+    test.post("Hard coded note id for adding a note 3", "/notes", 201, "Note added successfully",
 
         {
             _id:testing_variables.testing_note_3,
@@ -442,7 +442,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.post("Hard coded note id for adding a process 4", "/notes", 201, "Note added successfully",
+    test.post("Hard coded note id for adding a note 4", "/notes", 201, "Note added successfully",
 
         {
             _id:testing_variables.testing_note_4,
