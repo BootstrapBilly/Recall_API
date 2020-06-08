@@ -28,12 +28,6 @@ exports.long_id = "5eda5d88602e3e2bc0ac2458"
 exports.numbers_id = "5eda5d88602e3e2bc0ac2459"
 exports.all_caps_id = "5edb4f7cc3bb490864a3707d"
 
-exports.friend_testing_user = "5eda1ccf6f60d4238429bc65"//test1@test.com
-exports.edge_friend_testing_user = "5eda1cd06f60d4238429bc66"//edge@test.com
-exports.caps_friend_testing_user = "5eda1cd06f60d4238429bc67"//caps@test.com
-exports.numbers_friend_testing_user = "5eda1cd06f60d4238429bc68"//numbers@test.com
-exports.long_friend_testing_user = "5eda1cd16f60d4238429bc69"//long@test.com
-
 exports.title = "title"
 exports.title1 = "title1"
 exports.title2 = "title2"

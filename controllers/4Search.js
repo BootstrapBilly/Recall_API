@@ -3,7 +3,9 @@ const Process = require("../models/Process")//Import the process model to intera
 
 exports.find_content = async (req, res, next) => {
 
-    if(!req.body.search_string) return res.status(424).json({ message:"A search string is required" })
+    if(!req.body.search_string) return res.status(424).json({ message:"A search string is required" })//no search string ? return a 424 and inform them
+
+    if(!req.body.user_id) return res.status(400).json({message:"Bad request"})//No user id? return a 400 and inform them
 
     const user_id = req.body.user_id//extract the user id from the request body
     const search_string = req.body.search_string.toString()//extract the search string from the request body
