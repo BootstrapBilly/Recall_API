@@ -1,4 +1,5 @@
 //routes
+const verify_jwt = require("./middleware/verify_jwt")
 const authentication = require("./routes/0-Authentication_router")
 const password_reset = require("./routes/1-Password_reset_router")
 const note = require("./routes/2-Note_router")
@@ -6,6 +7,8 @@ const process = require("./routes/3-Process_router")
 const search = require("./routes/4-Search_router")
 const friends = require("./routes/5-Friends_router")
 const access = require("./routes/6-Access_router")
+const delete_account = require("./routes/7-Delete_account_router")
+
 
 
 //External
@@ -32,12 +35,16 @@ server.use((req, res, next) => {
 server.use(bodyParser.json());//parse any incoming json requests
 
 server.use(authentication);//handle the authentication requests
+
+server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
+
 server.use(password_reset);//handle the password_reset requests
 server.use(note);//handle the note requests
 server.use(process);//handle the process requests
 server.use(search);//handle the search requests
 server.use(friends);//handle the friends requests
 server.use(access);//handle the share_access requests
+server.use(delete_account);//handle the share_access requests
 
 
 //* Database connection

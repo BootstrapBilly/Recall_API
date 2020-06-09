@@ -109,31 +109,31 @@ exports.delete_friend = async (req, res, next) => {
         const first_friend_removal = await User.findOneAndUpdate({ _id: user_id }, { $pull: { friends: { _id: user_to_delete_id } } })
         const second_friend_removal = await User.findOneAndUpdate({ _id: user_to_delete_id }, { $pull: { friends: { _id: user_id } } })
 
-        const first_user_notes_access_rights_removed = await Note.updateMany(
+        const first_user_notes_access_rights_removed = await Note.updateMany(//find and update all notes
             
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
-            { $pull: { access_rights: { _id: user_to_delete_id } } }
-            
-            )
-
-        const first_user_process_access_rights_removed = await Process.updateMany(
-            
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
-            { $pull: { access_rights: { _id: user_to_delete_id } } }
-
-            )
-
-        const second_user_notes_access_rights_removed = await Note.updateMany(
-            
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},
-            { $pull: { access_rights: { _id: user_to_delete_id } } }
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+            { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
             
             )
 
-        const second_user_process_access_rights_removed = await Process.updateMany(
+        const first_user_process_access_rights_removed = await Process.updateMany(//find and update all notes
+            
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+            { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
+
+            )
+
+        const second_user_notes_access_rights_removed = await Note.updateMany(//find and update all notes
+            
+            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+            { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
+            
+            )
+
+        const second_user_process_access_rights_removed = await Process.updateMany(//find and update all notes
             
             {created_by:user_to_delete_id, access_rights: { $elemMatch: { _id: user_id } }},
-            { $pull: { access_rights: { _id: user_id } } }
+            { $pull: { access_rights: { _id: user_id } } }//pull the access rights out of the array
 
             )
 
