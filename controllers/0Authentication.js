@@ -106,7 +106,7 @@ exports.login = async (req, res, next) => {
 
         const user = await User.findOne({$or:[{ email_address: email }, {username:email}]})//Search the database for the given email
 
-        if (!user) return res.status(424).json({ message: "Sorry, that email does not exist in our database" })//if it doesn't exist, return a 424 and inform them
+        if (!user) return res.status(424).json({ message: "Sorry, that email/username does not exist in our database" })//if it doesn't exist, return a 424 and inform them
 
         const password_matches = await bcrypt.compare(password, user.password)//use bcyrpt to check if the hashed password in the db matches the given password
 
