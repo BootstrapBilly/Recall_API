@@ -1,4 +1,8 @@
-const mailjet = require ('node-mailjet').connect('812075c4a93e6b1d8dbdc0931e0a96a8', '6f319375130bfd8d073a8f0a3bb02c41')//set up the mailjet API and enter the keys
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const mailjet = require ('node-mailjet').connect(process.env.key1, process.env.key2)//set up the mailjet API and enter the keys
 
 exports.password_reset = (email, token, user_id) => {
 

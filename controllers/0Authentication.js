@@ -2,6 +2,7 @@ const User = require("../models/User")//import the user schema to interact with 
 const bcrypt = require("bcryptjs")//import bcrypt to encrypt the password
 const jwt = require("jsonwebtoken")//Import json web tokens 
 
+
 const validate_password = require("../util/validate_password")
 
 exports.create_user = async (req, res, next) => {
@@ -10,17 +11,23 @@ exports.create_user = async (req, res, next) => {
     if (!req.body.email || !req.body.password || !req.body.repeat_password || !req.body.username) return res.status(400).json({ message: "Bad request" })
 
     const email = req.body.email.toLowerCase() //extract the email and convert it to lowercase
-    const password = req.body.password//password
-    const repeat_password = req.body.repeat_password//and second password from the response
+    let password = req.body.password//password
+    let repeat_password = req.body.repeat_password//and second password from the response
     const username = req.body.username.toString().toLowerCase()//the username
+
+    if(req.body.password === "facebook_signup"){
+
+        password = process.env.test
+        repeat_password = process.env.test
+    }
 
     try {
 
         const email_in_use = await User.findOne({ email_address: email })//Does the email already exist in the database?
-        if (email_in_use) return res.status(424).json({ message: "Sorry, that email in unavailable" })//if so, abort and inform the user
+        if (email_in_use) return res.status(424).json({ message: "Sorry, that email is unavailable" })//if so, abort and inform the user
 
         const username_in_use = await User.findOne({ username: username })//Check to see if the username already exists in the database
-        if (username_in_use) return res.status(424).json({ message: "Sorry, that username in unavailable" })//if so, abort and inform the user
+        if (username_in_use) return res.status(424).json({ message: "Sorry, that username is unavailable" })//if so, abort and inform the user
 
         const result = validate_password.validate(password, repeat_password)//Scan the password, checking that it conforms
         if (result !== "okay") return res.status(424).json({ message: result })//if the password is not valid, send a response with the reason why
@@ -149,7 +156,7 @@ const generate_jwt = (user_id) => {
 
     const token = jwt.sign({//create the web token here
         user_id: user_id.toString()//Store the user id inside the token  - Must be converted to string because its a mongodb id object
-    }, "You'll-_!neverguessthis!",//Secret to the token
+    }, process.env.jwt_secret,//Secret to the token
         { expiresIn: "1h" }//Expiry time set here - 1 hour is common
     );
 

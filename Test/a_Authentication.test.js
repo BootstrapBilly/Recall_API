@@ -62,7 +62,7 @@ describe("Create account - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.post("Signs up with an email in use by someone else", "/user", 424, "Sorry, that email in unavailable",
+    test.post("Signs up with an email in use by someone else", "/user", 424, "Sorry, that email is unavailable",
         {
 
             email: testing_variables.standard_email,
@@ -72,7 +72,7 @@ describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.post("Signs up with a password which is less than 8 characters -> 'Passwor'", "/user", 424, "Your password must be at least 8 characters.",
+    test.post("Signs up with a password which is less than 8 characters -> 'Passwor'", "/user", 424, "Your password must be at least 8 characters",
         {
             email: "test@testa.com",
             password: "Passwor",
@@ -82,7 +82,7 @@ describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
         })
 
 
-    test.post("Sign up with a password with no capitals -> 'password67'", "/user", 424, "Your password must contain at least 1 uppercase letter.",
+    test.post("Sign up with a password with no capitals -> 'password67'", "/user", 424, "Your password must contain at least 1 uppercase letter",
         {
             email: "test@testa.com",
             password: "password67",
@@ -91,7 +91,7 @@ describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.post("Sign up with passwords which do not match", "/user", 424, "Your passwords must match.",
+    test.post("Sign up with passwords which do not match", "/user", 424, "Your passwords must match",
         {
             email: "test@testa.com",
             password: "password67",
@@ -100,7 +100,7 @@ describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.post("Signs up with a valid email, but username which is in use", "/user", 424, "Sorry, that username in unavailable",
+    test.post("Signs up with a valid email, but username which is in use", "/user", 424, "Sorry, that username is unavailable",
         {
             email: "non-used@test.com",
             password: "passWord",
@@ -187,7 +187,7 @@ describe("Create account - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("Login - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.post("Logs with an email which doesn't exist", "/login", 424, "Sorry, that email does not exist in our database",
+    test.post("Logs with an email which doesn't exist", "/login", 424, "Sorry, that email/username does not exist in our database",
         {
             email: "No_existo@test.com",
             password: testing_variables.standard_password

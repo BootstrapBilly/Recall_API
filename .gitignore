@@ -1,2 +1,4 @@
 node_modules
 mailjet.env
+.env
+nodemon.json
