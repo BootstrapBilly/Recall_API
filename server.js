@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 //-File configuration
 dotenv.config();
 
-const MONGODBURI = process.env.db_string;//The mongodb connection string
+const MONGODBURI = process.env.db_string//The mongodb connection string
 
 const server = express();
 
