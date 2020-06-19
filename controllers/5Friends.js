@@ -8,7 +8,7 @@ exports.add_friend = async (req, res, next) => {
     if (!req.body.username || !req.body.user_id) return res.status(400).json({ message: "Bad request" })
 
     const requester_user_id = req.body.user_id//extract the user id from the request
-    const username = req.body.username//extract the username receiving the friend request
+    const username = req.body.username.toString().toLowerCase()//extract the username receiving the friend request
 
     try {
 

@@ -36,7 +36,7 @@ server.use(bodyParser.json());//parse any incoming json requests
 
 server.use(authentication);//handle the authentication requests
 
-server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
+// server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
 
 server.use(password_reset);//handle the password_reset requests
 server.use(note);//handle the note requests

@@ -12,7 +12,7 @@ exports.create_user = async (req, res, next) => {
     const email = req.body.email.toLowerCase() //extract the email and convert it to lowercase
     const password = req.body.password//password
     const repeat_password = req.body.repeat_password//and second password from the response
-    const username = req.body.username//the username
+    const username = req.body.username.toString().toLowerCase()//the username
 
     try {
 
@@ -98,13 +98,13 @@ exports.login = async (req, res, next) => {
     //if any required fields are missing, return a 400 bad request
     if (!req.body.email || !req.body.password) return res.status(400).json({ message: "Bad request" })
 
-    const email = req.body.email.toLowerCase() //extract the email and convert it to lower case
+    const email = req.body.email.toString().toLowerCase() //extract the email and convert it to lower case
     const password = req.body.password//password
     const request_ip = req.connection.remoteAddress//grab the request IP
 
     try {
 
-        const user = await User.findOne({ email_address: email })//Search the database for the given email
+        const user = await User.findOne({$or:[{ email_address: email }, {username:email}]})//Search the database for the given email
 
         if (!user) return res.status(424).json({ message: "Sorry, that email does not exist in our database" })//if it doesn't exist, return a 424 and inform them
 
