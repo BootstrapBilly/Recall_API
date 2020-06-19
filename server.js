@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 //-File configuration
 dotenv.config();
 
-const MONGODBURI = "mongodb://Billy:bjc123@billy-shard-00-00-qqthk.mongodb.net:27017,billy-shard-00-01-qqthk.mongodb.net:27017,billy-shard-00-02-qqthk.mongodb.net:27017/Recall?ssl=true&replicaSet=Billy-shard-0&authSource=admin&retryWrites=true&w=majority"
+const MONGODBURI = `mongodb://Billy:${process.env.mongopw}@billy-shard-00-00-qqthk.mongodb.net:27017,billy-shard-00-01-qqthk.mongodb.net:27017,billy-shard-00-02-qqthk.mongodb.net:27017/Recall?ssl=true&replicaSet=Billy-shard-0&authSource=admin&retryWrites=true&w=majority`
 //The mongodb connection string
 
 const server = express();
