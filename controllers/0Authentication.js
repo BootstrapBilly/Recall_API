@@ -5,6 +5,46 @@ const jwt = require("jsonwebtoken")//Import json web tokens
 
 const validate_password = require("../util/validate_password")
 
+exports.check_email = async (req,res,next) => {
+
+    if(!req.body.email) return res.status(400).json({ message: "Bad request" })//if there is no email, return 400 bad request
+
+    const email = req.body.email.toLowerCase() //extract the email and convert it to toLowerCase
+
+    try{
+        const email_in_use = await User.findOne({ email_address: email })//Does the email already exist in the database?
+        if (email_in_use) return res.status(424).json({ message: "Sorry, that email is unavailable" })//if so, abort and inform the user
+        else return res.status(200).json({message:"Email is okay"})//otherwise sebd a 200, email is okay
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}
+
+exports.check_username = async (req,res,next) => {
+
+    if(!req.body.username) return res.status(400).json({ message: "Bad request" })//if there is no username, return 400 bad request
+
+    const username = req.body.username.toString().toLowerCase()//the username
+
+    try{
+        const username_in_use = await User.findOne({ username: username })//Check to see if the username already exists in the database
+        if (username_in_use) return res.status(424).json({ message: "Sorry, that username is unavailable" })//if so, abort and inform the user
+        else return res.status(200).json({message:"Username is okay"})//otherwise send a 200, username is okay
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}
+
 exports.create_user = async (req, res, next) => {
 
     //if any required fields are missing, return a 400 bad request
