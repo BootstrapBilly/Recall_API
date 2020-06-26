@@ -1,5 +1,26 @@
 const Note = require("../models/Note")//import the Note model to interact with database
 
+exports.check_title = async (req,res,next) => {
+
+    if(!req.body.title || !req.body.user_id) return res.status(400).json({ message: "Bad request" })//if there is no email, return 400 bad request
+
+    const title = req.body.title.toLowerCase() //extract the title and convert it to toLowerCase
+    const user_id = req.body.user_id // extract the user id from the request
+
+    try{
+        const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
+        if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform the user
+        else return res.status(200).json({message:"Title is okay"})//otherwise sebd a 200, email is okay
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}
+
 exports.create_note = async (req, res, next) => {
 
     if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user

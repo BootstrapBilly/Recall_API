@@ -13,4 +13,6 @@ router.patch("/notes", Note.update_note)
 router.delete("/notes", Note.delete_note)
 router.post("/get_notes", Note.get_notes)
 
+router.post("check_note_title", Note.check_title)
+
 module.exports = router;
