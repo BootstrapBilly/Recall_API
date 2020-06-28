@@ -13,5 +13,6 @@ router.patch("/processes", Process.update_process)
 router.delete("/processes", Process.delete_process)
 router.post("/get_processes", Process.get_processes)
 
+router.post("/check_process_title", Process.check_title)
 
 module.exports = router;
