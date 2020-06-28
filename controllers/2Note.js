@@ -34,6 +34,8 @@ exports.create_note = async (req, res, next) => {
     let search_tags = req.body.search_tags;//extract the search tags from the request
     const syntax = req.body.syntax //extract the syntax from the request
 
+    if(search_tags && search_tags !== Array) search_tags = search_tags.split(" ")//convert the given search tags to an array by splitting the string
+
     try {
 
         const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user

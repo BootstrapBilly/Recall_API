@@ -12,7 +12,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: null,
             subject: "Subject",
             body: "body",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -24,7 +24,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: "",
             subject: "Subject",
             body: "body",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -36,7 +36,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: testing_variables.title,
             subject: "Subject",
             body: null,
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -48,7 +48,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: testing_variables.title2,
             subject: "Subject",
             body: "",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -60,7 +60,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: testing_variables.title2,
             subject: "Subject",
             body: "sdfsdf",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -72,7 +72,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: testing_variables.title2,
             subject: "Subject",
             body: "fdsfs",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
@@ -90,7 +90,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title,
             subject: null,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -102,7 +102,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: 4353453453454,
             subject: null,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -114,7 +114,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title2,
             subject: null,
             body: 43534543534435,
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -126,7 +126,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: 32543543543,
             subject: null,
             body: 43534543534435,
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -138,7 +138,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: "a",
             subject: null,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -150,7 +150,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.capital_title,
             subject: null,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -162,7 +162,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
             subject: null,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -174,7 +174,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title3,
             subject: null,
             body: "a",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -186,7 +186,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title4,
             subject: null,
             body: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdldfgdfgdfgdfbvtdfgh543645645654 564 654 654645654 65454@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -198,7 +198,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title5,
             subject: "a",
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -210,7 +210,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title6,
             subject: "asjhadgashjdgasjhdgasjhdgsdfsdfsdfasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -222,7 +222,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title7,
             subject: 245874389743,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -234,7 +234,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title8,
             subject: "subject",
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "a",
 
         })
@@ -246,7 +246,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title9,
             subject: "subject",
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: `const email = req.body.email //extract the email
         const password = req.body.password//password
         const repeat_password = req.body.repeat_password//and second password from the response
@@ -291,7 +291,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title10,
             subject: 245874389743,
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: 38927432897489324783274892374,
 
         })
@@ -303,7 +303,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title11,
             subject: "subject",
             body: "body",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -315,7 +315,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title12,
             subject: "subject",
             body: "body",
-            search_tags: ["tag1"],
+            search_tags: ["tag1"].join(" "),
             syntax: ``,
 
         })
@@ -327,7 +327,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title13,
             subject: "subject",
             body: "body",
-            search_tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
+            search_tags: ["tag1", "tag2", "tag3", "tag4", "tag5"].join(" "),
             syntax: ``,
 
         })
@@ -339,7 +339,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title14,
             subject: "subject",
             body: "body",
-            search_tags: ["tag1", "tag2", 37643782, 32984903, "tag3", "tag4", "tag5"],
+            search_tags: ["tag1", "tag2", 37643782, 32984903, "tag3", "tag4", "tag5"].join(" "),
             syntax: ``,
 
         })
@@ -351,7 +351,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title15,
             subject: "Subject",
             body: "body",
-            search_tags: ["tag1", "tag1"],
+            search_tags: ["tag1", "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -363,7 +363,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title16,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345],
+            search_tags: [435345, 435345].join(" "),
             syntax: "some syntax",
 
         })
@@ -375,7 +375,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title17,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -387,7 +387,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.unique_title,
             subject: null,
             body: "a",
-            search_tags: [],
+            search_tags: [].join(" "),
             syntax: "",
 
         })
@@ -399,7 +399,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title17,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -412,7 +412,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title5,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
         })
 
@@ -424,7 +424,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title6,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -437,7 +437,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title8,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -450,7 +450,7 @@ describe("Add a note - \x1b[32m expected passes \x1b[37m", () => {
             title: testing_variables.title9,
             subject: "Subject",
             body: "body",
-            search_tags: [435345, 435345, "tag1"],
+            search_tags: [435345, 435345, "tag1"].join(" "),
             syntax: "some syntax",
 
         })
@@ -468,7 +468,7 @@ describe("Add a note - \x1b[31m expected failures \x1b[37m", () => {
             title: testing_variables.title,
             subject: "Subject",
             body: "body",
-            search_tags: ["tag1", "tag2", "tag3"],
+            search_tags: ["tag1", "tag2", "tag3"].join(" "),
             syntax: "some syntax",
 
         })
