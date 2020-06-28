@@ -33,7 +33,7 @@ exports.find_content = async (req, res, next) => {
                         //e.g. "test" would match title:"test paper"
                         { title: { '$regex': search_string, '$options': 'i' } },//does the title contain the given search string ?
                         { subject: { '$regex': search_string, '$options': 'i' } },//does the subject contain the given search string ?
-                        { body: { '$regex': search_string, '$options': 'i' } },//does the body contain the given search string ?
+                        // { body: { '$regex': search_string, '$options': 'i' } },//does the body contain the given search string ?
                         { syntax: { '$regex': search_string, '$options': 'i' } },//does the syntax contain the given search string ?
                         { search_tags: { '$regex': search_string, '$options': 'i' } }//do any of the search tags contain the given search string ?
 
@@ -64,7 +64,7 @@ exports.find_content = async (req, res, next) => {
                         //e.g. "test" would match title:"test paper"
                         { title: { '$regex': search_string, '$options': 'i' } },//does the title contain the given search string ?
                         { subject: { '$regex': search_string, '$options': 'i' } },//does the subject contain the given search string ?
-                        { body: { '$regex': search_string, '$options': 'i' } },//does the body contain the given search string ?
+                        // { body: { '$regex': search_string, '$options': 'i' } },//does the body contain the given search string ?
                         { search_tags: { '$regex': search_string, '$options': 'i' } }//do any of the search tags contain the given search string ?
 
                     ]
