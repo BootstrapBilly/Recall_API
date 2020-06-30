@@ -60,8 +60,8 @@ describe("Get all notes after rights granted - \x1b[32m expected passes \x1b[37m
                 user_id: testing_variables.standard_id,
                 search_string: "e"
             },
-            "notes", 23,//Expect res.body.notes to have a length of 23
-            "processes", 21)//Expect res.body.processes to have a length of 21
+            "notes", 20,//Expect res.body.notes to have a length of 23
+            "processes", 18)//Expect res.body.processes to have a length of 21
 
 
     })

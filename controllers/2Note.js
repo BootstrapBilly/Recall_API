@@ -126,6 +126,8 @@ exports.update_note = async (req, res, next) => {
 
 exports.delete_note = async (req, res, next) => {
 
+    console.log(req.body)
+
     if(!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
 
     const user_id = req.body.user_id;//extract the user id from the request

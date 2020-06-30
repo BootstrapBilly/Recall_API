@@ -70,8 +70,8 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
             user_id: testing_variables.standard_id,
             search_string: 345
         },
-        "notes", 5,//Expect res.body.notes to have a length of 5
-        "processes", 5)//Expect res.body.processes to have a length of 5
+        "notes", 4,//Expect res.body.notes to have a length of 4
+        "processes", 4)//Expect res.body.processes to have a length of 5
 
     test.post("First user searches for a exact title (number) => '43895734897589440'", "/search", 200, "search executed",
         {
@@ -143,8 +143,8 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
             user_id: testing_variables.standard_id,
             search_string: "gashjgg"
         },
-        "notes", 2,//Expect res.body.notes to have a length of 2
-        "processes", 2)//Expect res.body.processes to have a length of 0
+        "notes", 1,//Expect res.body.notes to have a length of 1
+        "processes", 1)//Expect res.body.processes to have a length of 1
 
     test.post("First user searches by exact subject (String) => 'new_subject'", "/search", 200, "search executed",
         {
@@ -176,48 +176,48 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
             user_id: testing_variables.standard_id,
             search_string: "new_bo"
         },
-        "notes", 8,//Expect res.body.notes to have a length of 2
-        "processes", 7)//Expect res.body.processes to have a length of 0
+        "notes", 0,//Expect res.body.notes to have a length of 2
+        "processes", 0)//Expect res.body.processes to have a length of 0
 
     test.post("First user searches by exact body (String) => 'new_body'", "/search", 200, "search executed",
         {
             user_id: testing_variables.standard_id,
             search_string: "new_body"
         },
-        "notes", 8,//Expect res.body.notes to have a length of 2
-        "processes", 7)//Expect res.body.processes to have a length of 0
+        "notes", 0,//Expect res.body.notes to have a length of 2
+        "processes", 0)//Expect res.body.processes to have a length of 0
 
     test.post("First user searches by partial body (number) => '353453435'", "/search", 200, "search executed",
         {
             user_id: testing_variables.standard_id,
             search_string: 353453435
         },
-        "notes", 1,//Expect res.body.notes to have a length of 2
-        "processes", 1)//Expect res.body.processes to have a length of 0
+        "notes", 0,//Expect res.body.notes to have a length of 2
+        "processes", 0)//Expect res.body.processes to have a length of 0
 
     test.post("First user searches by exact body (number) => '34543534534354'", "/search", 200, "search executed",
         {
             user_id: testing_variables.standard_id,
             search_string: 34543534534354
         },
-        "notes", 1,//Expect res.body.notes to have a length of 2
-        "processes", 1)//Expect res.body.processes to have a length of 0
+        "notes", 0,//Expect res.body.notes to have a length of 2
+        "processes", 0)//Expect res.body.processes to have a length of 0
 
     test.post("First user searches by partial, multi category string => 'e'", "/search", 200, "search executed",
         {
             user_id: testing_variables.standard_id,
             search_string: "e"
         },
-        "notes", 21,//Expect res.body.notes to have a length of 2
-        "processes", 21)//Expect res.body.processes to have a length of 0
+        "notes", 18,//Expect res.body.notes to have a length of 2
+        "processes", 18)//Expect res.body.processes to have a length of 0
 
     test.post("First user searches by multi category number => '3'", "/search", 200, "search executed",
         {
             user_id: testing_variables.standard_id,
             search_string: 3
         },
-        "notes", 11,//Expect res.body.notes to have a length of 11
-        "processes", 10)//Expect res.body.processes to have a length of 10
+        "notes", 10,//Expect res.body.notes to have a length of 11
+        "processes", 9)//Expect res.body.processes to have a length of 10
 
     test.post("First user searches with capital search string", "/search", 200, "search executed",
         {

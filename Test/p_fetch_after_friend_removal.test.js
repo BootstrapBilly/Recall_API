@@ -42,13 +42,13 @@ describe("Get all notes after deleted by friend - \x1b[32m expected passes \x1b[
             "processes", 0)//Expect res.body.processes to have a length of 1
 
 
-        test.post("User with many owned notes, lost friend who granted access to 1 additional note should return 21",   "/search", 200, "search executed",
+        test.post("User with many owned notes, lost friend who granted access to 1 additional note ",   "/search", 200, "search executed",
             {
                 user_id: testing_variables.standard_id,
                 search_string: "e"
             },
-            "notes", 21,//Expect res.body.notes to have a length of 21
-            "processes", 21)//Expect res.body.processes to have a length of 21
+            "notes", 18,//Expect res.body.notes to have a length of 21
+            "processes", 18)//Expect res.body.processes to have a length of 21
 
 
     })

@@ -55,13 +55,13 @@ describe("Get all notes after rights removed - \x1b[32m expected passes \x1b[37m
             "processes", 1)//Expect res.body.processes to have a length of 1
 
 
-        test.post("User with many owned notes, and an additional 2 through access rights, 1 removed, other doesn't match, searches using 'e' should return 22", "/search", 200, "search executed",
+        test.post("User with many owned notes, and an additional 2 through access rights, 1 removed, other doesn't match, searches using 'e'", "/search", 200, "search executed",
             {
                 user_id: testing_variables.standard_id,
                 search_string: "e"
             },
-            "notes", 22,//Expect res.body.notes to have a length of 22
-            "processes", 21)//Expect res.body.processes to have a length of 21
+            "notes", 19,//Expect res.body.notes to have a length of 22
+            "processes", 18)//Expect res.body.processes to have a length of 21
 
 
     })
