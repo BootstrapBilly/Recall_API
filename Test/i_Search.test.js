@@ -71,7 +71,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
             search_string: 345
         },
         "notes", 4,//Expect res.body.notes to have a length of 4
-        "processes", 4)//Expect res.body.processes to have a length of 5
+        "processes", 4)//Expect res.body.processes to have a length of 4
 
     test.post("First user searches for a exact title (number) => '43895734897589440'", "/search", 200, "search executed",
         {

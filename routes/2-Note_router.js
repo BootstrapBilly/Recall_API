@@ -9,7 +9,7 @@ const router = express.Router();//initialise the router
 
 //routes
 router.post("/notes", Note.create_note)
-router.patch("/notes", Note.update_note)
+router.post("/update_note", Note.update_note)
 router.post("/delete_note", Note.delete_note)
 router.post("/get_notes", Note.get_notes)
 
