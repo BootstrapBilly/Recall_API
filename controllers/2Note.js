@@ -61,10 +61,18 @@ exports.create_note = async (req, res, next) => {
 
         })
 
-        const note_saved = await note.save()//save the new notes
+        let note_saved = await note.save()//save the new note
+
+        const fetch_note = await Note.findOne({title:title})//fetch the note again, to overwrite the id (Necessary for automated testing)
 
         //if it was saved successfully, send the corresponding response
-        if (note_saved) return res.status(201).json({ message: "Note added successfully" })
+        if (note_saved && fetch_note) {
+
+            note_saved._id = fetch_note._id//set the id of the note to return
+
+            return res.status(201).json({ message: "Note added successfully", note:note_saved}) //return the note
+
+        }
 
     }
 
