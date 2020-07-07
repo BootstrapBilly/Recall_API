@@ -44,7 +44,7 @@ exports.create_note = async (req, res, next) => {
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
-        .map(String)//and convert all elements to a string
+        .map(String => String.toLowerCase())//and convert all elements to a string
 
         //* Checks passed
 
