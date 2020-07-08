@@ -70,7 +70,7 @@ exports.create_note = async (req, res, next) => {
 
             note_saved._id = fetch_note._id//set the id of the note to return
 
-            return res.status(201).json({ message: "Note added successfully", note:note_saved}) //return the note
+            return res.status(201).json({ message: "Note added successfully", note:fetch_note}) //return the note
 
         }
 
@@ -128,7 +128,7 @@ exports.update_note = async (req, res, next) => {
 
         })
 
-        if (note_updated) return res.status(201).json({ message: "note updated successfully", id:note_updated._id })
+        if (note_updated) return res.status(201).json({ message: "note updated successfully", id:note_updated._id, note:note_updated, title:new_title })
     }
 
     catch (error) {
