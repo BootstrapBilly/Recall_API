@@ -105,7 +105,12 @@ exports.update_note = async (req, res, next) => {
 
             const title_in_use = await Note.findOne({ title: new_title, created_by: user_id })//check to see if it is in use already
 
-            if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform them
+            if (title_in_use) {
+
+                const note = await Note.findOne({title:title, created_by:user_id})
+                return res.status(424).json({ message: "You already have a note with that title, please choose another", id:note._id }
+                
+                )}//if it is, send a 424 and inform them
 
         }
 
