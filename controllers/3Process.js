@@ -26,14 +26,14 @@ exports.create_process = async (req, res, next) => {
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
 
     //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
-    if (!req.body.title || !req.body.notes || req.body.notes && !req.body.notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
+    if (!req.body.title || !req.body.notes || req.body.selected_notes && !req.body.notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
 
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
     const subject = req.body.subject;//extract the subject from the request
     const body = req.body.body;//extract the body from the request
     let search_tags = req.body.search_tags;//extract the search tags from the request
-    const notes = req.body.notes//extract the notes from the request
+    const notes = req.body.selected_notes//extract the notes from the request
 
     try {
 
