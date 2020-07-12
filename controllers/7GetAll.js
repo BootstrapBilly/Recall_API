@@ -1,0 +1,39 @@
+const Note = require("../models/Note")//import the note schema to interact with the database
+const Process = require("../models//Process")//import the process schema to interact with the database
+
+exports.get_all = async (req, res, next) => {
+
+    console.log(req.body)
+
+    if(!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
+
+    const user_id = req.body.user_id;//extract the user id from the request body
+
+    try {
+
+        const notes_fetched = await Note.find({
+
+            $or:[//either of the following criteria will return a match
+                { created_by: user_id },//created by the user ?
+                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the note?
+            ]})//fetch all notes which were created by the given user
+
+        const processes_fetched = await Process.find({
+
+            $or:[//either of the following criteria will return a match
+                { created_by: user_id },//created by the user ?
+                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the note?
+            ]})//fetch all notes which were created by the given user
+
+        //once the notes have been fetched (even if 0 was found)
+        notes_fetched && processes_fetched && res.status(200).json({ message: "Notes and processes retrieved", notes:notes_fetched, processes:processes_fetched})//return a 200 with all found notes attached
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}

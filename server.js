@@ -8,14 +8,15 @@ const search = require("./routes/4-Search_router")
 const friends = require("./routes/5-Friends_router")
 const access = require("./routes/6-Access_router")
 const delete_account = require("./routes/7-Delete_account_router")
-const dotenv = require('dotenv');
-const helmet = require("helmet")
+const get_all = require("./routes/8-Get_all_router")
 
 
 //External
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const helmet = require("helmet")
 
 //-File configuration
 dotenv.config();
@@ -50,6 +51,7 @@ server.use(search);//handle the search requests
 server.use(friends);//handle the friends requests
 server.use(access);//handle the share_access requests
 server.use(delete_account);//handle the share_access requests
+server.use(get_all);//handle the share_access requests
 
 
 //* Database connection

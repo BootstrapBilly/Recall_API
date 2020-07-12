@@ -74,6 +74,8 @@ exports.find_content = async (req, res, next) => {
 
         })
 
+        console.log(processes)
+
         return res.status(200).json({ notes: notes, processes: processes, message: "search executed" })
     }
 
