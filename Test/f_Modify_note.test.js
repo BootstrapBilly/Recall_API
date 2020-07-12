@@ -5,7 +5,7 @@ const testing_variables = require("../util/testing_variables")
 
 describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.patch("modifies a note and gives no body", "/notes", 424, "A note must have a title and body",
+    test.post("modifies a note and gives no body", "/update_note", 424, "A note must have a title and body",
 
         {
             user_id: testing_variables.standard_id,
@@ -18,7 +18,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives an empty body", "/notes", 424, "A note must have a title and body",
+    test.post("modifies a note and gives an empty body", "/update_note", 424, "A note must have a title and body",
 
         {
             user_id: testing_variables.standard_id,
@@ -31,7 +31,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives no title", "/notes", 424, "A note must have a title and body",
+    test.post("modifies a note and gives no title", "/update_note", 424, "A note must have a title and body",
 
         {
             user_id: testing_variables.standard_id,
@@ -44,7 +44,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives an empty title", "/notes", 424, "A note must have a title and body",
+    test.post("modifies a note and gives an empty title", "/update_note", 424, "A note must have a title and body",
 
         {
             user_id: testing_variables.standard_id,
@@ -57,7 +57,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note , empty user id", "/notes", 400, "Bad request",
+    test.post("modifies a note , empty user id", "/update_note", 400, "Bad request",
 
         {
             user_id: "",
@@ -70,7 +70,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note , null user id", "/notes", 400, "Bad request",
+    test.post("modifies a note , null user id", "/update_note", 400, "Bad request",
 
         {
             user_id: null,
@@ -88,7 +88,7 @@ describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.patch("modifies a note and gives only a title and body, null or empty everything else", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives only a title and body, null or empty everything else", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -101,7 +101,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a number for a title", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a number for a title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -114,7 +114,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note which has a capital title, with exact CAPITAL title", "/notes", 201, "note updated successfully",
+    test.post("modifies a note which has a capital title, with exact CAPITAL title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -127,7 +127,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note which has a capital title, with incorrect case CapItAL title", "/notes", 201, "note updated successfully",
+    test.post("modifies a note which has a capital title, with incorrect case CapItAL title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -140,7 +140,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a number for a new_body", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a number for a new_body", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -153,7 +153,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a number for a title and body", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a number for a title and body", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -166,7 +166,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a short title", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a short title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -179,7 +179,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a long title", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a long title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -192,7 +192,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a short new_body", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a short new_body", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -205,7 +205,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a long new_body", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a long new_body", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -218,7 +218,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a short new_subject", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a short new_subject", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -231,7 +231,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a long new_subject", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a long new_subject", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -244,7 +244,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives a number new_subject", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives a number new_subject", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -257,7 +257,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives short new_syntax", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives short new_syntax", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -270,7 +270,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives long new_syntax", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives long new_syntax", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -316,7 +316,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives number new_syntax", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives number new_syntax", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -329,7 +329,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives no search tags", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives no search tags", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -342,7 +342,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives one search tag", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives one search tag", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -355,7 +355,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives many search tags", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives many search tags", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -368,7 +368,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives many search tags including numbers", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives many search tags including numbers", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -381,7 +381,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives duplicate search tags", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives duplicate search tags", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -394,7 +394,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives duplicate number search tags", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives duplicate number search tags", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -407,7 +407,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a note and gives mixed duplicate search tags", "/notes", 201, "note updated successfully",
+    test.post("modifies a note and gives mixed duplicate search tags", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -420,7 +420,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 modifies a note with a unique title", "/notes", 201, "note updated successfully",
+    test.post("User 2 modifies a note with a unique title", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -433,7 +433,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/notes", 201, "note updated successfully",
+    test.post("User 2 changes a note with a unique title, to a title in use by another user", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -446,7 +446,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 changes a previous note back to a unique title (Modifies a note what has previously been modified)", "/notes", 201, "note updated successfully",
+    test.post("User 2 changes a previous note back to a unique title (Modifies a note what has previously been modified)", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -459,7 +459,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User modifies a note with a non-unique title (in use by another user)", "/notes", 201, "note updated successfully",
+    test.post("User modifies a note with a non-unique title (in use by another user)", "/update_note", 201, "note updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -478,7 +478,7 @@ describe("Mofify a note - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("Modify a note - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.patch("modifies a note and gives title which already exists", "/notes", 424, "You already have a note with that title, please choose another",
+    test.post("modifies a note and gives title which already exists", "/update_note", 424, "You already have a note with that title, please choose another",
 
         {
             user_id: testing_variables.standard_id,

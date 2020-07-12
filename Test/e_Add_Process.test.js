@@ -5,7 +5,7 @@ const testing_variables = require("../util/testing_variables")
 
 describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.post("adds a process a null title", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("adds a process a null title", "/processes", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -13,11 +13,11 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
-    test.post("adds a process with an empty title", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("adds a process with an empty title", "/processes", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -25,11 +25,11 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
-    test.post("adds a process with no notes", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("adds a process with no notes", "/processes", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -37,11 +37,11 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [],
+            selected_notes: [],
 
         })
 
-    test.post("adds a process with null notes", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("adds a process with null notes", "/processes", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -49,7 +49,7 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: null,
+            selected_notes: null,
 
         })
 
@@ -61,7 +61,7 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "sdfsdf",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -73,7 +73,7 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "fdsfs",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -83,7 +83,7 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.post("adds a process with only a title and 1 note, everything else null", "/processes", 201, "process added successfully",
+    test.post("adds a process with only a title and 2 notes, everything else null", "/processes", 201, "process added successfully",
 
         {
             _id:testing_variables.testing_process_1,
@@ -92,7 +92,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
 
         })
 
@@ -105,7 +105,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -118,7 +118,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -131,7 +131,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: 43534543534435,
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -143,7 +143,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: 43534543534435,
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -155,7 +155,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
         })
 
@@ -167,7 +167,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -180,7 +180,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "a",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -193,7 +193,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "asjhadgashjdgasjhdgasjhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdldfgdfgdfgdfbvtdfgh543645645654 564 654 654645654 65454@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -206,7 +206,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "a",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -219,7 +219,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "asjhadgashjdgasjhdgasjhdgsdfsdfsdfasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdlksajdlksajdlksadhjkfrhrewhjfghsdgrfhgsdafghdsfgjhkdsgfhljsdgfjhsdgfjhdsgbfjhsdhhjfsd hgsdfjhdsgfjhkdsg khdjsgfksdfjhkdsgfhsdafkjhdsgfhjsdfhjgfhjgdsjhfghjfdsagfhkgfdhjskdfhjgfdhjkagfhjagfdhjkgfjhadsgfhkjsdgfahfdsgjhfgksfg hjfadg fhjkagfkjh fkjhdgfjhk sgfkhjgfjhkagfsdahjgf ksforyewfewou6324y 3ghj344 g34g 34hkj g4343gkh43g43hj 4hk43gk 3g4343784343876fvd",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -232,7 +232,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: 245874389743,
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1],
 
 
         })
@@ -245,7 +245,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
 
         })
 
@@ -257,7 +257,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2, testing_variables.testing_note_3, testing_variables.testing_note_4],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2, testing_variables.testing_note_3, testing_variables.testing_note_4],
 
         })
 
@@ -269,7 +269,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_1],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_1],
 
         })
 
@@ -281,7 +281,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: [],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
         })
 
     test.post("adds a process with one search tag", "/processes", 201, "process added successfully",
@@ -292,7 +292,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: ["tag1"],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_4],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_4],
 
         })
 
@@ -304,7 +304,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_3],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_3],
 
 
         })
@@ -317,7 +317,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "subject",
             body: "body",
             search_tags: ["tag1", "tag2", 37643782, 32984903, "tag3", "tag4", "tag5"],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
 
 
         })
@@ -330,7 +330,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag1"],
-            notes: [testing_variables.testing_note_2, testing_variables.testing_note_4],
+            selected_notes: [testing_variables.testing_note_2, testing_variables.testing_note_4],
 
 
         })
@@ -343,7 +343,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: [435345, 435345],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_4],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_4],
 
 
         })
@@ -356,7 +356,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: [435345, 435345, "tag1"],
-            notes: [testing_variables.testing_note_3, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_3, testing_variables.testing_note_2],
 
 
         })
@@ -369,7 +369,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: null,
             body: "a",
             search_tags: [],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_3],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_3],
 
 
         })
@@ -382,7 +382,7 @@ describe("Add a process - \x1b[32m expected passes \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: [435345, 435345, "tag1"],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
 
 
         })
@@ -401,7 +401,7 @@ describe("Add a process - \x1b[31m expected failures \x1b[37m", () => {
             subject: "Subject",
             body: "body",
             search_tags: ["tag1", "tag2", "tag3"],
-            notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
+            selected_notes: [testing_variables.testing_note_1, testing_variables.testing_note_2],
 
         })
 
