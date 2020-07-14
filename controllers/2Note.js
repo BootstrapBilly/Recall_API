@@ -132,47 +132,48 @@ exports.update_note = async (req, res, next) => {
 
             console.log()
 
-            const processes_with_note_inside_updated = await Process.updateMany(
+            const processes_with_note_inside = await Process.find({ created_by: user_id, notes: { $elemMatch: { title: title } } })
 
-                { created_by: user_id, notes: { $elemMatch: { title: title } } },
+            processes_with_note_inside.forEach(process => {
 
-                {
-                    "$set": {
+                process.notes.forEach(note => {
 
+               
 
-                        "notes.$.title": new_title,
-                        "notes.$.subject": new_subject,
-                        "notes.$.body": new_body,
-                        "notes.$.search_tags": new_search_tags,
-                        "notes.$.syntax": new_syntax,
+                    if (note.title === title) {
 
+                        console.log(note)
+
+                        note.title = new_title,
+                        note.subject = new_subject,
+                        note.body = new_body,
+                        note.search_tags = new_search_tags,
+                        note.syntax = new_syntax
                     }
-                }
 
-            )
+                })
 
-            // processes_with_note_inside.forEach(process => {
+                process.markModified("notes")
+                process.save()
 
-            //     const note_to_be_updated = process.notes.find(note => note.title === title)
+                // const note_to_be_updated = process.notes.find(note => note.title === title)
 
-            //         note_to_be_updated.title = new_title,
-            //         note_to_be_updated.subject = new_subject,
-            //         note_to_be_updated.body = new_body,
-            //         note_to_be_updated.search_tags = new_search_tags,
-            //         note_to_be_updated.syntax = new_syntax
+                // note_to_be_updated.title = new_title,
+                // note_to_be_updated.subject = new_subject,
+                // note_to_be_updated.body = new_body,
+                // note_to_be_updated.search_tags = new_search_tags,
+                // note_to_be_updated.syntax = new_syntax
 
-            //         process.save()
+                // process.save()
 
-            // })
+                // console.log(note_to_be_updated)
+            })
 
-            if (processes_with_note_inside_updated) {
-
-                return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title })
-            }
+           
 
         }
 
-
+        return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title })
     }
 
     catch (error) {
