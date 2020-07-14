@@ -1,16 +1,17 @@
 const Note = require("../models/Note")//import the Note model to interact with database
+const Process = require("../models/Process")//import the process models to interact with the db
 
-exports.check_title = async (req,res,next) => {
+exports.check_title = async (req, res, next) => {
 
-    if(!req.body.title || !req.body.user_id) return res.status(400).json({ message: "Bad request" })//if there is no title, return 400 bad request
+    if (!req.body.title || !req.body.user_id) return res.status(400).json({ message: "Bad request" })//if there is no title, return 400 bad request
 
     const title = req.body.title.toLowerCase() //extract the title and convert it to toLowerCase
     const user_id = req.body.user_id // extract the user id from the request
 
-    try{
+    try {
         const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
         if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform the user
-        else return res.status(200).json({message:"Title is okay"})//otherwise send a 200, title is okay
+        else return res.status(200).json({ message: "Title is okay" })//otherwise send a 200, title is okay
     }
 
     catch (error) {
@@ -22,7 +23,7 @@ exports.check_title = async (req,res,next) => {
 }
 
 exports.create_note = async (req, res, next) => {
-    
+
     if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
@@ -34,7 +35,7 @@ exports.create_note = async (req, res, next) => {
     let search_tags = req.body.search_tags;//extract the search tags from the request
     const syntax = req.body.syntax //extract the syntax from the request
 
-    if(search_tags && search_tags !== Array){ search_tags = search_tags.split(" ")}//convert the given search tags to an array by splitting the string
+    if (search_tags && search_tags !== Array) { search_tags = search_tags.split(" ") }//convert the given search tags to an array by splitting the string
 
     try {
 
@@ -44,7 +45,7 @@ exports.create_note = async (req, res, next) => {
 
         //if there are any search tags, 
         if (search_tags) search_tags = Array.from(new Set(search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
-        .map(String => String.toLowerCase())//and convert all elements to a string
+            .map(String => String.toLowerCase())//and convert all elements to a string
 
         //* Checks passed
 
@@ -63,14 +64,14 @@ exports.create_note = async (req, res, next) => {
 
         let note_saved = await note.save()//save the new note
 
-        const fetch_note = await Note.findOne({title:title})//fetch the note again, to overwrite the id (Necessary for automated testing)
+        const fetch_note = await Note.findOne({ title: title })//fetch the note again, to overwrite the id (Necessary for automated testing)
 
         //if it was saved successfully, send the corresponding response
         if (note_saved && fetch_note) {
 
             note_saved._id = fetch_note._id//set the id of the note to return
 
-            return res.status(201).json({ message: "Note added successfully", note:fetch_note}) //return the note
+            return res.status(201).json({ message: "Note added successfully", note: fetch_note }) //return the note
 
         }
 
@@ -84,7 +85,7 @@ exports.create_note = async (req, res, next) => {
 }
 
 exports.update_note = async (req, res, next) => {
-    
+
     if (!req.body.new_title || !req.body.new_body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
@@ -105,16 +106,17 @@ exports.update_note = async (req, res, next) => {
 
             if (title_in_use) {
 
-                const note = await Note.findOne({title:title, created_by:user_id})
-                return res.status(424).json({ message: "You already have a note with that title, please choose another", id:note._id }
-                
-                )}//if it is, send a 424 and inform them
+                const note = await Note.findOne({ title: title, created_by: user_id })
+                return res.status(424).json({ message: "You already have a note with that title, please choose another", id: note._id }
+
+                )
+            }//if it is, send a 424 and inform them
 
         }
 
         //if there are any search tags, 
         if (new_search_tags) new_search_tags = Array.from(new Set(new_search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
-        .map(String)//and convert all elements to a string
+            .map(String)//and convert all elements to a string
 
         const note_updated = await Note.findOneAndUpdate({ title: title, created_by: user_id }, {
 
@@ -126,7 +128,51 @@ exports.update_note = async (req, res, next) => {
 
         })
 
-        if (note_updated) return res.status(201).json({ message: "note updated successfully", id:note_updated._id, note:note_updated, title:new_title })
+        if (note_updated) {
+
+            console.log()
+
+            const processes_with_note_inside_updated = await Process.updateMany(
+
+                { created_by: user_id, notes: { $elemMatch: { title: title } } },
+
+                {
+                    "$set": {
+
+
+                        "notes.$.title": new_title,
+                        "notes.$.subject": new_subject,
+                        "notes.$.body": new_body,
+                        "notes.$.search_tags": new_search_tags,
+                        "notes.$.syntax": new_syntax,
+
+                    }
+                }
+
+            )
+
+            // processes_with_note_inside.forEach(process => {
+
+            //     const note_to_be_updated = process.notes.find(note => note.title === title)
+
+            //         note_to_be_updated.title = new_title,
+            //         note_to_be_updated.subject = new_subject,
+            //         note_to_be_updated.body = new_body,
+            //         note_to_be_updated.search_tags = new_search_tags,
+            //         note_to_be_updated.syntax = new_syntax
+
+            //         process.save()
+
+            // })
+
+            if (processes_with_note_inside_updated) {
+
+                return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title })
+            }
+
+        }
+
+
     }
 
     catch (error) {
@@ -139,7 +185,7 @@ exports.update_note = async (req, res, next) => {
 
 exports.delete_note = async (req, res, next) => {
 
-    if(!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
+    if (!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
 
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title.toString().toLowerCase();//extract the title from the request convert it to lower case string
@@ -163,7 +209,7 @@ exports.delete_note = async (req, res, next) => {
 
 exports.get_notes = async (req, res, next) => {
 
-    if(!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if the title is missing, send a 424 and inform the user
 
     const user_id = req.body.user_id;//extract the user id from the request body
 
@@ -171,13 +217,14 @@ exports.get_notes = async (req, res, next) => {
 
         const notes_fetched = await Note.find({
 
-            $or:[//either of the following criteria will return a match
+            $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the note?
-            ]})//fetch all notes which were created by the given user
+                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the note?
+            ]
+        })//fetch all notes which were created by the given user
 
         //once the notes have been fetched (even if 0 was found)
-        notes_fetched && res.status(200).json({ message: "notes retrieved", notes:notes_fetched})//return a 200 with all found notes attached
+        notes_fetched && res.status(200).json({ message: "notes retrieved", notes: notes_fetched })//return a 200 with all found notes attached
 
     }
 
