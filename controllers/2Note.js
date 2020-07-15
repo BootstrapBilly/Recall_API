@@ -130,46 +130,29 @@ exports.update_note = async (req, res, next) => {
 
         if (note_updated) {
 
-            console.log()
-
+            //find the processes with the note nested inside
             const processes_with_note_inside = await Process.find({ created_by: user_id, notes: { $elemMatch: { title: title } } })
 
+            //and also update them
             processes_with_note_inside.forEach(process => {
 
                 process.notes.forEach(note => {
 
-               
-
                     if (note.title === title) {
 
-                        console.log(note)
-
                         note.title = new_title,
-                        note.subject = new_subject,
-                        note.body = new_body,
-                        note.search_tags = new_search_tags,
-                        note.syntax = new_syntax
+                            note.subject = new_subject,
+                            note.body = new_body,
+                            note.search_tags = new_search_tags,
+                            note.syntax = new_syntax
                     }
 
                 })
 
-                process.markModified("notes")
+                process.markModified("notes")//mark them as modified so mongo will save them
                 process.save()
 
-                // const note_to_be_updated = process.notes.find(note => note.title === title)
-
-                // note_to_be_updated.title = new_title,
-                // note_to_be_updated.subject = new_subject,
-                // note_to_be_updated.body = new_body,
-                // note_to_be_updated.search_tags = new_search_tags,
-                // note_to_be_updated.syntax = new_syntax
-
-                // process.save()
-
-                // console.log(note_to_be_updated)
             })
-
-           
 
         }
 
@@ -196,7 +179,17 @@ exports.delete_note = async (req, res, next) => {
         const note_deleted = await Note.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
 
         //send the corresponding response
-        note_deleted ? res.status(200).json({ message: "note deleted successfully" }) : res.status(424).json({ message: "We couldn't find that note" })
+        if (note_deleted) {
+
+            const notes_pulled_from_processes = await Process.updateMany(
+
+                { created_by: user_id, notes: { $elemMatch: { title: title } } },
+                { $pull: { notes: { title: title } } },
+            )
+
+            if (notes_pulled_from_processes) return res.status(200).json({ message: "note deleted successfully" }) 
+
+        }
 
     }
 
