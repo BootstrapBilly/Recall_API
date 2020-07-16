@@ -169,7 +169,7 @@ exports.update_note = async (req, res, next) => {
 
         }
 
-        return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title, position_changed: position_changed })
+        return res.status(201).json({ message: "note updated successfully", id: note_updated && note_updated._id, note: note_updated, title: new_title, position_changed: position_changed })
     }
 
     catch (error) {
@@ -190,6 +190,8 @@ exports.delete_note = async (req, res, next) => {
     try {
 
         const note_deleted = await Note.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
+
+        if(!note_deleted) return res.status(424).json({message:"We couldn't find that note"})
 
         //send the corresponding response
         if (note_deleted) {

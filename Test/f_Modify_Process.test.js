@@ -6,7 +6,7 @@ const testing_variables = require("../util/testing_variables")
 describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
 
-    test.patch("modifies a process and gives a null title", "/processes", 400, "Bad request",
+    test.post("modifies a process and gives a null title", "/update_process", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -19,7 +19,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives an empty title", "/processes", 400, "Bad request",
+    test.post("modifies a process and gives an empty title", "/update_process", 400, "Bad request",
 
         {
             user_id: testing_variables.standard_id,
@@ -32,7 +32,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives no new title", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("modifies a process and gives no new title", "/update_process", 424, "A process must have a title and at least 1 note",
 
         {
             user_id: testing_variables.standard_id,
@@ -45,7 +45,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives an empty new title", "/processes", 424, "A process must have a title and at least 1 note",
+    test.post("modifies a process and gives an empty new title", "/update_process", 424, "A process must have a title and at least 1 note",
 
         {
             user_id: testing_variables.standard_id,
@@ -58,7 +58,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process gives a null user id", "/processes", 400, "Bad request",
+    test.post("modifies a process gives a null user id", "/update_process", 400, "Bad request",
 
         {
             user_id:null,
@@ -71,7 +71,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process gives a null user id", "/processes", 400, "Bad request",
+    test.post("modifies a process gives a null user id", "/update_process", 400, "Bad request",
 
         {
             user_id:null,
@@ -91,7 +91,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.patch("modifies a process and gives only a title and notes, null or empty everything else", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives only a title and notes, null or empty everything else", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -103,7 +103,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a number for a title", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a number for a title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -116,7 +116,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a capital letter title", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a capital letter title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -129,7 +129,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives an incorrect case capital title", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives an incorrect case capital title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -142,7 +142,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a number for a new_body", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a number for a new_body", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -155,7 +155,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a number for a title and body", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a number for a title and body", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -168,7 +168,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a short title", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a short title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -181,7 +181,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a long title", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a long title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -194,7 +194,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a short body", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a short body", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -207,7 +207,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a long body", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a long body", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -220,7 +220,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a short subject", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a short subject", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -233,7 +233,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a long subject", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a long subject", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -246,7 +246,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives a number subject", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives a number subject", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -259,7 +259,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-        test.patch("modifies a process two notes", "/processes", 201, "process updated successfully",
+        test.post("modifies a process two notes", "/update_process", 201, "process updated successfully",
 
             {
                 user_id: testing_variables.standard_id,
@@ -272,7 +272,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
             })
 
-    test.patch("modifies a process many notes", "/processes", 201, "process updated successfully",
+    test.post("modifies a process many notes", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -285,7 +285,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process with duplicate notes", "/processes", 201, "process updated successfully",
+    test.post("modifies a process with duplicate notes", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -298,7 +298,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives no search tags", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives no search tags", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -311,7 +311,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives one search tag", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives one search tag", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -324,7 +324,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives many search tags", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives many search tags", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -337,7 +337,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives many search tags including numbers", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives many search tags including numbers", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -350,7 +350,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives duplicate search tags", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives duplicate search tags", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -363,7 +363,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("modifies a process and gives duplicate number search tags", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives duplicate number search tags", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -375,7 +375,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_notes: [testing_variables.note_id1],
         })
 
-    test.patch("modifies a process and gives mixed duplicate search tags", "/processes", 201, "process updated successfully",
+    test.post("modifies a process and gives mixed duplicate search tags", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.standard_id,
@@ -388,7 +388,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 modifies a process with a unique title", "/processes", 201, "process updated successfully",
+    test.post("User 2 modifies a process with a unique title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -401,7 +401,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 changes a note with a unique title, to a title in use by another user", "/processes", 201, "process updated successfully",
+    test.post("User 2 changes a note with a unique title, to a title in use by another user", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -414,7 +414,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User 2 changes a previous note back to a unique title", "/processes", 201, "process updated successfully",
+    test.post("User 2 changes a previous note back to a unique title", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -427,7 +427,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
         })
 
-    test.patch("User modifies a process with a non-unique title (in use by another user)", "/processes", 201, "process updated successfully",
+    test.post("User modifies a process with a non-unique title (in use by another user)", "/update_process", 201, "process updated successfully",
 
         {
             user_id: testing_variables.short_id,
@@ -446,7 +446,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.patch("modifies a process and gives title which already exists", "/processes", 424, "You already have a process with that title, please choose another" ,
+    test.post("modifies a process and gives title which already exists", "/update_process", 424, "You already have a process with that title, please choose another" ,
 
         {
             user_id: testing_variables.standard_id,

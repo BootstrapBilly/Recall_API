@@ -9,7 +9,7 @@ const router = express.Router();//initialise the router
 
 //routes
 router.post("/processes", Process.create_process)
-router.patch("/processes", Process.update_process)
+router.post("/update_process", Process.update_process)
 router.delete("/processes", Process.delete_process)
 router.post("/get_processes", Process.get_processes)
 
