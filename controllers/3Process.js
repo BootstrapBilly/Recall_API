@@ -65,7 +65,7 @@ exports.create_process = async (req, res, next) => {
         const process_saved = await process.save()//save the new notes
 
         //if it was saved successfully, send the corresponding response
-        if (process_saved) return res.status(201).json({ message: "process added successfully" })
+        if (process_saved) return res.status(201).json({ message: "process added successfully", process:process_saved })
 
     }
 

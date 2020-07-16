@@ -1,5 +1,6 @@
 const Note = require("../models/Note")//import the Note model to interact with database
 const Process = require("../models/Process")//import the process models to interact with the db
+const check_if_position_changed = require("../util/check_position_change_on_update")//function to check if the note position changes on title change to trigger a re-render on the frontend
 
 exports.check_title = async (req, res, next) => {
 
@@ -97,6 +98,7 @@ exports.update_note = async (req, res, next) => {
     const new_body = req.body.new_body;//extract the body from the request
     let new_search_tags = req.body.new_search_tags;//extract the search tags from the request
     const new_syntax = req.body.new_syntax //extract the syntax from the request
+    const filter = req.body.filter //extract the filter (determines whether to display notes, process or both)
 
     try {
 
@@ -117,6 +119,17 @@ exports.update_note = async (req, res, next) => {
         //if there are any search tags, 
         if (new_search_tags) new_search_tags = Array.from(new Set(new_search_tags))//create a new array from a set of the old search tags(removes any duplicates)  
             .map(String)//and convert all elements to a string
+
+        let position_changed = false;//define a variable to determine whether the notes position has changed in the array of all notes/processes
+
+        if (new_title && (title !== new_title)) { //if they have changed the title
+
+            //the check_if_position_changed function is imported from util
+            const result = await check_if_position_changed.check(user_id, title, new_title, filter)//see if a position change is needed
+
+            position_changed = result//set the position changed variable to the result (either true or false)
+
+        }
 
         const note_updated = await Note.findOneAndUpdate({ title: title, created_by: user_id }, {
 
@@ -156,7 +169,7 @@ exports.update_note = async (req, res, next) => {
 
         }
 
-        return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title })
+        return res.status(201).json({ message: "note updated successfully", id: note_updated._id, note: note_updated, title: new_title, position_changed: position_changed })
     }
 
     catch (error) {
@@ -187,7 +200,7 @@ exports.delete_note = async (req, res, next) => {
                 { $pull: { notes: { title: title } } },
             )
 
-            if (notes_pulled_from_processes) return res.status(200).json({ message: "note deleted successfully" }) 
+            if (notes_pulled_from_processes) return res.status(200).json({ message: "note deleted successfully" })
 
         }
 
