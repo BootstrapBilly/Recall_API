@@ -66,8 +66,14 @@ exports.create_process = async (req, res, next) => {
         const process_saved = await process.save()//save the new notes
 
         //if it was saved successfully, send the corresponding response
-        if (process_saved) return res.status(201).json({ message: "process added successfully", process: process_saved })
+        if (process_saved) {
 
+            const fetch_process = await Process.findOne({created_by:user_id, title:title})
+
+            if(fetch_process) return res.status(201).json({ message: "process added successfully", process: fetch_process })
+
+        }
+        
     }
 
     catch (error) {
@@ -124,7 +130,7 @@ exports.update_process = async (req, res, next) => {
 
         })
 
-        if (process_updated) return res.status(201).json({ message: "process updated successfully", id: process_updated._id, position_changed:position_changed })
+        if (process_updated) return res.status(201).json({ message: "process updated successfully", process:process_updated, id: process_updated._id, title:new_title, position_changed:position_changed })
     }
 
     catch (error) {

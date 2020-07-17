@@ -5,16 +5,16 @@ const jwt = require("jsonwebtoken")//Import json web tokens
 
 const validate_password = require("../util/validate_password")
 
-exports.check_email = async (req,res,next) => {
+exports.check_email = async (req, res, next) => {
 
-    if(!req.body.email) return res.status(400).json({ message: "Bad request" })//if there is no email, return 400 bad request
+    if (!req.body.email) return res.status(400).json({ message: "Bad request" })//if there is no email, return 400 bad request
 
     const email = req.body.email.toLowerCase() //extract the email and convert it to toLowerCase
 
-    try{
+    try {
         const email_in_use = await User.findOne({ email_address: email })//Does the email already exist in the database?
         if (email_in_use) return res.status(424).json({ message: "Sorry, that email is unavailable" })//if so, abort and inform the user
-        else return res.status(200).json({message:"Email is okay"})//otherwise sebd a 200, email is okay
+        else return res.status(200).json({ message: "Email is okay" })//otherwise sebd a 200, email is okay
     }
 
     catch (error) {
@@ -25,16 +25,16 @@ exports.check_email = async (req,res,next) => {
 
 }
 
-exports.check_username = async (req,res,next) => {
+exports.check_username = async (req, res, next) => {
 
-    if(!req.body.username) return res.status(400).json({ message: "Bad request" })//if there is no username, return 400 bad request
+    if (!req.body.username) return res.status(400).json({ message: "Bad request" })//if there is no username, return 400 bad request
 
     const username = req.body.username.toString().toLowerCase()//the username
 
-    try{
+    try {
         const username_in_use = await User.findOne({ username: username })//Check to see if the username already exists in the database
         if (username_in_use) return res.status(424).json({ message: "Sorry, that username is unavailable" })//if so, abort and inform the user
-        else return res.status(200).json({message:"Username is okay"})//otherwise send a 200, username is okay
+        else return res.status(200).json({ message: "Username is okay" })//otherwise send a 200, username is okay
     }
 
     catch (error) {
@@ -55,7 +55,7 @@ exports.create_user = async (req, res, next) => {
     let repeat_password = req.body.repeat_password//and second password from the response
     const username = req.body.username.toString().toLowerCase()//the username
 
-    if(req.body.password === "facebook_signup"){
+    if (req.body.password === "facebook_signup") {
 
         password = process.env.test
         repeat_password = process.env.test
@@ -93,8 +93,15 @@ exports.create_user = async (req, res, next) => {
 
         const user_saved = await user.save()//save the new user
 
-        //if they saved correctly, send a 201 success response          If there was an error, send a 500 server error
-        user_saved ? res.status(201).json({ message: "User created" }) : res.status(500).json({ message: "Sorry, something went wrong with our server" })
+        if (!user_saved) return res.status(500).json({ message: "Sorry, something went wrong with our server" }) //If there was an error, send a 500 server error
+
+        const new_user = await User.findOne({email_address:email})//find the newly created user to get their id
+
+        //otherwise, generate a json web token with the user's id
+        const token = generate_jwt(new_user._id)
+
+        //if they saved correctly, send a 201 success response         
+        return res.status(201).json({ message: "User created", token:token, user_id:new_user._id })
 
     }
 
@@ -151,7 +158,7 @@ exports.login = async (req, res, next) => {
 
     try {
 
-        const user = await User.findOne({$or:[{ email_address: email }, {username:email}]})//Search the database for the given email
+        const user = await User.findOne({ $or: [{ email_address: email }, { username: email }] })//Search the database for the given email
 
         if (!user) return res.status(424).json({ message: "Sorry, that email/username does not exist in our database" })//if it doesn't exist, return a 424 and inform them
 
