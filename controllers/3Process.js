@@ -1,16 +1,17 @@
 const Process = require("../models/Process")
+const check_if_position_changed = require("../util/check_position_change_on_update")//function to check if the note position changes on title change to trigger a re-render on the frontend
 
-exports.check_title = async (req,res,next) => {
+exports.check_title = async (req, res, next) => {
 
-    if(!req.body.title || !req.body.user_id) return res.status(400).json({ message: "Bad request" })//if there is no title, return 400 bad request
+    if (!req.body.title || !req.body.user_id) return res.status(400).json({ message: "Bad request" })//if there is no title, return 400 bad request
 
     const title = req.body.title.toLowerCase() //extract the title and convert it to toLowerCase
     const user_id = req.body.user_id // extract the user id from the request
 
-    try{
+    try {
         const title_in_use = await Process.findOne({ title: title, created_by: user_id })//see if a process with that title already exists for the given user
         if (title_in_use) return res.status(424).json({ message: "You already have a process with that title, please choose another" })//if it is, send a 424 and inform the user
-        else return res.status(200).json({message:"Title is okay"})//otherwise send a 200, title is okay
+        else return res.status(200).json({ message: "Title is okay" })//otherwise send a 200, title is okay
     }
 
     catch (error) {
@@ -65,7 +66,7 @@ exports.create_process = async (req, res, next) => {
         const process_saved = await process.save()//save the new notes
 
         //if it was saved successfully, send the corresponding response
-        if (process_saved) return res.status(201).json({ message: "process added successfully", process:process_saved })
+        if (process_saved) return res.status(201).json({ message: "process added successfully", process: process_saved })
 
     }
 
@@ -81,7 +82,7 @@ exports.update_process = async (req, res, next) => {
     if (!req.body.user_id || !req.body.title) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
 
     //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
-    if (!req.body.new_title || !req.body.new_notes || req.body.new_notes && !req.body.new_notes.length) return res.status(424).json({ message: "A process must have a title and at least 1 note" })
+    if (!req.body.new_title || !req.body.new_notes || req.body.new_notes && !req.body.new_notes.length) return res.status(424).json({ message: "A collection must have a title and at least 1 note" })
 
     const user_id = req.body.user_id;//extract the user id from the request
     const title = req.body.title.toString().toLowerCase();//extract the title from the request and convert it to a lowercase string
@@ -90,14 +91,22 @@ exports.update_process = async (req, res, next) => {
     const new_body = req.body.new_body;//extract the body from the request
     let new_search_tags = req.body.new_search_tags;//extract the search tags from the request
     const new_notes = req.body.new_notes //extract the notes
+    const filter = req.body.filter//extract the filter (whether notes, processes or both are being displayed on the frontend)
+
+    let position_changed = false;//define a variable to determine whether the notes position has changed in the array of all notes/processes
 
     try {
 
-        if (title !== new_title) {//if they have supplied a new title
+        if (new_title && (title !== new_title)) { //if they have changed the title
 
             const title_in_use = await Process.findOne({ title: new_title, created_by: user_id })//check to see if it is in use already
 
             if (title_in_use) return res.status(424).json({ message: "You already have a process with that title, please choose another" })//if it is, send a 424 and inform them
+
+            //the check_if_position_changed function is imported from util
+            const result = await check_if_position_changed.check(user_id, title, new_title, filter)//see if a position change is needed
+
+            position_changed = result//set the position changed variable to the result (either true or false)
 
         }
 
@@ -115,7 +124,7 @@ exports.update_process = async (req, res, next) => {
 
         })
 
-        if (process_updated) return res.status(201).json({ message: "process updated successfully" })
+        if (process_updated) return res.status(201).json({ message: "process updated successfully", id: process_updated._id, position_changed:position_changed })
     }
 
     catch (error) {
@@ -160,10 +169,11 @@ exports.get_processes = async (req, res, next) => {
 
         const processes_fetched = await Process.find({
 
-            $or:[//either of the following criteria will return a match
+            $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                {access_rights: { $elemMatch: { _id: user_id } }}//User has access rights to the process?
-            ]})//fetch all processes which were created by the given user
+                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the process?
+            ]
+        })//fetch all processes which were created by the given user
 
         //once the processes have been fetched (even if 0 was found)
         processes_fetched && res.status(200).json({ message: "processes retrieved", processes: processes_fetched })//return a 200 with all found processes attached

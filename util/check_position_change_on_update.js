@@ -7,13 +7,11 @@ exports.check = async (user_id, title, new_title, filter) => {
     const all_processes = await Process.find({ created_by: user_id })//fetch all processes for the given user
     const notes_and_processes = all_notes.concat(all_processes)//concat them both together
 
-    const array_to_check = //define the array to check for a position change
-    
-    filter === "Notes" ? //if the filter(passed in by the front end ) is notes
-    
-    all_notes.sort((a, b) => (a.title > b.title) ? 1 : -1) : //set the array as only notes (sorted)
-    
-    notes_and_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //otherwise check notes and processes (sorted)
+    let array_to_check;
+
+    if(filter === "Notes") array_to_check =  all_notes.sort((a, b) => (a.title > b.title) ? 1 : -1) //set the array as only notes (sorted)   
+    else if (filter === "Collections") array_to_check =  all_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //set the array as only processes (sorted)   
+    else if (filter === "All") array_to_check = notes_and_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //otherwise check notes and processes (sorted)
 
     const index_of_note = array_to_check.findIndex(note => note.title === title)//get the index of the note to be updated
 

@@ -99,6 +99,7 @@ exports.update_note = async (req, res, next) => {
     let new_search_tags = req.body.new_search_tags;//extract the search tags from the request
     const new_syntax = req.body.new_syntax //extract the syntax from the request
     const filter = req.body.filter //extract the filter (determines whether to display notes, process or both)
+    const index = req.body.index //extract the index of the note (because nested notes can be modified and duplicate notes are allowed)
 
     try {
 
@@ -109,7 +110,7 @@ exports.update_note = async (req, res, next) => {
             if (title_in_use) {
 
                 const note = await Note.findOne({ title: title, created_by: user_id })
-                return res.status(424).json({ message: "You already have a note with that title, please choose another", id: note._id }
+                return res.status(424).json({ message: "You already have a note with that title, please choose another", id: note._id, index:index }
 
                 )
             }//if it is, send a 424 and inform them
