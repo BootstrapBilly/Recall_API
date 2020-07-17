@@ -16,6 +16,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -29,10 +30,11 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
-    test.post("modifies a process and gives no new title", "/update_process", 424, "A process must have a title and at least 1 note",
+    test.post("modifies a process and gives no new title", "/update_process", 424, "A collection must have a title and at least 1 note",
 
         {
             user_id: testing_variables.standard_id,
@@ -42,10 +44,11 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
-    test.post("modifies a process and gives an empty new title", "/update_process", 424, "A process must have a title and at least 1 note",
+    test.post("modifies a process and gives an empty new title", "/update_process", 424, "A collection must have a title and at least 1 note",
 
         {
             user_id: testing_variables.standard_id,
@@ -55,6 +58,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -68,6 +72,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -81,6 +86,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -100,6 +106,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_subject: null,
             new_body: "",
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -113,6 +120,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -126,6 +134,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -139,6 +148,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -152,6 +162,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: 43534543534435,
             new_search_tags: [],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -165,6 +176,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: 34543534534354,
             new_search_tags: [],
             new_notes: [testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -178,6 +190,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id3],
+            filter:"Collection"
 
         })
 
@@ -191,6 +204,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -204,6 +218,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "b",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -217,6 +232,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "asjhadgashjdgasjhdgasjgdfgdfgdfgfdgdfgfdhdgasjhdgashjdgashjdgashjgggggggggggggggggggggggggggjdgbasjhgdahjsgdhjasgdhjasgdjhasgdhjasgdhjasgdhjasgahjdgasdjhgdhasjgdhjasgdhjasgdhjsasdklajdsalkdjsalkdjslkajdlksajdlkasjdlkasjdldfgdfgdfgdfbvtdfgh543645645654 564 654 654645654 65454@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@4343876fvd",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -230,6 +246,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -243,6 +260,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -256,6 +274,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -269,6 +288,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
                 new_body: "body",
                 new_search_tags: [],
                 new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+                filter:"Collection"
 
             })
 
@@ -282,6 +302,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2, testing_variables.note_id3, testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -295,6 +316,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1, testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -308,6 +330,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -321,6 +344,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1"],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -334,6 +358,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -347,6 +372,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", 37643782, 32984903, "tag3", "tag4", "tag5"],
             new_notes: [testing_variables.note_id1, testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -360,6 +386,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag1"],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -373,6 +400,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [435345, 435345],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
         })
 
     test.post("modifies a process and gives mixed duplicate search tags", "/update_process", 201, "process updated successfully",
@@ -385,6 +413,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: [435345, 435345, "tag1"],
             new_notes: [testing_variables.note_id1],
+            filter:"Collection"
 
         })
 
@@ -398,6 +427,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "3242323",
             new_search_tags: [],
             new_notes: [testing_variables.note_id3],
+            filter:"Collection"
 
         })
 
@@ -411,6 +441,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "3242323",
             new_search_tags: [],
             new_notes: [testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -424,6 +455,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "3242323",
             new_search_tags: [],
             new_notes: [testing_variables.note_id2],
+            filter:"Collection"
 
         })
 
@@ -437,6 +469,7 @@ describe("modify a note - \x1b[32m expected passes \x1b[37m", () => {
             new_body: "body",
             new_search_tags: [342, 435345, "tag1", "tag1"],
             new_notes: [testing_variables.note_id4],
+            filter:"Collection"
 
         })
 
@@ -456,6 +489,7 @@ describe("Modify a process - \x1b[31m expected failures \x1b[37m", () => {
             new_body: "new_body",
             new_search_tags: ["tag1", "tag2", "tag3"],
             new_notes: [testing_variables.note_id4],
+            filter:"Collection"
 
         })
 

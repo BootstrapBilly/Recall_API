@@ -11,7 +11,7 @@ exports.check = async (user_id, title, new_title, filter) => {
 
     if(filter === "Notes") array_to_check =  all_notes.sort((a, b) => (a.title > b.title) ? 1 : -1) //set the array as only notes (sorted)   
     else if (filter === "Collections") array_to_check =  all_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //set the array as only processes (sorted)   
-    else if (filter === "All") array_to_check = notes_and_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //otherwise check notes and processes (sorted)
+    else array_to_check = notes_and_processes.sort((a, b) => (a.title > b.title) ? 1 : -1) //otherwise check notes and processes (sorted)
 
     const index_of_note = array_to_check.findIndex(note => note.title === title)//get the index of the note to be updated
 
