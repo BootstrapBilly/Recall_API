@@ -84,6 +84,7 @@ exports.create_user = async (req, res, next) => {
             email_address: email,//set their email
             password: hashed_password, //set the hashed_password NOT THE PLAIN TEXT PASSWORD
             username: username,//set their username
+            image_url:null,
             friends: [],//initialize friends as an empty array
             friend_requests: [],//initialize the friends requests as an empty array 
             reset_token: null,//reset token for resetting passwords

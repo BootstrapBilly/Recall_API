@@ -19,6 +19,10 @@ const user_schema = new Schema({//create a schema object
         required: true//Must be defined when a user object is created
     },
 
+    image_url:{
+        type: String
+    },
+
     friends: [{
 
         user_id: {//id of the friend

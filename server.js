@@ -9,6 +9,7 @@ const friends = require("./routes/5-Friends_router")
 const access = require("./routes/6-Access_router")
 const delete_account = require("./routes/7-Delete_account_router")
 const get_all = require("./routes/8-Get_all_router")
+const set_url = require("./routes/9-Set_profile_image_url")
 
 
 //External
@@ -52,6 +53,7 @@ server.use(friends);//handle the friends requests
 server.use(access);//handle the share_access requests
 server.use(delete_account);//handle the share_access requests
 server.use(get_all);//handle the share_access requests
+server.use(set_url);//handle the share_access requests
 
 
 //* Database connection
