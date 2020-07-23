@@ -8,7 +8,7 @@ exports.Set_url = async (req,res,next) => {
     try{
 
         const url_set = await User.findOneAndUpdate({_id:user_id}, {image_url:url})
-        url_set && res.status(201).json({success:true, message:"Image uploaded successfully"})
+        if(url_set) return res.status(201).json({success:true, message:"Image uploaded successfully"})
     }
 
 

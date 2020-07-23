@@ -2,7 +2,6 @@ const User = require("../models/User")//import the user schema to interact with 
 const bcrypt = require("bcryptjs")//import bcrypt to encrypt the password
 const jwt = require("jsonwebtoken")//Import json web tokens 
 
-
 const validate_password = require("../util/validate_password")
 
 exports.check_email = async (req, res, next) => {

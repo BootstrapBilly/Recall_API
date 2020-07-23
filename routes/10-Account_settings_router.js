@@ -9,6 +9,6 @@ const router = express.Router();//initialise the router
 
 //routes
 router.post("/change_username", Account_Settings.Change_username)
-router.post("/change_password", Account_Settings.Change_password)
+router.post("/change_password_account", Account_Settings.Change_password)
 
 module.exports = router;
