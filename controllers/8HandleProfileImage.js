@@ -8,7 +8,6 @@ exports.Set_url = async (req,res,next) => {
     try{
 
         const url_set = await User.findOneAndUpdate({_id:user_id}, {image_url:url})
-
         url_set && res.status(201).json({success:true, message:"Image uploaded successfully"})
     }
 
@@ -19,10 +18,24 @@ exports.Set_url = async (req,res,next) => {
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
     }
 
+}
 
-    // const url_set = await Book.findOneAndUpdate({year:year, condition:condition}, {image_url:url})
+exports.Get_url = async (req,res,next) => {
 
-    // url_set ? res.status(204) : res.status(500).json({ error: "Database error" })
+    const user_id = req.body.user_id
 
-    // console.log(req.body.form_values)
+    try{
+
+        const user_found = await User.findOne({_id:user_id})
+
+        user_found && res.status(200).json({success:true, message:"Image fetched successfully", url:user_found.image_url})
+    }
+
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
 }

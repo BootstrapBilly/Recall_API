@@ -9,7 +9,8 @@ const friends = require("./routes/5-Friends_router")
 const access = require("./routes/6-Access_router")
 const delete_account = require("./routes/7-Delete_account_router")
 const get_all = require("./routes/8-Get_all_router")
-const set_url = require("./routes/9-Set_profile_image_url")
+const handle_profile_image = require("./routes/9-Handle_profile_image")
+const account_settings = require("./routes/10-Account_settings_router")
 
 
 //External
@@ -42,10 +43,10 @@ server.use(helmet())
 server.use(bodyParser.json());//parse any incoming json requests
 
 server.use(authentication);//handle the authentication requests
+server.use(password_reset);//handle the password_reset requests
 
 // server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
 
-server.use(password_reset);//handle the password_reset requests
 server.use(note);//handle the note requests
 server.use(process_);//handle the process requests
 server.use(search);//handle the search requests
@@ -53,7 +54,8 @@ server.use(friends);//handle the friends requests
 server.use(access);//handle the share_access requests
 server.use(delete_account);//handle the share_access requests
 server.use(get_all);//handle the share_access requests
-server.use(set_url);//handle the share_access requests
+server.use(handle_profile_image);//handle the share_access requests
+server.use(account_settings);//handle the share_access requests
 
 
 //* Database connection

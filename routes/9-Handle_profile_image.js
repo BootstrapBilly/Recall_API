@@ -1,5 +1,5 @@
 //controllers
-const Set_url = require("../controllers/8SetProfileImageURL")
+const Handle_image = require("../controllers/8HandleProfileImage")
 
 //External
 const express = require("express");//import express 
@@ -8,7 +8,8 @@ const express = require("express");//import express
 const router = express.Router();//initialise the router
 
 //routes
-router.post("/set_image_url", Set_url.Set_url)
+router.post("/set_image_url", Handle_image.Set_url)
+router.post("/fetch_image_url", Handle_image.Get_url )
 
 
 module.exports = router;
