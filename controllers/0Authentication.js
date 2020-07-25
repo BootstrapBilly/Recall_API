@@ -101,7 +101,7 @@ exports.create_user = async (req, res, next) => {
         const token = generate_jwt(new_user._id)
 
         //if they saved correctly, send a 201 success response         
-        return res.status(201).json({ message: "User created", token:token, user_id:new_user._id })
+        return res.status(201).json({ message: "User created", token:token, user_id:new_user._id, username: new_user.username })
 
     }
 
@@ -129,7 +129,7 @@ exports.delete_user = async (req, res, next) => {
         if (!user) return res.status(424).json({ message: "No user found" })//if no user was found, send a 424 and inform them
 
         const password_matches = await bcrypt.compare(password, user.password)//use bcyrpt to check if the hashed password in the db matches the given password
-        if (!password_matches) return res.status(424).json({ message: "Your password is incorrect" })//if the password doesnt match, send a 424 and inform them
+        if (!password_matches) return res.status(424).json({ message: "Sorry, your password is incorrect" })//if the password doesnt match, send a 424 and inform them
 
         //*Checks passed
         const user_deleted = await user.remove()//delete the given user
@@ -182,7 +182,7 @@ exports.login = async (req, res, next) => {
         clear_login_failure(request_ip, email)//clear any login failures to remove the captcha in the response next time they log in
 
         //token generated, login successful, respond with a message, along with the jwt and the userid
-        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id })
+        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id, username:user.username })
 
     }
 

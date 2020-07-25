@@ -9,6 +9,6 @@ const router = express.Router();//initialise the router
 
 //routes
 
-router.delete("/user", Authentication.delete_user)
+router.post("/delete_user", Authentication.delete_user)
 
 module.exports = router;

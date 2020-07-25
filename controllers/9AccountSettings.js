@@ -6,7 +6,7 @@ const validate_password = require("../util/validate_password")
 exports.Change_username = async (req, res, next) => {
 
     const user_id = req.body.user_id//extract the user id from the request
-    const username = req.body.username//extract the username from the request
+    const username = req.body.username.toString().toLowerCase()//extract the username from the request
     const password = req.body.password//extract the password from the request
 
     try {

@@ -1,5 +1,6 @@
 const Note = require("../models/Note")//Import the note model to interact with the note collection
 const Process = require("../models/Process")//Import the process model to interact with the process collection
+const User = require("../models/User")//Import the user model to interact with it
 
 exports.find_content = async (req, res, next) => {
 
@@ -79,6 +80,38 @@ exports.find_content = async (req, res, next) => {
         const sorted_both = sorted_notes.concat(sorted_processes).sort((a,b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
 
         return res.status(200).json({ notes: sorted_notes, processes: sorted_processes, both:sorted_both, message: "search executed" })
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+}
+
+exports.find_user = async (req, res, next) => {
+
+    if (!req.body.search_string) return res.status(424).json({ message: "A search string is required" })//no search string ? return a 424 and inform them
+
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//No user id? return a 400 and inform them
+
+    const user_id = req.body.user_id//extract the user id from the request body
+    const search_string = req.body.search_string.toString()//extract the search string from the request body
+
+    try {
+
+        //search for all notes         with the given user id
+        const users = await User.find({ username: { '$regex': search_string, '$options': 'i' } })
+
+        console.log(users)
+        console.log(user_id)
+        
+        const users_without_requester = users.filter(user => user._id.toString() !== user_id.toString())//remove the person who made the request so they cannot add themselves
+
+        console.log(users_without_requester)
+
+        return res.status(200).json({ users:users_without_requester, message: "search executed" })
     }
 
     catch (error) {
