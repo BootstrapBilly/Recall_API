@@ -40,7 +40,7 @@ describe("Delete user - \x1b[31m expected failures \x1b[37m", () => {
 
         })
 
-    test.post("Tries to delete account with wrong password", "/delete_user", 424, "Your password is incorrect",
+    test.post("Tries to delete account with wrong password", "/delete_user", 424, "Sorry, your password is incorrect",
         {
             user_id: testing_variables.standard_id,
             password: "Wrongpassword"

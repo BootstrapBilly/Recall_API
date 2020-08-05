@@ -10,6 +10,7 @@ const router = express.Router();//initialise the router
 //routes
 router.post("/friend", Friends.add_friend)
 router.post("/process_friend_request", Friends.process_request)
+router.post("/get_friends", Friends.get_friends)
 router.delete("/friend", Friends.delete_friend)
 
 module.exports = router;

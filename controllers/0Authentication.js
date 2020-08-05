@@ -86,6 +86,7 @@ exports.create_user = async (req, res, next) => {
             image_url:null,
             friends: [],//initialize friends as an empty array
             friend_requests: [],//initialize the friends requests as an empty array 
+            outgoing_friend_requests: [],//initialize the friends requests as an empty array 
             reset_token: null,//reset token for resetting passwords
             token_expiration: null,//token expiration date
 

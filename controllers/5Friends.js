@@ -2,6 +2,38 @@ const User = require("../models/User")//Import the user model to interact with t
 const Note = require("../models/Note")//Import the note model to interact with the user collection
 const Process = require("../models/Process")//Import the process model to interact with the user collection
 
+exports.get_friends = async (req, res, next) => {
+
+    //if the username or user id is null or an empty string, send a 424 and inform the user
+    if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })
+
+    const user_id = req.body.user_id//extract the user id from the request body
+
+    try {
+
+        const user = await User.findOne({ _id: user_id })
+
+        let all_friends_and_requests = []//define an empty array to hold all friends, friend request and outgoing pending friend requests
+
+        user.friends.forEach(friend => all_friends_and_requests.push(friend._doc))
+        user.friend_requests.forEach(friend_request => all_friends_and_requests.push({...friend_request._doc, request:true}))
+        user.outgoing_friend_requests.forEach(outgoing_request => all_friends_and_requests.push({...outgoing_request._doc, pending:true}))
+
+
+        return res.status(200).json({ message: "Friends retreived", friends:all_friends_and_requests})
+
+    }
+
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+
+}
+
 exports.add_friend = async (req, res, next) => {
 
     //if the username or user id is null or an empty string, send a 424 and inform the user
@@ -19,22 +51,26 @@ exports.add_friend = async (req, res, next) => {
         if (!requester) return res.status(400).json({ message: "Bad request" })//if the requester was not found, send a 400 and inform the user
 
         //check the requestee's friend requests, and see if there already is one from the requester
-        const request_already_pending = await User.findOne({ username: username, friend_requests: { $elemMatch: { _id: requester_user_id } } })
+        const request_already_pending = await User.findOne({ username: username, friend_requests: { $elemMatch: { id: requester_user_id } } })
         if (request_already_pending) return res.status(200).json({ message: "You already have already sent a request to that person" })//if there is, send a 200 and inform them
 
         //_Requester already has a pending request from the requestee - Add them both automatically
 
-        const requester_already_has_request_from_requestee = await User.findOne({ _id: requester_user_id, friend_requests: { $elemMatch: { _id: requestee._id } } })
+        const requester_already_has_request_from_requestee = await User.findOne({ _id: requester_user_id, friend_requests: { $elemMatch: { id: requestee._id } } })
 
         if (requester_already_has_request_from_requestee) return create_friendship(requester, requestee, res)
 
         //*All checks passed, they don't have pending friend requests
 
-        requestee.friend_requests.push(requester_user_id)//Save the requester's user id to the requestee's friend requests
+        requestee.friend_requests.push({id:requester._id, username:requester.username, url:requester.image_url})//Save the requester's user id to the requestee's friend requests
 
         const request_inserted = await requestee.save()//save the document
 
-        if (request_inserted) return res.status(200).json({ message: "Request sent" })//send a 200 with a success message
+        requester.outgoing_friend_requests.push({id:requestee._id, username:requestee.username, url:requestee.image_url})
+
+        const outgoing_request_inserted = await requester.save()
+
+        if (request_inserted && outgoing_request_inserted) return res.status(200).json({ message: "Request sent" })//send a 200 with a success message
 
     }
 
@@ -99,7 +135,7 @@ exports.process_request = async (req, res, next) => {
 
 exports.delete_friend = async (req, res, next) => {
 
-    if(!req.body.user_id || !req.body.user_to_delete_id) return res.status(400).json({message:"Bad request"})//if any require fields are missing, send a 400 and inform them
+    if (!req.body.user_id || !req.body.user_to_delete_id) return res.status(400).json({ message: "Bad request" })//if any require fields are missing, send a 400 and inform them
 
     const user_id = req.body.user_id//extract the user id
     const user_to_delete_id = req.body.user_to_delete_id//and the friend to remove id
@@ -110,32 +146,32 @@ exports.delete_friend = async (req, res, next) => {
         const second_friend_removal = await User.findOneAndUpdate({ _id: user_to_delete_id }, { $pull: { friends: { _id: user_id } } })
 
         const first_user_notes_access_rights_removed = await Note.updateMany(//find and update all notes
-            
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+
+            { created_by: user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } } },//which match this criteria
             { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
-            
-            )
+
+        )
 
         const first_user_process_access_rights_removed = await Process.updateMany(//find and update all notes
-            
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+
+            { created_by: user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } } },//which match this criteria
             { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
 
-            )
+        )
 
         const second_user_notes_access_rights_removed = await Note.updateMany(//find and update all notes
-            
-            {created_by:user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } }},//which match this criteria
+
+            { created_by: user_id, access_rights: { $elemMatch: { _id: user_to_delete_id } } },//which match this criteria
             { $pull: { access_rights: { _id: user_to_delete_id } } }//pull the access rights out of the array
-            
-            )
+
+        )
 
         const second_user_process_access_rights_removed = await Process.updateMany(//find and update all notes
-            
-            {created_by:user_to_delete_id, access_rights: { $elemMatch: { _id: user_id } }},
+
+            { created_by: user_to_delete_id, access_rights: { $elemMatch: { _id: user_id } } },
             { $pull: { access_rights: { _id: user_id } } }//pull the access rights out of the array
 
-            )
+        )
 
         if (first_friend_removal && second_friend_removal && first_user_notes_access_rights_removed && first_user_process_access_rights_removed && second_user_notes_access_rights_removed && second_user_process_access_rights_removed) return res.status(200).json({ message: "Friend removed" })
     }
@@ -154,7 +190,7 @@ const create_friendship = async (user1, user2, res) => {
     const pending_request_removed = await User.findOneAndUpdate(
 
         //search criteria = user id matches, and they have a request in their friend_requests array, from the person they are sending a request to
-        { _id: user1._id, friend_requests: { $elemMatch: { _id: user2._id } } },
+        { _id: user1._id, friend_requests: { $elemMatch: { id: user2._id } } },
 
         //If found, remove the friend request from their array of friend requests
         { $pull: { friend_requests: { _id: user2._id } } }
@@ -162,8 +198,8 @@ const create_friendship = async (user1, user2, res) => {
 
     if (pending_request_removed) {//if the requester already has a pending request from the requestee,
 
-        user1.friends.push(user2._id)//add them to their friends list
-        user2.friends.push(user1._id)//and the same with the requestee
+        user1.friends.push({id:user2._id, username:user2.username, url:user2.image_url})//add them to their friends list
+        user2.friends.push({id:user1._id, username:user1.username, url:user1.image_url})//and the same with the requestee
 
         const user2_saved = await user2.save()//save both documents
         const user1_saved = await user1.save()

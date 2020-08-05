@@ -15,7 +15,7 @@ exports.give_access = async (req, res, next) => {
     try {
 
         //search for the user, and check if their friends list contains the given friend id
-        const users_are_friends = await User.findOne({ _id: user_id, friends: { $elemMatch: { _id: friend_id } } })
+        const users_are_friends = await User.findOne({ _id: user_id, friends: { $elemMatch: { id: friend_id } } })
         //if they are not friends, send a 424 and inform them
         if (!users_are_friends) return res.status(400).json({ message: "Bad request" })
 

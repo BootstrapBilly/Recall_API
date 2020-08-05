@@ -44,8 +44,6 @@ exports.Change_username = async (req, res, next) => {
 
 exports.Change_password = async (req, res, next) => {
 
-    console.log(req.body)
-
     const user_id = req.body.user_id//extract the user id from the request
     const old_password = req.body.old_password//extract the old password from the request
     const password = req.body.password//extract the new password from the request

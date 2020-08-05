@@ -103,13 +103,8 @@ exports.find_user = async (req, res, next) => {
 
         //search for all notes         with the given user id
         const users = await User.find({ username: { '$regex': search_string, '$options': 'i' } })
-
-        console.log(users)
-        console.log(user_id)
         
         const users_without_requester = users.filter(user => user._id.toString() !== user_id.toString())//remove the person who made the request so they cannot add themselves
-
-        console.log(users_without_requester)
 
         return res.status(200).json({ users:users_without_requester, message: "search executed" })
     }
