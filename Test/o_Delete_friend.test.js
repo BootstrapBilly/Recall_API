@@ -5,7 +5,7 @@ const testing_variables = require("../util/testing_variables")
 
 describe("Remove friend - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.delete("User with 2 friends deletes one, leaving 1 friend remaining", "/friend", 200, "Friend removed",
+    test.post("User with 2 friends deletes one, leaving 1 friend remaining", "/delete_friend", 200, "Friend removed",
 
     {
         user_id: testing_variables.short_id,
@@ -13,7 +13,7 @@ describe("Remove friend - \x1b[32m expected passes \x1b[37m", () => {
 
     })
 
-    test.delete("User with 1 friend deletes it, leaving none", "/friend", 200, "Friend removed",
+    test.post("User with 1 friend deletes it, leaving none", "/delete_friend", 200, "Friend removed",
 
     {
         user_id: testing_variables.short_id,
@@ -21,7 +21,7 @@ describe("Remove friend - \x1b[32m expected passes \x1b[37m", () => {
 
     })
 
-    test.delete("Another User with 1 friend deletes it, leaving none", "/friend", 200, "Friend removed",
+    test.post("Another User with 1 friend deletes it, leaving none", "/delete_friend", 200, "Friend removed",
 
     {
         user_id: testing_variables.standard_id,
@@ -35,7 +35,7 @@ describe("Remove friend - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("Remove friend - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.delete("Empty user id", "/friend", 400, "Bad request",
+    test.post("Empty user id", "/delete_friend", 400, "Bad request",
 
     {
         user_id: "",
@@ -43,7 +43,7 @@ describe("Remove friend - \x1b[31m expected failures \x1b[37m", () => {
 
     })
 
-    test.delete("Null user id", "/friend", 400, "Bad request",
+    test.post("Null user id", "/delete_friend", 400, "Bad request",
 
     {
         user_id: null,
@@ -51,7 +51,7 @@ describe("Remove friend - \x1b[31m expected failures \x1b[37m", () => {
 
     })
 
-    test.delete("Empty friend id", "/friend", 400, "Bad request",
+    test.post("Empty friend id", "/delete_friend", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -59,7 +59,7 @@ describe("Remove friend - \x1b[31m expected failures \x1b[37m", () => {
 
     })
 
-    test.delete("Empty friend id", "/friend", 400, "Bad request",
+    test.post("Empty friend id", "/delete_friend", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
