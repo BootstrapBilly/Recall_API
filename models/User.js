@@ -25,50 +25,27 @@ const user_schema = new Schema({//create a schema object
 
     friends: [{
 
-        id: {//id of the friend
+        user_details: {//id of the friend
             type: Schema.Types.ObjectId,//special schema type object id 
             ref: "User"//Refers to another user_id
-        },
-
-        username:{
-            type:String,
-        },
-
-        url:{
-            type:String,
         }
-        
+
     }],
 
     friend_requests: [{
 
-        id: {//id of the friend
+        user_details: {//id of the friend
             type: Schema.Types.ObjectId,//special schema type object id 
             ref: "User"//Refers to another user_id
-        },
-
-        username:{
-            type:String,
-        },
-
-        url:{
-            type:String,
         }
+
     }],
 
     outgoing_friend_requests: [{
 
-        id: {//id of the friend
+        user_details: {//id of the friend
             type: Schema.Types.ObjectId,//special schema type object id 
             ref: "User"//Refers to another user_id
-        },
-
-        username:{
-            type:String,
-        },
-
-        url:{
-            type:String,
         }
 
     }],

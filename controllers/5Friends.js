@@ -12,12 +12,15 @@ exports.get_friends = async (req, res, next) => {
     try {
 
         const user = await User.findOne({ _id: user_id })
+        .populate({path:"outgoing_friend_requests.user_details"})
+        .populate({path:"friend_requests.user_details"})
+        .populate({path:"friends.user_details"})
 
         let all_friends_and_requests = []//define an empty array to hold all friends, friend request and outgoing pending friend requests
 
-        user.friends.forEach(friend => all_friends_and_requests.push(friend._doc))
         user.friend_requests.forEach(friend_request => all_friends_and_requests.push({...friend_request._doc, request:true}))
-        user.outgoing_friend_requests.forEach(outgoing_request => all_friends_and_requests.push({...outgoing_request._doc, pending:true}))
+        user.outgoing_friend_requests.forEach(outgoing_request => all_friends_and_requests.push({...outgoing_request._doc, pending:true}))   
+        user.friends.forEach(friend => all_friends_and_requests.push(friend._doc))
 
 
         return res.status(200).json({ message: "Friends retreived", friends:all_friends_and_requests})
@@ -51,22 +54,22 @@ exports.add_friend = async (req, res, next) => {
         if (!requester) return res.status(400).json({ message: "Bad request" })//if the requester was not found, send a 400 and inform the user
 
         //check the requestee's friend requests, and see if there already is one from the requester
-        const request_already_pending = await User.findOne({ username: username, friend_requests: { $elemMatch: { id: requester_user_id } } })
+        const request_already_pending = await User.findOne({ username: username, friend_requests: { $elemMatch: { user_details: requester_user_id } } })
         if (request_already_pending) return res.status(200).json({ message: "You already have already sent a request to that person" })//if there is, send a 200 and inform them
 
         //_Requester already has a pending request from the requestee - Add them both automatically
 
-        const requester_already_has_request_from_requestee = await User.findOne({ _id: requester_user_id, friend_requests: { $elemMatch: { id: requestee._id } } })
+        const requester_already_has_request_from_requestee = await User.findOne({ _id: requester_user_id, friend_requests: { $elemMatch: { user_details: requestee._id } } })
 
         if (requester_already_has_request_from_requestee) return create_friendship(requester, requestee, res)
 
         //*All checks passed, they don't have pending friend requests
 
-        requestee.friend_requests.push({id:requester._id, username:requester.username, url:requester.image_url})//Save the requester's user id to the requestee's friend requests
+        requestee.friend_requests.push({user_details:requester._id})//Save the requester's user id to the requestee's friend requests
 
         const request_inserted = await requestee.save()//save the document
 
-        requester.outgoing_friend_requests.push({id:requestee._id, username:requestee.username, url:requestee.image_url})
+        requester.outgoing_friend_requests.push({user_details:requestee._id})
 
         const outgoing_request_inserted = await requester.save()
 
@@ -103,11 +106,19 @@ exports.process_request = async (req, res, next) => {
                 { _id: requestee_user_id },//find the requestee
 
                 //And remove the request from their friend requests array
-                { $pull: { friend_requests: { _id: requester_user_id } } }
+                { $pull: { friend_requests: { user_details: requester_user_id } } }
+            )
+
+            const outgoing_request_removed = await User.findOneAndUpdate(
+
+                { _id: requester_user_id },//find the requestee
+
+                //And remove the request from their friend requests array
+                { $pull: { outgoing_friend_requests: { user_details: requestee_user_id } } }
             )
 
             //if the request was removed from the array of requests
-            if (request_removed) return res.status(200).json({ message: "Request denied" })//send a 200 and inform the user
+            if (request_removed && outgoing_request_removed) return res.status(200).json({ message: "Request denied" })//send a 200 and inform the user
 
         }
 
@@ -142,8 +153,8 @@ exports.delete_friend = async (req, res, next) => {
 
     try {
 
-        const first_friend_removal = await User.findOneAndUpdate({ _id: user_id }, { $pull: { friends: { _id: user_to_delete_id } } })
-        const second_friend_removal = await User.findOneAndUpdate({ _id: user_to_delete_id }, { $pull: { friends: { _id: user_id } } })
+        const first_friend_removal = await User.findOneAndUpdate({ _id: user_id }, { $pull: { friends: { user_details: user_to_delete_id } } })
+        const second_friend_removal = await User.findOneAndUpdate({ _id: user_to_delete_id }, { $pull: { friends: { user_details: user_id } } })
 
         const first_user_notes_access_rights_removed = await Note.updateMany(//find and update all notes
 
@@ -190,16 +201,25 @@ const create_friendship = async (user1, user2, res) => {
     const pending_request_removed = await User.findOneAndUpdate(
 
         //search criteria = user id matches, and they have a request in their friend_requests array, from the person they are sending a request to
-        { _id: user1._id, friend_requests: { $elemMatch: { id: user2._id } } },
+        { _id: user1._id, friend_requests: { $elemMatch: { user_details: user2._id } } },
 
         //If found, remove the friend request from their array of friend requests
-        { $pull: { friend_requests: { _id: user2._id } } }
+        { $pull: { friend_requests: { user_details: user2._id } } }
+    )
+    //check the requesters friend requests, and see if there is already one from the requestee
+    const outgoing_request_removed = await User.findOneAndUpdate(
+
+        //search criteria = user id matches, and they have a request in their friend_requests array, from the person they are sending a request to
+        { _id: user2._id, outgoing_friend_requests: { $elemMatch: { user_details: user1._id } } },
+
+        //If found, remove the friend request from their array of friend requests
+        { $pull: { outgoing_friend_requests: { user_details: user1._id } } }
     )
 
     if (pending_request_removed) {//if the requester already has a pending request from the requestee,
 
-        user1.friends.push({id:user2._id, username:user2.username, url:user2.image_url})//add them to their friends list
-        user2.friends.push({id:user1._id, username:user1.username, url:user1.image_url})//and the same with the requestee
+        user1.friends.push({user_details:user2._id})//add them to their friends list
+        user2.friends.push({user_details:user1._id})//and the same with the requestee
 
         const user2_saved = await user2.save()//save both documents
         const user1_saved = await user1.save()

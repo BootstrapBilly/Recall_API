@@ -75,11 +75,11 @@ exports.find_content = async (req, res, next) => {
 
         })
 
-        const sorted_notes = notes.sort((a,b) => (a.title > b.title) ? 1 : -1)//sort the notes in alphabetical based on title
-        const sorted_processes = processes.sort((a,b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
-        const sorted_both = sorted_notes.concat(sorted_processes).sort((a,b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
+        const sorted_notes = notes.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the notes in alphabetical based on title
+        const sorted_processes = processes.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
+        const sorted_both = sorted_notes.concat(sorted_processes).sort((a, b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
 
-        return res.status(200).json({ notes: sorted_notes, processes: sorted_processes, both:sorted_both, message: "search executed" })
+        return res.status(200).json({ notes: sorted_notes, processes: sorted_processes, both: sorted_both, message: "search executed" })
     }
 
     catch (error) {
@@ -98,15 +98,39 @@ exports.find_user = async (req, res, next) => {
 
     const user_id = req.body.user_id//extract the user id from the request body
     const search_string = req.body.search_string.toString()//extract the search string from the request body
+    const unique = req.body.unique
 
     try {
 
         //search for all notes         with the given user id
         const users = await User.find({ username: { '$regex': search_string, '$options': 'i' } })
-        
+
         const users_without_requester = users.filter(user => user._id.toString() !== user_id.toString())//remove the person who made the request so they cannot add themselves
 
-        return res.status(200).json({ users:users_without_requester, message: "search executed" })
+        const existing_friends = await get_existing_users("friends", user_id)//get the users who are already friends
+        const existing_requests = await get_existing_users("friend_requests", user_id)//get any pending incoming requests
+        const outgoing_requests = await get_existing_users("outgoing_friend_requests", user_id)//get any pending outgoing requests
+
+        //concat the arrays to make an array of users not to show in the search result
+        const users_to_hide = existing_friends.concat(existing_requests).concat(outgoing_requests)
+
+        const users_without_existing_friends_and_requester = []
+
+        users_without_requester.forEach(user => {
+
+            let omit_user = false;
+
+            users_to_hide.forEach(friend => {
+
+                if (user._id.toString() === friend.toString()) omit_user = true
+            })
+
+            if (!omit_user) users_without_existing_friends_and_requester.push(user)
+        })
+
+
+
+        return res.status(200).json({ users: users_without_existing_friends_and_requester, message: "search executed" })
     }
 
     catch (error) {
@@ -115,4 +139,16 @@ exports.find_user = async (req, res, next) => {
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
 
     }
+}
+
+const get_existing_users = async (array, id) => {
+
+    const requester = await User.findOne({ _id: id })
+
+    const existing_friends = []
+
+    requester[array].forEach(friend => existing_friends.push(friend.user_details))
+
+    return existing_friends
+
 }
