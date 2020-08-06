@@ -12,21 +12,53 @@ exports.get_friends = async (req, res, next) => {
     try {
 
         const user = await User.findOne({ _id: user_id })
-        .populate({path:"outgoing_friend_requests.user_details"})
-        .populate({path:"friend_requests.user_details"})
-        .populate({path:"friends.user_details"})
+            .populate({ path: "outgoing_friend_requests.user_details" })
+            .populate({ path: "friend_requests.user_details" })
+            .populate({ path: "friends.user_details" })
 
         let all_friends_and_requests = []//define an empty array to hold all friends, friend request and outgoing pending friend requests
 
-        user.friend_requests.forEach(friend_request => all_friends_and_requests.push({...friend_request._doc, request:true}))
-        user.outgoing_friend_requests.forEach(outgoing_request => all_friends_and_requests.push({...outgoing_request._doc, pending:true}))   
+        user.friend_requests.forEach(friend_request => all_friends_and_requests.push({ ...friend_request._doc, request: true }))
+        user.outgoing_friend_requests.forEach(outgoing_request => all_friends_and_requests.push({ ...outgoing_request._doc, pending: true }))
         user.friends.forEach(friend => all_friends_and_requests.push(friend._doc))
 
 
-        return res.status(200).json({ message: "Friends retreived", friends:all_friends_and_requests})
+        return res.status(200).json({ message: "Friends retreived", friends: all_friends_and_requests })
 
     }
 
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+
+}
+
+exports.cancel_request = async (req, res, next) => {
+
+    const requester_id = req.body.requester_id
+    const requestee_id = req.body.requestee_id
+
+    try {
+
+        const requester_cancelled = await User.findOneAndUpdate(
+
+            { _id: requester_id },
+            //And remove the request from their friend requests array
+            { $pull: { outgoing_friend_requests: { user_details: requestee_id } } })
+
+        const requestee_cancelled = await User.findOneAndUpdate(
+
+            { _id: requestee_id },
+            //And remove the request from their friend requests array
+            { $pull: { friend_requests: { user_details: requester_id } } })
+
+            if(requestee_cancelled && requester_cancelled) return res.status(200).json({message:"Request cancelled"})
+
+    }
 
     catch (error) {
 
@@ -65,11 +97,11 @@ exports.add_friend = async (req, res, next) => {
 
         //*All checks passed, they don't have pending friend requests
 
-        requestee.friend_requests.push({user_details:requester._id})//Save the requester's user id to the requestee's friend requests
+        requestee.friend_requests.push({ user_details: requester._id })//Save the requester's user id to the requestee's friend requests
 
         const request_inserted = await requestee.save()//save the document
 
-        requester.outgoing_friend_requests.push({user_details:requestee._id})
+        requester.outgoing_friend_requests.push({ user_details: requestee._id })
 
         const outgoing_request_inserted = await requester.save()
 
@@ -218,8 +250,8 @@ const create_friendship = async (user1, user2, res) => {
 
     if (pending_request_removed) {//if the requester already has a pending request from the requestee,
 
-        user1.friends.push({user_details:user2._id})//add them to their friends list
-        user2.friends.push({user_details:user1._id})//and the same with the requestee
+        user1.friends.push({ user_details: user2._id })//add them to their friends list
+        user2.friends.push({ user_details: user1._id })//and the same with the requestee
 
         const user2_saved = await user2.save()//save both documents
         const user1_saved = await user1.save()

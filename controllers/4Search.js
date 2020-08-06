@@ -114,23 +114,24 @@ exports.find_user = async (req, res, next) => {
         //concat the arrays to make an array of users not to show in the search result
         const users_to_hide = existing_friends.concat(existing_requests).concat(outgoing_requests)
 
-        const users_without_existing_friends_and_requester = []
+        const filtered_users = []//define an array to hold users which should be shown
 
-        users_without_requester.forEach(user => {
+        users_without_requester.forEach(user => {//run through each user
 
-            let omit_user = false;
+            let omit_user = false;//define a flag which will be set if the user's id matches that of the user to hide
 
-            users_to_hide.forEach(friend => {
+            users_to_hide.forEach(friend => {//run through the array of users to hide
 
+                //if the current user matches any of the users which should be hidden, set the flag tp true so they are not added
                 if (user._id.toString() === friend.toString()) omit_user = true
             })
 
-            if (!omit_user) users_without_existing_friends_and_requester.push(user)
+            if (!omit_user) filtered_users.push(user)//if the flag hasn't been set, add the user to the array of filtered users to show on the frontend
         })
 
 
 
-        return res.status(200).json({ users: users_without_existing_friends_and_requester, message: "search executed" })
+        return res.status(200).json({ users: filtered_users, message: "search executed" })
     }
 
     catch (error) {
