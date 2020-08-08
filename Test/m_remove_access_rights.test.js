@@ -5,7 +5,7 @@ const testing_variables = require("../util/testing_variables")
 
 describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.delete("Removes access rights from a note with 2 people who have rights", "/access", 200, "Rights removed",
+    test.post("Removes access rights from a note with 2 people who have rights", "/remove_access", 200, "Rights removed",
 
     {
         user_id: testing_variables.short_id,
@@ -14,7 +14,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Removes access rights from note with 1 person with rights, leaving no one who can access it(except the owner)", "/access", 200, "Rights removed",
+    test.post("Removes access rights from note with 1 person with rights, leaving no one who can access it(except the owner)", "/remove_access", 200, "Rights removed",
 
     {
         user_id: testing_variables.short_id,
@@ -23,7 +23,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Removes access rights from a process with 2 people who have rights", "/access", 200, "Rights removed",
+    test.post("Removes access rights from a process with 2 people who have rights", "/remove_access", 200, "Rights removed",
 
     {
         user_id: testing_variables.standard_id,
@@ -33,7 +33,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
     })
 
 
-    test.delete("Removes access rights from note with 1 person with rights, leaving no one who can access it(except the owner)", "/access", 200, "Rights removed",
+    test.post("Removes access rights from note with 1 person with rights, leaving no one who can access it(except the owner)", "/remove_access", 200, "Rights removed",
 
     {
         user_id: testing_variables.standard_id,
@@ -42,7 +42,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"process"
     })
 
-    test.delete("Removes rights on a note with no rights", "/access",  200, "Rights removed",
+    test.post("Removes rights on a note with no rights", "/remove_access",  200, "Rights removed",
     {
         user_id: testing_variables.short_id,
         friend_id:testing_variables.standard_id,
@@ -50,7 +50,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Removes rights on a process with no rights", "/access",  200, "Rights removed",
+    test.post("Removes rights on a process with no rights", "/remove_access",  200, "Rights removed",
     {
         user_id: testing_variables.standard_id,
         friend_id:testing_variables.short_id,
@@ -65,7 +65,7 @@ describe("remove access rights - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.delete("Empty user id", "/access", 400, "Bad request",
+    test.post("Empty user id", "/remove_access", 400, "Bad request",
 
     {
         user_id: "",
@@ -74,7 +74,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Null user id", "/access", 400, "Bad request",
+    test.post("Null user id", "/remove_access", 400, "Bad request",
 
     {
         user_id: null,
@@ -83,7 +83,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Null friend id", "/access", 400, "Bad request",
+    test.post("Null friend id", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -92,7 +92,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("empty friend id", "/access", 400, "Bad request",
+    test.post("empty friend id", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -101,7 +101,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("null note id", "/access", 400, "Bad request",
+    test.post("null note id", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -110,7 +110,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("empty note id", "/access", 400, "Bad request",
+    test.post("empty note id", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -119,7 +119,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("null type", "/access", 400, "Bad request",
+    test.post("null type", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -128,7 +128,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:null
     })
 
-    test.delete("empty type", "/access", 400, "Bad request",
+    test.post("empty type", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -137,7 +137,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:""
     })
 
-    test.delete("invalid type", "/access", 400, "Bad request",
+    test.post("invalid type", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -147,7 +147,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
     })
 
 
-    test.delete("Tries to remove rights from a note owned by someone else", "/access",  400, "Bad request",
+    test.post("Tries to remove rights from a note owned by someone else", "/remove_access",  400, "Bad request",
 
     {
         user_id: testing_variables.all_caps_id,
@@ -156,7 +156,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Tries to remove rights from a process owned by someone else", "/access",  400, "Bad request",
+    test.post("Tries to remove rights from a process owned by someone else", "/remove_access",  400, "Bad request",
 
     {
         user_id: testing_variables.long_id,
@@ -166,7 +166,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
     })
 
 
-    test.delete("Note which does not exist", "/access", 400, "Bad request",
+    test.post("Note which does not exist", "/remove_access", 400, "Bad request",
 
     {
         user_id: testing_variables.short_id,
@@ -175,7 +175,7 @@ describe("remove access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.delete("Process which does not exist", "/access",  400, "Bad request",
+    test.post("Process which does not exist", "/remove_access",  400, "Bad request",
     {
         user_id: testing_variables.standard_id,
         friend_id:testing_variables.short_id,

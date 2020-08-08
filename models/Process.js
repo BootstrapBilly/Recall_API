@@ -22,8 +22,8 @@ const process_schema = new Schema({//create a schema object
     notes: [],//an array of notes
 
     created_by: {//who created the process
-        type: String,
-        required: true //Must be defined when a process object is created
+        type: Schema.Types.ObjectId,//special schema type object id 
+        ref: "User"//Refers to another user_id
     },
 
     access_rights: [{//people who will be able to see this process

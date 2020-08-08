@@ -17,6 +17,8 @@ exports.get_all = async (req, res, next) => {
             ]
         })//fetch all notes which were created by the given user
 
+        .populate({ path: "created_by" })
+        
         const processes_fetched = await Process.find({
 
             $or: [//either of the following criteria will return a match

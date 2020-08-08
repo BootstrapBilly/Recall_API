@@ -23,7 +23,7 @@ exports.get_friends = async (req, res, next) => {
         user.friends.forEach(friend => all_friends_and_requests.push(friend._doc))
 
 
-        return res.status(200).json({ message: "Friends retreived", friends: all_friends_and_requests })
+        return res.status(200).json({ message: "Friends, pending and outgoing retreived", friends: all_friends_and_requests })
 
     }
 

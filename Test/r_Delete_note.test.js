@@ -15,7 +15,7 @@ describe("Delete a note - \x1b[31m expected failures \x1b[37m", () => {
     test.post("Deletes a note which doesn't exist (userID)", "/delete_note", 424, "We couldn't find that note",
 
         {
-            user_id: "324233244324234234",
+            user_id: "5f2bebd1b6e696001792b7bb",
             title: testing_variables.title,
         })
 

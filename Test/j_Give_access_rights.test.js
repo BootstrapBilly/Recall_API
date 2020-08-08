@@ -6,7 +6,7 @@ const testing_variables = require("../util/testing_variables")
 describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
 
 
-    test.post("Shares access to their first friend", "/access", 200, "Rights granted",
+    test.post("Shares access to their first friend", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.short_id,
@@ -15,7 +15,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Shares access to another friend friend", "/access", 200, "Rights granted",
+    test.post("Shares access to another friend friend", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.short_id,
@@ -24,7 +24,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Shares access to another note", "/access", 200, "Rights granted",
+    test.post("Shares access to another note", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.short_id,
@@ -33,7 +33,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Shares access rights to second note", "/access", 200, "Rights granted",
+    test.post("Shares access rights to second note", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.short_id,
@@ -42,7 +42,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Shares access rights to a process (first friend)", "/access", 200, "Rights granted",
+    test.post("Shares access rights to a process (first friend)", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.standard_id,
@@ -51,7 +51,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"process"
     })
 
-    test.post("Shares access rights to a process (second friend)", "/access", 200, "Rights granted",
+    test.post("Shares access rights to a process (second friend)", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.standard_id,
@@ -60,7 +60,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
         type:"process"
     })
 
-    test.post("Shares access rights to a second process", "/access", 200, "Rights granted",
+    test.post("Shares access rights to a second process", "/share_access", 200, "Rights granted",
 
     {
         user_id: testing_variables.standard_id,
@@ -76,7 +76,7 @@ describe("Give access rights - \x1b[32m expected passes \x1b[37m", () => {
 
 describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
 
-    test.post("Empty user id", "/access", 400, "Bad request",
+    test.post("Empty user id", "/share_access", 400, "Bad request",
 
     {
         user_id: "",
@@ -85,7 +85,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Null user id", "/access", 400, "Bad request",
+    test.post("Null user id", "/share_access", 400, "Bad request",
 
     {
         user_id: null,
@@ -94,7 +94,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Null friend id", "/access", 400, "Bad request",
+    test.post("Null friend id", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -103,7 +103,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("empty friend id", "/access", 400, "Bad request",
+    test.post("empty friend id", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -112,7 +112,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("null note id", "/access", 400, "Bad request",
+    test.post("null note id", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -121,7 +121,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("empty note id", "/access", 400, "Bad request",
+    test.post("empty note id", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -130,7 +130,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("null type", "/access", 400, "Bad request",
+    test.post("null type", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -139,7 +139,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:null
     })
 
-    test.post("empty type", "/access", 400, "Bad request",
+    test.post("empty type", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -148,7 +148,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:""
     })
 
-    test.post("invalid type", "/access", 400, "Bad request",
+    test.post("invalid type", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -157,7 +157,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"invalid"
     })
 
-    test.post("Gives rights to someone who already has rights(note)", "/access", 400, "Bad request",
+    test.post("Gives rights to someone who already has rights(note)", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.short_id,
@@ -166,7 +166,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Gives rights to someone who already has rights(process)", "/access", 400, "Bad request",
+    test.post("Gives rights to someone who already has rights(process)", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -175,7 +175,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"process"
     })
 
-    test.post("Tries to give rights to a note owned by someone else", "/access",  400, "Bad request",
+    test.post("Tries to give rights to a note owned by someone else", "/share_access",  400, "Bad request",
 
     {
         user_id: testing_variables.all_caps_id,
@@ -184,7 +184,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Tries to give rights to a process owned by someone else", "/access",  400, "Bad request",
+    test.post("Tries to give rights to a process owned by someone else", "/share_access",  400, "Bad request",
 
     {
         user_id: testing_variables.all_caps_id,
@@ -193,7 +193,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"process"
     })
 
-    test.post("Tries to give rights to someone who isn't their friend (note)", "/access", 400, "Bad request",
+    test.post("Tries to give rights to someone who isn't their friend (note)", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.short_id,
@@ -202,7 +202,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Tries to give rights to someone who isn't their friend (process)", "/access", 400, "Bad request",
+    test.post("Tries to give rights to someone who isn't their friend (process)", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.standard_id,
@@ -211,7 +211,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"process"
     })
 
-    test.post("Note which does not exist", "/access", 400, "Bad request",
+    test.post("Note which does not exist", "/share_access", 400, "Bad request",
 
     {
         user_id: testing_variables.short_id,
@@ -220,7 +220,7 @@ describe("Give access rights - \x1b[31m expected failures \x1b[37m", () => {
         type:"note"
     })
 
-    test.post("Process which does not exist", "/access",  400, "Bad request",
+    test.post("Process which does not exist", "/share_access",  400, "Bad request",
     {
         user_id: testing_variables.standard_id,
         friend_id:testing_variables.short_id,

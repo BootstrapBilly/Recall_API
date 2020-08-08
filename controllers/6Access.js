@@ -3,7 +3,7 @@ const Process = require("../models//Process")//import the process schema to inte
 const User = require("../models//User")//import the user schema to interact with the database
 
 exports.give_access = async (req, res, next) => {
-
+    
     //if any required request fields are missing, or wrong, send a 400 and inform the user
     if (!req.body.user_id || !req.body.friend_id || !req.body.note_or_process_id || !type_is_valid(req.body.type)) return res.status(400).json({ message: "Bad request" })
 

@@ -15,7 +15,7 @@ describe("delete a process - \x1b[31m expected failures \x1b[37m", () => {
     test.post("deletes a process which doesn't exist (userID)", "/delete_process", 424, "We couldn't find that process",
 
         {
-            user_id: "324233244324234234",
+            user_id: "5f2bebd1b6e696001792b7bb",
             title: testing_variables.title,
         })
 

@@ -25,8 +25,8 @@ const note_schema = new Schema({//create a schema object
     },
 
     created_by: {//who created the note
-        type: String,
-        required: true //Must be defined when a note object is created
+        type: Schema.Types.ObjectId,//special schema type object id 
+        ref: "User"//Refers to another user_id
     },
 
     access_rights: [{//people who will be able to see this note
