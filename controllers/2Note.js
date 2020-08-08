@@ -110,7 +110,7 @@ exports.update_note = async (req, res, next) => {
             if (title_in_use) {
 
                 const note = await Note.findOne({ title: title, created_by: user_id })
-                return res.status(424).json({ message: "You already have a note with that title, please choose another", id: note._id, index:index }
+                return res.status(424).json({ message: "You already have a note with that title, please choose another", id: note._id, index: index }
 
                 )
             }//if it is, send a 424 and inform them
@@ -192,7 +192,7 @@ exports.delete_note = async (req, res, next) => {
 
         const note_deleted = await Note.findOneAndDelete({ title: title, created_by: user_id })//find and delete the note with the given title who was created by the given user
 
-        if(!note_deleted) return res.status(424).json({message:"We couldn't find that note"})
+        if (!note_deleted) return res.status(424).json({ message: "We couldn't find that note" })
 
         //send the corresponding response
         if (note_deleted) {
@@ -213,6 +213,31 @@ exports.delete_note = async (req, res, next) => {
 
         console.log(error)//if there was an error, log it and send a 500 server error
         return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+}
+
+exports.get_single_note = async (req, res, next) => {
+
+    const user_id = req.body.user_id
+    const note_id = req.body.note_id
+
+    try {
+
+        const note_found = await Note.findOne({ _id: note_id, created_by: user_id })
+        .populate({ path: "access_rights.user_id" })
+
+        console
+
+        if (note_found) return res.status(200).json({ message: "Note retrieved successfully", note: note_found })
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
     }
 
 }

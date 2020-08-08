@@ -172,7 +172,7 @@ exports.search_friends = async (req, res, next) => {
 
                 filtered_friends.forEach((friend, index) => {
 
-                    if (friend._id.toString() === user._id.toString()) {
+                    if (friend._id.toString() === user.user_id._id.toString()) {
 
                         filtered_friends.splice(index, 1)
 
@@ -195,7 +195,6 @@ exports.search_friends = async (req, res, next) => {
             remove_already_granted_users(process)
 
         }
-
 
         //return the array of searched for friends
         return res.status(200).json({ message: "Search through friends executed", friends: filtered_friends })

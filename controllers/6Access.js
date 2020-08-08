@@ -31,7 +31,7 @@ exports.give_access = async (req, res, next) => {
             const rights_granted = await Note.findOneAndUpdate(
 
                 { _id: note_or_process_id, created_by: user_id },
-                { $push: { access_rights: { _id: friend_id } } }
+                { $push: { access_rights: { user_id: friend_id } } }
 
             )
 
@@ -52,7 +52,7 @@ exports.give_access = async (req, res, next) => {
             const rights_granted = await Process.findOneAndUpdate(
 
                 { _id: note_or_process_id, created_by: user_id },
-                { $push: { access_rights: { _id: friend_id } } }
+                { $push: { access_rights: { user_id: friend_id } } }
 
             )
 
@@ -90,7 +90,7 @@ exports.revoke_access = async (req, res, next) => {
             const rights_removed = await Note.findOneAndUpdate(//find the note and update it
 
                 { _id: note_or_process_id, created_by: user_id }, //find it by the given note id and user id
-                { $pull: { access_rights: { _id: friend_id } } }//update it by pulling the given friend id from the access rights
+                { $pull: { access_rights: { user_id: friend_id } } }//update it by pulling the given friend id from the access rights
 
             )
 
