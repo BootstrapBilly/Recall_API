@@ -24,7 +24,7 @@ exports.give_access = async (req, res, next) => {
         if (type === "note") {
 
             //check to see if the note already permits access to the given friend id
-            const rights_already_granted = await Note.findOne({ _id: note_or_process_id, created_by: user_id, access_rights: { $elemMatch: { _id: friend_id } } })
+            const rights_already_granted = await Note.findOne({ _id: note_or_process_id, created_by: user_id, access_rights: { $elemMatch: { user_id: friend_id } } })
             if (rights_already_granted) return res.status(400).json({ message: "Bad request" })//if rights are already granted to the friend, send a 400 bad request
 
             //*Check passed, grant the rights
@@ -45,7 +45,7 @@ exports.give_access = async (req, res, next) => {
         if (type === "process") {
 
             //check to see if the note already permits access to the given friend id
-            const rights_already_granted = await Process.findOne({ _id: note_or_process_id, created_by: user_id, access_rights: { $elemMatch: { _id: friend_id } } })
+            const rights_already_granted = await Process.findOne({ _id: note_or_process_id, created_by: user_id, access_rights: { $elemMatch: { user_id: friend_id } } })
             if (rights_already_granted) return res.status(400).json({ message: "Bad request" })//if access rights have already been granted, send a 400 bad request
 
             //*Check passed, grant the rights
@@ -106,7 +106,7 @@ exports.revoke_access = async (req, res, next) => {
             const rights_removed = await Process.findOneAndUpdate(//find the process and update it
 
                 { _id: note_or_process_id, created_by: user_id }, //find it by the given process id and user id
-                { $pull: { access_rights: { _id: friend_id } } }//update it by pulling the given friend id from the access rights
+                { $pull: { access_rights: { user_id: friend_id } } }//update it by pulling the given friend id from the access rights
 
             )
 

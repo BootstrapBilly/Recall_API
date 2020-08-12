@@ -68,12 +68,14 @@ exports.create_process = async (req, res, next) => {
         //if it was saved successfully, send the corresponding response
         if (process_saved) {
 
-            const fetch_process = await Process.findOne({created_by:user_id, title:title})
+            const fetch_process = await Process.findOne({ created_by: user_id, title: title })
+                .populate({ path: "created_by" })
+                .populate({ path: "access_rights.user_id" })
 
-            if(fetch_process) return res.status(201).json({ message: "process added successfully", process: fetch_process })
+            if (fetch_process) return res.status(201).json({ message: "process added successfully", process: fetch_process })
 
         }
-        
+
     }
 
     catch (error) {
@@ -129,8 +131,10 @@ exports.update_process = async (req, res, next) => {
             notes: new_notes
 
         })
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
-        if (process_updated) return res.status(201).json({ message: "process updated successfully", process:process_updated, id: process_updated._id, title:new_title, position_changed:position_changed })
+        if (process_updated) return res.status(201).json({ message: "process updated successfully", process: process_updated, id: process_updated._id, title: new_title, position_changed: position_changed })
     }
 
     catch (error) {
@@ -177,10 +181,12 @@ exports.get_processes = async (req, res, next) => {
 
             $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the process?
+                { access_rights: { $elemMatch: { user_id: user_id } } }//User has access rights to the process?
             ]
         })//fetch all processes which were created by the given user
-
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
+            
         //once the processes have been fetched (even if 0 was found)
         processes_fetched && res.status(200).json({ message: "processes retrieved", processes: processes_fetched })//return a 200 with all found processes attached
 

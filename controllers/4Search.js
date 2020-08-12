@@ -22,7 +22,7 @@ exports.find_content = async (req, res, next) => {
                 {
                     $or: [//Any notes which were created by, or have access rights pointing to the given user id
                         { created_by: user_id },
-                        { access_rights: { $elemMatch: { _id: user_id } } }
+                        { access_rights: { $elemMatch: { user_id: user_id } } }
                     ]
                 },
 
@@ -45,6 +45,8 @@ exports.find_content = async (req, res, next) => {
             ]
 
         })
+        .populate({ path: "created_by" })
+        .populate({ path: "access_rights.user_id"})
 
         //search for all processes         with the given user id
         const processes = await Process.find({
@@ -54,7 +56,7 @@ exports.find_content = async (req, res, next) => {
                 {
                     $or: [//Any notes which were created by, or have access rights pointing to the given user id
                         { created_by: user_id },
-                        { access_rights: { $elemMatch: { _id: user_id } } }
+                        { access_rights: { $elemMatch: { user_id: user_id } } }
                     ]
                 },
 
@@ -75,6 +77,8 @@ exports.find_content = async (req, res, next) => {
             ]
 
         })
+        .populate({ path: "created_by" })
+        .populate({ path: "access_rights.user_id"})
 
         const sorted_notes = notes.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the notes in alphabetical based on title
         const sorted_processes = processes.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
@@ -101,7 +105,6 @@ exports.find_user = async (req, res, next) => {
 
     const user_id = req.body.user_id//extract the user id from the request body
     const search_string = req.body.search_string.toString()//extract the search string from the request body
-    const unique = req.body.unique
 
     try {
 

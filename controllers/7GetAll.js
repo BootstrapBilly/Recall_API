@@ -13,7 +13,7 @@ exports.get_all = async (req, res, next) => {
 
             $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the note?
+                { access_rights: { $elemMatch: { user_id: user_id } } }//User has access rights to the note?
             ]
         })//fetch all notes which were created by the given user
 
@@ -24,7 +24,7 @@ exports.get_all = async (req, res, next) => {
 
             $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the note?
+                { access_rights: { $elemMatch: { user_id: user_id } } }//User has access rights to the note?
             ]
         })//fetch all notes which were created by the given user
 

@@ -66,6 +66,8 @@ exports.create_note = async (req, res, next) => {
         let note_saved = await note.save()//save the new note
 
         const fetch_note = await Note.findOne({ title: title })//fetch the note again, to overwrite the id (Necessary for automated testing)
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
         //if it was saved successfully, send the corresponding response
         if (note_saved && fetch_note) {
@@ -141,6 +143,8 @@ exports.update_note = async (req, res, next) => {
             syntax: new_syntax,
 
         })
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
         if (note_updated) {
 
@@ -225,9 +229,8 @@ exports.get_single_note = async (req, res, next) => {
     try {
 
         const note_found = await Note.findOne({ _id: note_id, created_by: user_id })
-        .populate({ path: "access_rights.user_id" })
-
-        console
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
         if (note_found) return res.status(200).json({ message: "Note retrieved successfully", note: note_found })
 
@@ -254,10 +257,12 @@ exports.get_notes = async (req, res, next) => {
 
             $or: [//either of the following criteria will return a match
                 { created_by: user_id },//created by the user ?
-                { access_rights: { $elemMatch: { _id: user_id } } }//User has access rights to the note?
+                { access_rights: { $elemMatch: { user_id: user_id } } }//User has access rights to the note?
             ]
         })//fetch all notes which were created by the given user
-
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
+            
         //once the notes have been fetched (even if 0 was found)
         notes_fetched && res.status(200).json({ message: "notes retrieved", notes: notes_fetched })//return a 200 with all found notes attached
 
