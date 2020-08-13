@@ -17,8 +17,8 @@ exports.get_all = async (req, res, next) => {
             ]
         })//fetch all notes which were created by the given user
 
-        .populate({ path: "created_by" })
-        .populate({ path: "access_rights.user_id"})
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
         const processes_fetched = await Process.find({
 
@@ -27,13 +27,16 @@ exports.get_all = async (req, res, next) => {
                 { access_rights: { $elemMatch: { user_id: user_id } } }//User has access rights to the note?
             ]
         })//fetch all notes which were created by the given user
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
 
-        const sorted_notes = notes_fetched.sort((a,b) => (a.title > b.title) ? 1 : -1)//sort the notes in alphabetical based on title
-        const sorted_processes = processes_fetched.sort((a,b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
-        const sorted_both = sorted_notes.concat(sorted_processes).sort((a,b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
+        const sorted_notes = notes_fetched.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the notes in alphabetical based on title
+        const sorted_processes = processes_fetched.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
+        const sorted_both = sorted_notes.concat(sorted_processes).sort((a, b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
 
-            //once the notes have been fetched (even if 0 was found)
-            notes_fetched && processes_fetched && res.status(200).json({ message: "Notes and processes retrieved", notes: sorted_notes, processes: sorted_processes, both:sorted_both })//return a 200 with all found notes attached
+        console.log(sorted_both)
+        //once the notes have been fetched (even if 0 was found)
+        notes_fetched && processes_fetched && res.status(200).json({ message: "Notes and processes retrieved", notes: sorted_notes, processes: sorted_processes, both: sorted_both })//return a 200 with all found notes attached
 
     }
 

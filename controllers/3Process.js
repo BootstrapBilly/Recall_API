@@ -1,5 +1,6 @@
 const Process = require("../models/Process")
 const check_if_position_changed = require("../util/check_position_change_on_update")//function to check if the note position changes on title change to trigger a re-render on the frontend
+const { Collection } = require("mongoose")
 
 exports.check_title = async (req, res, next) => {
 
@@ -169,6 +170,57 @@ exports.delete_process = async (req, res, next) => {
 
 }
 
+exports.get_single_collection = async (req, res, next) => {
+
+    const user_id = req.body.user_id
+    const collection_id = req.body.collection_id
+
+    try {
+
+        const collection_found = await Process.findOne({ _id: collection_id, created_by: user_id })
+            .populate({ path: "created_by" })
+            .populate({ path: "access_rights.user_id" })
+
+        if (collection_found) return res.status(200).json({ message: "Collection retrieved successfully", collection: collection_found })
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+
+}
+
+exports.reorder_collection_notes = async (req, res, next) => {
+
+    const user_id = req.body.user_id
+    const collection_id = req.body.collection_id
+    const reordered_notes = req.body.reordered_notes
+
+    try {
+
+        const collection = await Process.findOne({created_by:user_id, _id:collection_id})
+
+        collection.notes = reordered_notes
+
+        const collection_saved = await collection.save()
+
+        if(collection_saved) return res.status(201).json({message: "Notes reordered successfully"})
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+
+}
+
 exports.get_processes = async (req, res, next) => {
 
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
@@ -186,7 +238,7 @@ exports.get_processes = async (req, res, next) => {
         })//fetch all processes which were created by the given user
             .populate({ path: "created_by" })
             .populate({ path: "access_rights.user_id" })
-            
+
         //once the processes have been fetched (even if 0 was found)
         processes_fetched && res.status(200).json({ message: "processes retrieved", processes: processes_fetched })//return a 200 with all found processes attached
 
