@@ -1,4 +1,6 @@
 const User = require("../models/User")//import the user schema to interact with the database
+const Note = require("../models/Note")//import the note schema to interact with the database
+const Process = require("../models/Process")//import the Process schema to interact with the database
 const bcrypt = require("bcryptjs")//import bcrypt to encrypt the password
 const jwt = require("jsonwebtoken")//Import json web tokens 
 
@@ -83,7 +85,7 @@ exports.create_user = async (req, res, next) => {
             email_address: email,//set their email
             password: hashed_password, //set the hashed_password NOT THE PLAIN TEXT PASSWORD
             username: username,//set their username
-            image_url:null,
+            image_url: null,
             friends: [],//initialize friends as an empty array
             friend_requests: [],//initialize the friends requests as an empty array 
             outgoing_friend_requests: [],//initialize the friends requests as an empty array 
@@ -96,13 +98,13 @@ exports.create_user = async (req, res, next) => {
 
         if (!user_saved) return res.status(500).json({ message: "Sorry, something went wrong with our server" }) //If there was an error, send a 500 server error
 
-        const new_user = await User.findOne({email_address:email})//find the newly created user to get their id
+        const new_user = await User.findOne({ email_address: email })//find the newly created user to get their id
 
         //otherwise, generate a json web token with the user's id
         const token = generate_jwt(new_user._id)
 
         //if they saved correctly, send a 201 success response         
-        return res.status(201).json({ message: "User created", token:token, user_id:new_user._id, username: new_user.username })
+        return res.status(201).json({ message: "User created", token: token, user_id: new_user._id, username: new_user.username })
 
     }
 
@@ -135,7 +137,15 @@ exports.delete_user = async (req, res, next) => {
         //*Checks passed
         const user_deleted = await user.remove()//delete the given user
 
-        if (user_deleted) return res.status(200).json({ message: "Account deleted" })//when the user is deleted, send a 200 and inform them
+        if (user_deleted) {
+
+            const users_notes_deleted = await Note.deleteMany({ created_by: user_id })
+            const users_processes_deleted = await Process.deleteMany({ created_by: user_id })
+
+            if(users_notes_deleted && users_processes_deleted) return res.status(200).json({ message: "Account deleted" })//when the user is deleted, send a 200 and inform them
+        }
+
+
 
     }
     catch (error) {
@@ -183,7 +193,7 @@ exports.login = async (req, res, next) => {
         clear_login_failure(request_ip, email)//clear any login failures to remove the captcha in the response next time they log in
 
         //token generated, login successful, respond with a message, along with the jwt and the userid
-        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id, username:user.username })
+        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id, username: user.username })
 
     }
 

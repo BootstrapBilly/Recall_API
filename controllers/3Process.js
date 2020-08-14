@@ -221,6 +221,37 @@ exports.reorder_collection_notes = async (req, res, next) => {
 
 }
 
+exports.add_to_collection = async (req, res, next) => {
+
+    const user_id = req.body.user_id
+    const collection_id = req.body.collection_id
+    const new_notes = req.body.new_notes
+
+    try {
+
+        const collection = await Process.findOne({created_by:user_id, _id:collection_id})
+
+        const notes_with_newly_added = [...collection.notes]
+
+        new_notes.forEach(note => notes_with_newly_added.push(note))
+
+        collection.notes = notes_with_newly_added
+
+        const collection_saved = await collection.save()
+
+        if(collection_saved) return res.status(201).json({message: "Notes inserted successfully"})
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+
+    }
+
+}
+
 exports.get_processes = async (req, res, next) => {
 
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request

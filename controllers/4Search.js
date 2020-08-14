@@ -84,7 +84,10 @@ exports.find_content = async (req, res, next) => {
         const sorted_processes = processes.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
         const sorted_both = sorted_notes.concat(sorted_processes).sort((a, b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
 
-        return res.status(200).json({ notes: sorted_notes, processes: sorted_processes, both: sorted_both, message: "search executed" })
+        let nothing_found = false
+        if(!sorted_both.length) nothing_found = true
+
+        return res.status(200).json({ notes: sorted_notes, processes: sorted_processes, both: sorted_both, message: nothing_found ? "Nothing found" : "search executed" })
     }
 
     catch (error) {

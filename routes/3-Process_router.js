@@ -14,6 +14,7 @@ router.post("/delete_process", Process.delete_process)
 router.post("/get_processes", Process.get_processes)
 router.post("/get_single_collection", Process.get_single_collection)
 router.post("/reorder_collection_notes", Process.reorder_collection_notes)
+router.post("/add_to_collection", Process.add_to_collection)
 
 router.post("/check_process_title", Process.check_title)
 
