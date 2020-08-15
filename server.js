@@ -47,7 +47,7 @@ server.use(authentication);//handle the authentication requests
 server.use(password_reset);//handle the password_reset requests
 server.use(wake_up);
 
-// server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
+server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
 
 server.use(note);//handle the note requests
 server.use(process_);//handle the process requests
