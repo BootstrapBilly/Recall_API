@@ -34,8 +34,14 @@ exports.get_all = async (req, res, next) => {
         const sorted_processes = processes_fetched.sort((a, b) => (a.title > b.title) ? 1 : -1)//sort the processes in alphabetical based on title
         const sorted_both = sorted_notes.concat(sorted_processes).sort((a, b) => (a.title > b.title) ? 1 : -1)//sort everything in alphabetical based on title
 
+        let nothing_found =  false;
+        let no_collections_found = false;
+
+        if(!sorted_both.length) nothing_found = true 
+        else if(!sorted_processes.length) no_collections_found = true
+
         //once the notes have been fetched (even if 0 was found)
-        notes_fetched && processes_fetched && res.status(200).json({ message: "Notes and processes retrieved", notes: sorted_notes, processes: sorted_processes, both: sorted_both })//return a 200 with all found notes attached
+        notes_fetched && processes_fetched && res.status(200).json({ message: nothing_found? "No notes or collections found" : no_collections_found ? "No collections found" :  "Notes and processes retrieved", notes: sorted_notes, processes: sorted_processes, both: sorted_both })//return a 200 with all found notes attached
 
     }
 
