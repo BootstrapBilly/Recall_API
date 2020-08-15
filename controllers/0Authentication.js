@@ -145,8 +145,6 @@ exports.delete_user = async (req, res, next) => {
             if(users_notes_deleted && users_processes_deleted) return res.status(200).json({ message: "Account deleted" })//when the user is deleted, send a 200 and inform them
         }
 
-
-
     }
     catch (error) {
 

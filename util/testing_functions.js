@@ -5,15 +5,12 @@ const { expect } = chai;//grab expect from chai
 chai.use(chaiHttp);//initliase chaiHTTP
 
 const User = require("../models/User")
-const Note = require("../models/Note")
-const Process = require("../models/Process")
 
 exports.get_user_id = async email => {
 
     const user = await User.findOne({ email_address: email })
 
     if (user) {
-        console.log(user._id)
         return user._id
     }
 }

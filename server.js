@@ -11,6 +11,7 @@ const delete_account = require("./routes/7-Delete_account_router")
 const get_all = require("./routes/8-Get_all_router")
 const handle_profile_image = require("./routes/9-Handle_profile_image")
 const account_settings = require("./routes/10-Account_settings_router")
+const wake_up = require("./routes/11-Wake_up_server")
 
 
 //External
@@ -44,6 +45,7 @@ server.use(bodyParser.json());//parse any incoming json requests
 
 server.use(authentication);//handle the authentication requests
 server.use(password_reset);//handle the password_reset requests
+server.use(wake_up);
 
 // server.use(verify_jwt)//before allowing access to the other routes, verify the jwt is valid
 
@@ -52,10 +54,10 @@ server.use(process_);//handle the process requests
 server.use(search);//handle the search requests
 server.use(friends);//handle the friends requests
 server.use(access);//handle the share_access requests
-server.use(delete_account);//handle the share_access requests
-server.use(get_all);//handle the share_access requests
-server.use(handle_profile_image);//handle the share_access requests
-server.use(account_settings);//handle the share_access requests
+server.use(delete_account);
+server.use(get_all);
+server.use(handle_profile_image);
+server.use(account_settings);
 
 
 //* Database connection
