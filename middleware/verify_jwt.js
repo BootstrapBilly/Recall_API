@@ -60,7 +60,7 @@ module.exports = (req, res, next) => {
 
     }
 
-    if (!decodedToken) return res.status(401).json({ Unauthorized: true, message:"failure" })
+    if (!decodedToken) return res.status(424).json({ Unauthorized: true, message:"failure" })
 
     else next()
 
