@@ -212,7 +212,7 @@ const generate_jwt = (user_id) => {
 
     const token = jwt.sign({//create the web token here
         user_id: user_id.toString()//Store the user id inside the token  - Must be converted to string because its a mongodb id object
-    }, process.env.jwt_secret,//Secret to the token
+    }, process.env.JWT_SECRET,//Secret to the token
         { expiresIn: "1h" }//Expiry time set here - 1 hour is common
     );
 
