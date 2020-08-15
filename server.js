@@ -20,6 +20,9 @@ const express = require("express");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const helmet = require("helmet")
+const cors = require('cors')
+
+
 
 //-File configuration
 dotenv.config();
@@ -28,6 +31,8 @@ const MONGODBURI = `mongodb://Billy:${process.env.mongopw}@billy-shard-00-00-qqt
 //The mongodb connection string
 
 const server = express();
+
+server.use(cors())
 
 server.use((req, res, next) => {
 
