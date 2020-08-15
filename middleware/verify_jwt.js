@@ -56,11 +56,11 @@ module.exports = (req, res, next) => {
 
     catch (error) {
 
-        return res.status(401).json({ Unauthorized: true })
+        return res.status(401).json({ Unauthorized: true, message:"error" })
 
     }
 
-    if (!decodedToken) return res.status(401).json({ Unauthorized: true })
+    if (!decodedToken) return res.status(401).json({ Unauthorized: true, message:"failure" })
 
     else next()
 
