@@ -102,9 +102,10 @@ exports.create_user = async (req, res, next) => {
 
         //otherwise, generate a json web token with the user's id
         const token = generate_jwt(new_user._id)
+        const refresh = generate_jwt(new_user._id, true)
 
         //if they saved correctly, send a 201 success response         
-        return res.status(201).json({ message: "User created", token: token, user_id: new_user._id, username: new_user.username })
+        return res.status(201).json({ message: "User created", token: token, user_id: new_user._id, username: new_user.username, refresh_token: refresh })
 
     }
 
@@ -117,6 +118,42 @@ exports.create_user = async (req, res, next) => {
 
 
 }
+
+exports.refresh_jwt = async (req, res, next) => {
+
+    //if any required fields are missing, return a 400 bad request
+    if (!req.body.refresh_token) return res.status(400).json({ message: "Bad request" })
+
+    const refresh_token = req.body.refresh_token//extract the refresh token from the request body
+    const user_id = req.body.user_id
+
+    try {
+
+        const refresh_token_verified = await jwt.verify(refresh_token, `${process.env.REFRESH_SECRET}`)
+
+        if (refresh_token_verified) {
+
+            const token = generate_jwt(user_id)
+            const refresh = generate_jwt(user_id, true)
+
+            return res.status(200).json({ message: "Token refreshed", token: token, refresh_token: refresh })
+
+        }
+
+        else { return res.status(400).json({ unauthorized:true }) }
+
+    }
+
+    catch (error) {
+
+        console.log(error)//if there was an error, log it and send a 500 server error
+        return res.status(500).json({ message: "Sorry, something went wrong with our server" })
+    }
+
+
+
+}
+
 
 exports.delete_user = async (req, res, next) => {
 
@@ -142,7 +179,7 @@ exports.delete_user = async (req, res, next) => {
             const users_notes_deleted = await Note.deleteMany({ created_by: user_id })
             const users_processes_deleted = await Process.deleteMany({ created_by: user_id })
 
-            if(users_notes_deleted && users_processes_deleted) return res.status(200).json({ message: "Account deleted" })//when the user is deleted, send a 200 and inform them
+            if (users_notes_deleted && users_processes_deleted) return res.status(200).json({ message: "Account deleted" })//when the user is deleted, send a 200 and inform them
         }
 
     }
@@ -187,11 +224,13 @@ exports.login = async (req, res, next) => {
 
         //*Passed all checks generate the token
         const token = generate_jwt(user._id)//generate a json web token with the user's id
+        const refresh = await generate_jwt(user._id, true)
+
 
         clear_login_failure(request_ip, email)//clear any login failures to remove the captcha in the response next time they log in
 
         //token generated, login successful, respond with a message, along with the jwt and the userid
-        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id, username: user.username })
+        return res.status(200).json({ message: "Login successful", token: token, user_id: user._id, username: user.username, refresh_token: refresh })
 
     }
 
@@ -208,12 +247,12 @@ exports.login = async (req, res, next) => {
 
 let login_failures = []//keep track of login failures
 
-const generate_jwt = (user_id) => {
+const generate_jwt = (user_id, refresh) => {
 
     const token = jwt.sign({//create the web token here
         user_id: user_id.toString()//Store the user id inside the token  - Must be converted to string because its a mongodb id object
-    }, process.env.JWT_SECRET,//Secret to the token
-        { expiresIn: "1h" }//Expiry time set here - 1 hour is common
+    }, refresh ? process.env.REFRESH_SECRET : process.env.JWT_SECRET,//Secret to the token
+        { expiresIn: refresh ? "1y" : "1m" }//Expiry time set here - 1 hour is common
     );
 
     return token
