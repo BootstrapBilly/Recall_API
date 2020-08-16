@@ -12,7 +12,7 @@ exports.check_title = async (req, res, next) => {
     try {
         const title_in_use = await Note.findOne({ title: title, created_by: user_id })//see if a note with that title already exists for the given user
         if (title_in_use) return res.status(424).json({ message: "You already have a note with that title, please choose another" })//if it is, send a 424 and inform the user
-        else return res.status(200).json({ message: "Title is okay" })//otherwise send a 200, title is okay
+        else return res.status(200).json({ message: "Title is okay", title:title })//otherwise send a 200, title is okay
     }
 
     catch (error) {
@@ -24,6 +24,8 @@ exports.check_title = async (req, res, next) => {
 }
 
 exports.create_note = async (req, res, next) => {
+
+    console.log(req.body)
 
     if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 

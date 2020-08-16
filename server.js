@@ -13,7 +13,6 @@ const handle_profile_image = require("./routes/9-Handle_profile_image")
 const account_settings = require("./routes/10-Account_settings_router")
 const wake_up = require("./routes/11-Wake_up_server")
 
-
 //External
 const bodyParser = require("body-parser");
 const express = require("express");

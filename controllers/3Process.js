@@ -25,6 +25,8 @@ exports.check_title = async (req, res, next) => {
 
 exports.create_process = async (req, res, next) => {
 
+    console.log(req.body)
+
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
 
     //if there is no title, or no notes, or notes is an empty array, send a 424 and inform the user
