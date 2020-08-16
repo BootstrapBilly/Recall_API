@@ -33,7 +33,7 @@ describe("Get all notes after deleted by friend - \x1b[32m expected passes \x1b[
     //*Searching
     describe("Searching after deleted by friend - \x1b[32m expected passes \x1b[37m", () => {
 
-        test.post("0 notes and processes, lost friend which granted access rights, should return 0", "/search", 200, "search executed",
+        test.post("0 notes and processes, lost friend which granted access rights, should return 0", "/search", 200, "Nothing found",
             {
                 user_id: testing_variables.long_id,
                 search_string: 3

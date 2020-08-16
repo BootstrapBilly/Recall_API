@@ -33,7 +33,7 @@ describe("Search query - \x1b[31m expected failures \x1b[37m", () => {
 
 describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
 
-    test.post("First user searches for something which doesn't get any results=> 'x_3fsdfXDHP'", "/search", 200, "search executed",
+    test.post("First user searches for something which doesn't get any results=> 'x_3fsdfXDHP'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.standard_id,
             search_string: "x_3fsdfXDHP"
@@ -41,7 +41,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
         "notes", 0,//Expect res.body.notes to have a length of 0
         "processes", 0)//Expect res.body.processes to have a length of 0
 
-    test.post("User with no notes or processes makes search for data owned by someone else => 'title16'", "/search", 200, "search executed",
+    test.post("User with no notes or processes makes search for data owned by someone else => 'title16'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.long_id,
             search_string: testing_variables.title16
@@ -171,7 +171,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
         "notes", 1,//Expect res.body.notes to have a length of 1
         "processes", 0)//Expect res.body.processes to have a length of 0
 
-    test.post("First user searches by partial body (String) => 'new_bo'", "/search", 200, "search executed",
+    test.post("First user searches by partial body (String) => 'new_bo'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.standard_id,
             search_string: "new_bo"
@@ -179,7 +179,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
         "notes", 0,//Expect res.body.notes to have a length of 2
         "processes", 0)//Expect res.body.processes to have a length of 0
 
-    test.post("First user searches by exact body (String) => 'new_body'", "/search", 200, "search executed",
+    test.post("First user searches by exact body (String) => 'new_body'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.standard_id,
             search_string: "new_body"
@@ -187,7 +187,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
         "notes", 0,//Expect res.body.notes to have a length of 2
         "processes", 0)//Expect res.body.processes to have a length of 0
 
-    test.post("First user searches by partial body (number) => '353453435'", "/search", 200, "search executed",
+    test.post("First user searches by partial body (number) => '353453435'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.standard_id,
             search_string: 353453435
@@ -195,7 +195,7 @@ describe("Search query - \x1b[32m expected passes \x1b[37m", () => {
         "notes", 0,//Expect res.body.notes to have a length of 2
         "processes", 0)//Expect res.body.processes to have a length of 0
 
-    test.post("First user searches by exact body (number) => '34543534534354'", "/search", 200, "search executed",
+    test.post("First user searches by exact body (number) => '34543534534354'", "/search", 200, "Nothing found",
         {
             user_id: testing_variables.standard_id,
             search_string: 34543534534354

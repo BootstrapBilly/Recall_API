@@ -25,8 +25,6 @@ exports.check_title = async (req, res, next) => {
 
 exports.create_note = async (req, res, next) => {
 
-    console.log(req.body)
-
     if (!req.body.title || !req.body.body) return res.status(424).json({ message: "A note must have a title and body" })//if the title is missing, send a 424 and inform the user
 
     if (!req.body.user_id) return res.status(400).json({ message: "Bad request" })//if no user id return a 400, bad request
