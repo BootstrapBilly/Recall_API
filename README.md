@@ -8,6 +8,6 @@ npm run start-dev
 
 # Run the tests
 
-Ensure that the server is running and ##The jwt verification middleware is commented out  => ##server.js line 54##
+Ensure that the server is running and The jwt verification middleware is commented out  => **server.js line 54**
 
 npm test 
